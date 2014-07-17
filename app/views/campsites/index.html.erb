@@ -1,0 +1,47 @@
+<h1>Listing campsites</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>State</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Elevation</th>
+      <th>Phone</th>
+      <th>Total sites</th>
+      <th>Electric sites</th>
+      <th>Outhouse</th>
+      <th>Showers</th>
+      <th>Dump</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @campsites.each do |campsite| %>
+      <tr>
+        <td><%= campsite.name %></td>
+        <td><%= campsite.state %></td>
+        <td><%= campsite.latitude %></td>
+        <td><%= campsite.longitude %></td>
+        <td><%= campsite.elevation %></td>
+        <td><%= campsite.phone %></td>
+        <td><%= campsite.total_sites %></td>
+        <td><%= campsite.electric_sites %></td>
+        <td><%= campsite.outhouse %></td>
+        <td><%= campsite.showers %></td>
+        <td><%= campsite.dump %></td>
+        <td><%= link_to 'Show', campsite %></td>
+        <td><%= link_to 'Edit', edit_campsite_path(campsite) %></td>
+        <td><%= link_to 'Destroy', campsite, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Campsite', new_campsite_path %>

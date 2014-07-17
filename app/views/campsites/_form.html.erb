@@ -1,0 +1,61 @@
+<%= form_for(@campsite) do |f| %>
+  <% if @campsite.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@campsite.errors.count, "error") %> prohibited this campsite from being saved:</h2>
+
+      <ul>
+      <% @campsite.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :state %><br>
+    <%= f.text_field :state %>
+  </div>
+  <div class="field">
+    <%= f.label :latitude %><br>
+    <%= f.text_field :latitude %>
+  </div>
+  <div class="field">
+    <%= f.label :longitude %><br>
+    <%= f.text_field :longitude %>
+  </div>
+  <div class="field">
+    <%= f.label :elevation %><br>
+    <%= f.number_field :elevation %>
+  </div>
+  <div class="field">
+    <%= f.label :phone %><br>
+    <%= f.number_field :phone %>
+  </div>
+  <div class="field">
+    <%= f.label :total_sites %><br>
+    <%= f.number_field :total_sites %>
+  </div>
+  <div class="field">
+    <%= f.label :electric_sites %><br>
+    <%= f.number_field :electric_sites %>
+  </div>
+  <div class="field">
+    <%= f.label :outhouse %><br>
+    <%= f.check_box :outhouse %>
+  </div>
+  <div class="field">
+    <%= f.label :showers %><br>
+    <%= f.check_box :showers %>
+  </div>
+  <div class="field">
+    <%= f.label :dump %><br>
+    <%= f.check_box :dump %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

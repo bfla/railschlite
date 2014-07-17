@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @campsite.name %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @campsite.state %>
+</p>
+
+<p>
+  <strong>Latitude:</strong>
+  <%= @campsite.latitude %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @campsite.longitude %>
+</p>
+
+<p>
+  <strong>Elevation:</strong>
+  <%= @campsite.elevation %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @campsite.phone %>
+</p>
+
+<p>
+  <strong>Total sites:</strong>
+  <%= @campsite.total_sites %>
+</p>
+
+<p>
+  <strong>Electric sites:</strong>
+  <%= @campsite.electric_sites %>
+</p>
+
+<p>
+  <strong>Outhouse:</strong>
+  <%= @campsite.outhouse %>
+</p>
+
+<p>
+  <strong>Showers:</strong>
+  <%= @campsite.showers %>
+</p>
+
+<p>
+  <strong>Dump:</strong>
+  <%= @campsite.dump %>
+</p>
+
+<%= link_to 'Edit', edit_campsite_path(@campsite) %> |
+<%= link_to 'Back', campsites_path %>
