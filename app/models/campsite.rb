@@ -7,7 +7,15 @@ class Campsite < ActiveRecord::Base
   validates :showers, :outhouse, :dump, allow_nil:true, inclusion: { in: [true, false] }
 
   def to_json_v1
-    self.to_json
+    json = {
+      id: self.id,
+      name: self.name,
+      state: self.state,
+      latitude: self.latitude,
+      longitude: self.longitude,
+      elevation: self.elevation,
+      showers: self.showers,
+      dump: self.dump,
+      outhouse: self.outhouse, }
   end
-
 end
