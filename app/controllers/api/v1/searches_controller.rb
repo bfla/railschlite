@@ -1,4 +1,5 @@
 class Api::V1::SearchesController < ApplicationController
+  before_action :verify_api_key
   
   # GET /api/v1/searches?keywords=foo&distance=bar
   # Expected output is...
@@ -19,8 +20,14 @@ class Api::V1::SearchesController < ApplicationController
 
   end
 
+  private
+    def verify_api_key
+      unless params[:api_key] == "1af20713-4a94-4c86-b1f4-219fb22e7b1a" #v1 API Key
+        render json: {error: "Unauthorized key"}.to_json, status: 401
+      end
+    end
 
-  def campsite_params
-    params.require(:keywords).permit(:distance)
-  end
+    def campsite_params
+      params.require(:keywords).permit(:distance, :api_key)
+    end
 end

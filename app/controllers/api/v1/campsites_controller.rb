@@ -1,5 +1,6 @@
 class Api::V1::CampsitesController < ApplicationController
   before_action :set_campsite_or_404
+  before_action :verify_api_key
 
   # GET /api/v1/campsites/:id
   # Expected output is...
@@ -18,8 +19,14 @@ class Api::V1::CampsitesController < ApplicationController
       end
     end
 
+    def verify_api_key
+      unless params[:api_key] == "1af20713-4a94-4c86-b1f4-219fb22e7b1a" #v1 API Key
+        render json: {error: "Unauthorized API key"}.to_json, status: 401
+      end
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def campsite_params
-      params.require(:campsite).permit(:name, :state, :latitude, :longitude, :elevation, :phone, :total_sites, :electric_sites, :outhouse, :showers, :dump)
+      params.require(:campsite).permit(:api_key)
     end
 end
