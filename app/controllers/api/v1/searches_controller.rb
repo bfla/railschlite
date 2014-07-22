@@ -7,7 +7,7 @@ class Api::V1::SearchesController < ApplicationController
     distance = params[:distance] || 30
     #coordinates = Geocoder.coordinates(params[:keywords])
     #@campsites = Campsite.near(coordinates, distance)
-    @campsites = Campsite.near(params[:keywords], distance, order: :name)
+    @campsites = Campsite.near(params[:keywords], distance, order: :name).first(100)
 
     if @campsites.any?
       @sjson = Array.new

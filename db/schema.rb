@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140717160316) do
+ActiveRecord::Schema.define(version: 20140721185905) do
 
   create_table "campsites", force: true do |t|
     t.string   "name"
@@ -27,9 +27,31 @@ ActiveRecord::Schema.define(version: 20140717160316) do
     t.boolean  "dump"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "num"
+    t.string   "uuid"
+    t.string   "url"
+    t.string   "owner"
+    t.integer  "rv_sites"
+    t.boolean  "plumbing"
+    t.boolean  "water"
+    t.boolean  "tent_allowed"
+    t.boolean  "rv_allowed"
+    t.boolean  "walkin"
+    t.boolean  "hikein"
+    t.boolean  "boatin"
+    t.boolean  "rustic"
+    t.boolean  "rv"
+    t.boolean  "backcountry"
+    t.boolean  "horse"
   end
 
+  add_index "campsites", ["backcountry"], name: "index_campsites_on_backcountry"
+  add_index "campsites", ["dump"], name: "index_campsites_on_dump"
+  add_index "campsites", ["horse"], name: "index_campsites_on_horse"
   add_index "campsites", ["latitude"], name: "index_campsites_on_latitude"
   add_index "campsites", ["longitude"], name: "index_campsites_on_longitude"
+  add_index "campsites", ["rustic"], name: "index_campsites_on_rustic"
+  add_index "campsites", ["rv"], name: "index_campsites_on_rv"
+  add_index "campsites", ["showers"], name: "index_campsites_on_showers"
 
 end

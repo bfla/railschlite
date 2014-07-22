@@ -2,7 +2,11 @@ Chlite::Application.routes.draw do
   root to:"campsites#index"
   get :unauthorized, to:"pages#unauthorized", as:"unauthorized"
 
-  resources :campsites
+  resources :campsites do
+    collection do
+      post 'import', to:"imports#create", as:"import"
+    end
+  end
 
   namespace :api do
     namespace :v1 do

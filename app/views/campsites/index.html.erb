@@ -45,3 +45,8 @@
 <br>
 
 <%= link_to 'New Campsite', new_campsite_path %>
+<br>
+<%= form_tag import_campsites_path, multipart:true  do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import CSV" %>
+<% end %>
