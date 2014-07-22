@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140722132420) do
+ActiveRecord::Schema.define(version: 20140722133919) do
 
   create_table "campsites", force: true do |t|
     t.string   "name"
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20140722132420) do
     t.datetime "updated_at"
     t.integer  "num"
     t.string   "uuid"
-    t.string   "url"
+    t.text     "url",            limit: 255
     t.string   "owner"
     t.integer  "rv_sites"
     t.boolean  "plumbing"
