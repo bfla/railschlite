@@ -27,6 +27,6 @@ class Api::V1::CampsitesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def campsite_params
-      params.require(:campsite).permit(:api_key)
+      params.require(:campsite).permit(:id, :api_key)
     end
 end

@@ -18,6 +18,11 @@ class Campsite < ActiveRecord::Base
     else
       nil
     end
+    warning = if self.boatin
+      "Might only accessible by boat."
+    else
+      nil
+    end
 
     json = {
       id: self.id,
@@ -37,7 +42,8 @@ class Campsite < ActiveRecord::Base
       rustic: self.rustic,
       rv: self.rv,
       backcountry: self.backcountry,
-      horse: self.horse }
+      horse: self.horse,
+      warning: warning }
   end
 
   def analyze_toilets
