@@ -15,7 +15,7 @@ class Api::V1::SearchesController < ApplicationController
       @campsites.each { |c| @sjson << c.to_json_v1 }
       render json: @sjson # respond with JSON object
     else
-      render json: {}
+      render json: {message: "No campsites here."}, status: 400
     end
 
   end

@@ -64,24 +64,35 @@ RSpec.describe Campsite, :type => :model do
     it { is_expected.not_to be_valid }
   end
 
-  describe "when total_sites is not integer" do
-    before {@campsite.total_sites = "One hundred"}
-    it { is_expected.not_to be_valid }
+  it "when total_sites is not integer" do
+    @campsite.total_sites = "One hundred"
+    @campsite.save
+    expect(@campsite.total_sites).to eq 0 
+    #it { is_expected.not_to be_valid }
   end
 
-  describe "when outhouse is not boolean" do
-    before {@campsite.total_sites = "Slitheren"}
-    it { is_expected.not_to be_valid }
+  it "when outhouse is not boolean" do
+    @campsite.outhouse = "Slitheren"
+    @campsite.save
+    expect(@campsite.outhouse).to eq false
   end
 
-  describe "when showers is not boolean" do
-    before {@campsite.total_sites = "Ravenclaw"}
-    it { is_expected.not_to be_valid }
+  it "when showers is not boolean" do
+    @campsite.showers = "Ravenclaw"
+    @campsite.save
+    expect(@campsite.outhouse).to eq true 
   end
 
-  describe "when dump is not boolean" do
-    before {@campsite.total_sites = "Griffendor"}
-    it { is_expected.not_to be_valid }
+  it "when dump is not boolean" do
+    @campsite.dump = "Griffendor"
+    @campsite.save
+    expect(@campsite.dump).to eq false
+  end
+
+  it "when likely_toilets is not boolean" do
+  end
+
+  it "when no_toilets is not boolean" do
   end
 
   # API V1 METHODS ==============================================================================================
@@ -109,6 +120,15 @@ RSpec.describe Campsite, :type => :model do
     describe "should return showers, outhouse, and dump" do
     end
 
+  end
+
+  describe "analyze_toilets method" do
+    describe "should run before_save" do
+    end
+    describe "should set likely_toilets to true under appropriate conditions" do
+    end
+    describe "should set no_toilets to true under appropriate conditions" do
+    end
   end
 
 end
