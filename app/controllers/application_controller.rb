@@ -7,6 +7,6 @@ class ApplicationController < ActionController::Base
     #Do something...
     # I don't feel like setting up auth for this API yet. So...
     # For now, everyone is restricted from accessing it
-    render json: {error:"401 Unauthorized: This is CampHero Lite's secret fortress.  Only CampHero's sidekicks can unlock its mysteries."}.to_json, status:401
+    #render json: {error:"401 Unauthorized: This is CampHero Lite's secret fortress.  Only CampHero's sidekicks can unlock its mysteries."}.to_json, status:401
   end
 end
