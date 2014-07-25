@@ -48,8 +48,10 @@ class Campsite < ActiveRecord::Base
   end
 
   def analyze_toilets
-    self.no_toilets = true if self.backcountry && !self.outhouse
-    if !self.no_toilets
+    if self.no_toilets.nil?
+      self.no_toilets = true if self.backcountry && !self.outhouse
+    end
+    if !self.no_toilets && !self.likely_toilets
       self.likely_toilets = true if self.outhouse || self.showers || self.plumbing
     end
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140723221158) do
+ActiveRecord::Schema.define(version: 20140725185421) do
 
   create_table "campsites", force: true do |t|
     t.string   "name"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20140723221158) do
     t.boolean  "horse"
     t.boolean  "likely_toilets",             default: false
     t.boolean  "no_toilets",                 default: false
+    t.integer  "ch_id"
   end
 
   add_index "campsites", ["backcountry"], name: "index_campsites_on_backcountry"
