@@ -36,6 +36,7 @@ class Campsite < ActiveRecord::Base
       url: self.url,
       showers: self.showers,
       dump: self.dump,
+      electricity:self.electricity,
       likely_toilets: self.likely_toilets,
       no_toilets: self.no_toilets,
       water: self.water,
