@@ -8,7 +8,7 @@ class Campsite < ActiveRecord::Base
   validates :elevation, allow_nil:true, numericality: { only_integer:true }
   validates :showers, :outhouse, :dump, :rustic, :rv, :backcountry, :horse,
             allow_nil:true, inclusion: { in: [true, false] }
-  before_save :analyze_toilets
+  #before_save :analyze_toilets
 
   def to_json_v1
     electric_bool =  if self.electric_sites && self.electric_sites > 0
@@ -47,14 +47,14 @@ class Campsite < ActiveRecord::Base
       warning: warning }
   end
 
-  def analyze_toilets
-    if self.no_toilets.nil?
-      self.no_toilets = true if self.backcountry && !self.outhouse
-    end
-    if !self.no_toilets && !self.likely_toilets
-      self.likely_toilets = true if self.outhouse || self.showers || self.plumbing
-    end
-  end
+  #def analyze_toilets
+    #if self.no_toilets.nil?
+      #self.no_toilets = true if self.backcountry && !self.outhouse
+    #end
+    #if !self.no_toilets && !self.likely_toilets
+      #self.likely_toilets = true if self.outhouse || self.showers || self.plumbing
+    #end
+  #end
 
   # import CSV file
   def self.import(file)
