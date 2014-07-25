@@ -28,6 +28,7 @@ class Campsite < ActiveRecord::Base
       id: self.id,
       name: self.name,
       state: self.state,
+      owner: self.owner,
       latitude: self.latitude,
       longitude: self.longitude,
       elevation: self.elevation,
