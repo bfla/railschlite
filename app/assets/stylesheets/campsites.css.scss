@@ -1,3 +1,20 @@
 // Place all the styles related to the Campsites controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+$campsiteMapHeight: 500px;
+
+#campsiteMap {
+  height:$campsiteMapHeight;
+  width:100%;
+  //position:absolute;
+  padding:0px;
+  margin:0px;
+}
+#mapRow {
+  height:$campsiteMapHeight;
+  width:100%;
+}
+
+.campsite-detail-page {
+  h1, h2, h3, h4, h5 {color:$dark-slate-grey; }
+}

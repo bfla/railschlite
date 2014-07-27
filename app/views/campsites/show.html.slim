@@ -1,0 +1,112 @@
+- content_for :body_class, "no-spacing campsite-detail-page"
+- content_for :head
+  link href='//api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.css' rel='stylesheet'
+  / Mapbox script
+  script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.js'
+
+.container.grey-background.fill-width.below-navbar
+ h1 Put photo header here
+.container.grey-background.fill-width
+  / Header
+  .row
+    .col-md-offset-1.col-md-7.pad-top-lg
+      h1.col-md-12 
+        = @campsite.name
+        small 
+          br
+          = @campsite.owner
+          br
+          = tribe_name(@campsite)
+.container
+  / About ===================================================
+  .row
+    .col-md-offset-1.col-md-7.pad-top-lg
+      h3.col-md-12 About these campsites
+      p.col-md-12 "Yatta yatta yatta"
+      p.col-md-12 <a> Contact Host </a>
+    .col-md-3
+      button.btn.btn-default.btn-bar 
+        span.glyphicon.
+        | Add to Wishlist
+  / Essentials ===================================================
+  .row.pad-top-md
+    hr.col-md-offset-1.col-md-7
+  .row
+    .col-md-offset-1.col-md-2
+      p.col-md-12 
+        strong.subtle-text Campground Basics
+    .col-md-6.pad-top-lg
+      .col-md-6
+        - if @campsite.no_toilets
+          p.subtle-text toilets
+        - elsif @campsite.likely_toilets
+          p.subtle-text no toilets
+        - else
+          p.subtle-text probably toilets
+      .col-md-6
+        - if @campsite.showers
+          p.subtle-text showers
+        - else
+          p.subtle-text no showers
+  / RV Ameneties ===================================================
+  .row.pad-top-md
+    hr.col-md-offset-1.col-md-7
+  .row
+    .col-md-offset-1.col-md-2
+      p.col-md-12 
+        strong.subtle-text RV Amenities
+    .col-md-6.pad-top-lg
+      .col-md-6
+        - if @campsite.electricity
+          p.subtle-text electricity
+        - else
+          p.subtle-text no electricy
+      .col-md-6
+        - if @campsite.water
+          p.subtle-text water hookups
+        - else
+          p.subtle-text no water hookups
+      .col-md-6
+        - if @campsite.dump
+          p.subtle-text dump
+        - else
+          p.subtle-text no dump
+  / Extra Features ===================================================
+  .row.pad-top-md
+    hr.col-md-offset-1.col-md-7
+  .row.pad-bottom-xl
+    .col-md-offset-1.col-md-2
+      p.col-md-12 
+        strong.subtle-text Extra Features
+    .col-md-6.pad-top-lg
+      .col-md-6
+        p.subtle-text beach
+
+
+/ Map ===================================================
+.container#mapRow.no-spacing
+  #campsiteMap
+
+.container.grey-background.fill-width
+  .row
+    p.lead.text-center.pad-top-md
+      | #{@campsite.latitude}N, #{-@campsite.longitude}W
+      - if @campsite.elevation
+        br
+        small Elevation: #{@campsite.elevation}'
+.contaner
+  .row
+    .col-md-offset-1.col-md-7.pad-top-xl
+      h3.col-md-12 Campground Rules
+      p.col-md-12 Hello there.  I have some rules.  They are as follows...
+  .row
+    .col-md-offset-1.col-md-7.pad-top-lg
+      hr.col-md-12
+      h3.col-md-12 Description
+      p.col-md-12 Put extra stuff here...
+  .row
+    .col-md-offset-1.col-md-7.pad-top-lg
+      hr.col-md-12
+      h3.col-md-12 More campsites nearby
+      p.col-md-12 Put extra stuff here...
+

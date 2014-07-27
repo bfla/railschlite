@@ -1,0 +1,17 @@
+// Variables and mixins are inherited from _base.css.scss
+.navbar-color {
+  background: $nav-color;
+  .nav-link {
+    color: $nav-link-color;
+    &:visited {
+      color: $nav-link-color;
+    }
+
+    &:hover {
+      color: $nav-link-hover;
+    }
+  }
+}
+.navbar-border {
+  border:none;
+}

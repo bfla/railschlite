@@ -1,5 +1,4 @@
 Chlite::Application.routes.draw do
-  root to:"campsites#index"
   get :unauthorized, to:"pages#unauthorized", as:"unauthorized"
 
   resources :campsites do
@@ -14,6 +13,8 @@ Chlite::Application.routes.draw do
       get :searches, to:"searches#show", as:"searches"
     end
   end
+
+  root to:"pages#home"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

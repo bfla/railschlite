@@ -1,0 +1,11 @@
+li.dropdown
+  a.dropdown-toggle.nav-link href="#" data-toggle="dropdown" 
+    .nav-link
+      | &nbsp;
+      - if current_admin.callsign.present?
+        = current_admin.callsign
+      - else
+        | Admin functions
+      b.caret
+  ul.dropdown-menu
+    li = link_to 'Sign out', destroy_admin_session_path, :method => :delete

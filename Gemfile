@@ -47,6 +47,12 @@ gem 'unicorn'
 gem 'geocoder' #use geocoder for geospatial processing and mapping
 gem 'json'
 
+# SPECIAL GEMS FOR FRONT-FACING INTERFACE
+gem 'compass-rails'
+gem 'bootstrap-sass', '~> 3.0.3.0'
+gem 'slim-rails'
+gem 'gon'
+
 group :development, :test do
   gem 'sqlite3' # use sqlite3 during development and testing
   gem 'rspec-rails', '~> 3.0.0' # use RSpec as the testing framework

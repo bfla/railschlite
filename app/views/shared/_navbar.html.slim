@@ -1,0 +1,19 @@
+/ This isn't really done properly for mobile.  Should be fixed later.
+nav.navbar.navbar-fixed-top.navbar-inverse.navbar-color.navbar-border role="navigation"
+  .container
+    / Brand and toggle get grouped for better mobile display
+    .navbar-header
+      button.navbar-toggle type="button" data-toggle="collapse" data-target="#bs-collapsable"
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand.brand href=root_path CampHero
+    .navbar-right
+      button#listing-btn.btn.btn-success.btn-sm Add a listing
+    / Collect the nav links, forms, and other content for toggling
+    /#bs-collapsable.collapse.navbar-collapse
+      / Navbar pulled right
+      /ul.nav.navbar-nav.navbar-right
+        /- if admin_signed_in?
+          /= render 'shared/dropdown'

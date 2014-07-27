@@ -48,6 +48,32 @@ class Campsite < ActiveRecord::Base
       warning: warning }
   end
 
+  def to_geojson
+
+    geojson = {
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [self.longitude, self.latitude]
+      },
+      properties: {
+        title: self.name,
+        campsiteId:self.id,
+        # Extra data for iOS search:
+        #reservable: self.reservable,
+        #walkins: self.walkins,
+        #avg_rating: self.avg_rating,
+        #ranking: self.rank,
+        #tribes_dict: self.tribes.each {|tribe| self.tribes << tribe.to_json },
+        #reviews_dict: self.reviews.each { |review| self.reviews << review.to_json },
+        :'marker-color' => "\#09b",
+        :'marker-symbol' => 'campsite',
+        :'marker-size' => 'large'
+      }
+    }
+
+  end
+
   #def analyze_toilets
     #if self.no_toilets.nil?
       #self.no_toilets = true if self.backcountry && !self.outhouse

@@ -1,37 +1,70 @@
+.scaffold {
+  h1 {
+    @extend .pad-heading;
+    @extend .text-center;
+  }
+  form {
+    @extend .col-md-offset-3;
+    @extend .col-md-6;
+  }
+}
+
+
+h1 {
+}
+
 body {
-  background-color: #fff;
+  /*background-color: #fff;
   color: #333;
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
-  line-height: 18px;
+  line-height: 18px;*/
 }
 
 p, ol, ul, td {
-  font-family: verdana, arial, helvetica, sans-serif;
+  /*font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
-  line-height: 18px;
+  line-height: 18px;*/
 }
 
 pre {
-  background-color: #eee;
+  /*background-color: #eee;
   padding: 10px;
-  font-size: 11px;
+  font-size: 11px;*/
 }
 
 a {
-  color: #000;
+  /*color: #000;
   &:visited {
     color: #666;
   }
   &:hover {
     color: #fff;
     background-color: #000;
-  }
+  }*/
 }
 
 div {
-  &.field, &.actions {
+  /*&.field {
     margin-bottom: 10px;
+  }*/
+}
+
+.field {
+  @extend .form-group;
+  input {
+    @extend .form-control;
+  }
+  textarea {
+    @extend .form-control;
+  }
+}
+
+.actions {
+  input {
+    @extend .btn;
+    @extend .btn-primary;
+    @extend .text-center;
   }
 }
 
@@ -43,6 +76,11 @@ div {
   padding: 2px;
   background-color: red;
   display: table;
+}
+
+table {
+  @extend .table;
+  @extend .table-striped;
 }
 
 #error_explanation {

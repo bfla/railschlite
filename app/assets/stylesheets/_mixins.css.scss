@@ -1,0 +1,33 @@
+// Spacing variables ======================
+$xl-spacing: 70px;
+$lg-spacing: 40px;
+$md-spacing: 20px;
+$sm-spacing: 10px;
+$top-navbar-height: 50px;
+$footer-height: 50px;
+
+// Color pallette =============================
+$dark-cyan: rgb(0,143,170);
+$light-grey: #b2b2b2;
+$white-smoke: #ededed;
+$extra-light-grey: #E1E1E1;
+$dark-slate-grey: #4c4d50;
+$md-slate-grey: #84858a;
+$orange: rgb(255,136,51);
+$dark-orange: darken($orange, 5%);
+
+// Custom colors
+$brand-color: $dark-cyan;
+$dark-brand-color: darken($brand-color, 5%);
+// $navColor: $orange;
+//$nav-color: rgba(241,242,243, 0.5);
+$nav-color: $brand-color;
+$nav-link-color: $md-slate-grey;
+//$navLinkColor: $extraLightGray;
+$nav-link-hover: white;
+$background-color: white;
+
+// Font variables
+$brand-font: 'Verdana';
+
+// Bootstrap mixins

@@ -1,0 +1,44 @@
+doctype html
+html.fill-height
+  head
+    title == yield :title
+    / meta tags
+    == yield :head
+
+    / styles
+    == render 'shared/headstyles'
+    == yield :extra_stylesheets
+
+    / scripts
+    == render 'shared/headscripts'
+    == yield :head_javascripts
+
+  body class="#{yield :body_class || fill-height.background}"
+    - if notice
+        .col-md-10.col-md-offset-1.pad-top-xl
+            .panel.panel-primary
+                .panel-heading 
+                    | Notice
+                    #panelClose.button.close type="button" data-dismiss="panel" aria-hidden="true" &times;
+                .panel-body = notice
+    - if alert
+        .col-md-10.col-md-offset-1.pad-top-xl
+            .panel.panel-warning
+                .panel-heading 
+                    | Alert
+                    #panelClose.button.close type="button" data-dismiss="panel" aria-hidden="true" &times;
+                .panel-body.alert = alert
+
+    == yield :extra_modals
+
+    / Top navbar goes here
+    == render 'shared/navbar'
+
+    / Body goes here
+    == yield
+
+    / Footer goes here
+    == render 'shared/footer'
+    
+    == yield :end
+    == render 'shared/bottomScripts'

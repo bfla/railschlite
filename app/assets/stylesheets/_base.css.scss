@@ -1,0 +1,121 @@
+// Universal styles=================================
+.white {
+  background:#ffffff;
+  opacity:1.0;
+}
+
+.grey-background {           background-color: $white-smoke; }
+
+.dark-grey {      color:$dark-slate-grey; }
+
+.background {     background: $background-color; }
+
+.subtle-text {    color: $light-grey; }
+
+.margin-left-sm { margin-left:$sm-spacing; }
+
+.margin-top-sm {  margin-top:$sm-spacing; }
+
+.remove-margin-top {margin-top:0px;}
+
+.remove-bottom-margin {margin-bottom:0px;}
+
+.below-navbar {   padding-top:$top-navbar-height;}
+
+.pad-heading {     padding-top: $xl-spacing; }
+
+.pad-left-sm {    padding-left: $sm-spacing; }
+
+.pad-top-sm {     padding-top:$sm-spacing; }
+
+.pad-top-md {     padding-top: $md-spacing; }
+
+.pad-top-lg {     padding-top: $lg-spacing; }
+
+.pad-top-xl {     padding-top: $xl-spacing; }
+
+.pad-bottom-sm {  padding-bottom:$sm-spacing; }
+
+.pad-bottom-lg {padding-bottom:$lg-spacing; }
+
+.pad-bottom-xl {padding-bottom:$xl-spacing; }
+
+.pad-bottom-huge { padding-bottom:200px;}
+
+.no-spacing { 
+                  padding:0px;
+                  margin:0px;}
+
+h1 {              font-family:$brand-font;}
+
+.orange {
+  color:$orange;
+}
+
+.huge {
+  font-size:50px;
+}
+
+.promo-subtitle {
+  font-size:24px;
+}
+
+.promo-paragraph {
+  color:$dark-slate-grey;
+}
+
+.calories-form {
+  height:54px;
+}
+
+.my-btn {
+  background-color:$orange;
+  border-color:$orange;
+  &:active { 
+    background-color: $dark-orange;
+    border-color: $dark-orange;
+  }
+  &:hover {
+    background-color: $dark-orange;
+    border-color: $dark-orange;
+  }
+  &:focus {
+    background-color: $dark-orange;
+    border-color: $dark-orange;
+  }
+}
+
+.fill-width {width:100%;}
+
+// Banner styles=================================
+@import 'navbar';
+.brand {
+                  font-family: $brand-font;
+                  color: white;
+                  border: $white-smoke;
+
+  &:visited {     color: white; }
+  &:hover {       color: $white-smoke; }
+}
+
+#listing-btn { margin-top:10px; }
+
+// Footer style====================================
+#footer {
+                  background:none;
+                  border:none;
+                  box-shadow:none;
+                  height:$footer-height;}
+
+// Sticky footers==================================
+.fill-height {    height:100%;} // add this to a body & html elements
+#wrap {           min-height:100%;} // add this around the main page content
+  
+#main { // add this to the main content or container div
+                  overflow:auto;
+                  padding-bottom:$footer-height;}
+.flush-footer { // surround footer partial with this div
+                  position:relative;
+                  margin-top:-$footer-height;
+                  padding-top:$md-spacing;
+                  clear:both;}
