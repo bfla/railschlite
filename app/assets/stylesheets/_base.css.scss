@@ -4,13 +4,18 @@
   opacity:1.0;
 }
 
-.grey-background {           background-color: $white-smoke; }
-
-.dark-grey {      color:$dark-slate-grey; }
+.beige-background { background-color: $light-beige; }
+.grey-background  { background-color: $white-smoke; }
+.dark-background  { background-color: $dark-slate-grey; }
+.light-border     { border: 1px solid $white-smoke; }
 
 .background {     background: $background-color; }
 
 .subtle-text {    color: $light-grey; }
+
+.white-text  {    color:white; }
+
+.dark-grey {      color:$dark-slate-grey; }
 
 .margin-left-sm { margin-left:$sm-spacing; }
 
@@ -42,9 +47,12 @@
 
 .pad-bottom-huge { padding-bottom:200px;}
 
+.pad-sm {       padding:$sm-spacing; }
+
 .no-spacing { 
                   padding:0px;
                   margin:0px;}
+.no-margin {      margin:0px; }
 
 h1 {              font-family:$brand-font;}
 

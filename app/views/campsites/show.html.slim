@@ -4,30 +4,51 @@
   / Mapbox script
   script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.js'
 
-.container.grey-background.fill-width.below-navbar
+.container.beige-background.fill-width.below-navbar
  h1 Put photo header here
-.container.grey-background.fill-width
-  / Header
-  .row
-    .col-md-offset-1.col-md-7.pad-top-lg
-      h1.col-md-12 
-        = @campsite.name
-        small 
+.beige-background.fill-width
+  .container
+    / Header
+    .row
+      .col-md-offset-1.col-md-7.pad-top-lg
+        img.img.img-responsive.col-md-2 src=tribe_icon(@campsite)
+        h1.col-md-10
+          = @campsite.name
+        p.col-md-10.dark-grey
+          | Host: #{@campsite.owner}
           br
-          = @campsite.owner
-          br
-          = tribe_name(@campsite)
+          | Campground type: #{tribe_name(@campsite)}
+      - if @campsite.phone.present? or @campsite.url.present?
+        .col-md-4
+          #booking-box.col-md-12.margin-top-sm
+            .dark-background.fill-width.no-margin
+              p.lead.white-text.text-center Book This Campground
+            .white.fill-width.light-border.no-margin
+              - if @campsite.phone
+                p.pad-sm.text-center
+                  span.glyphicon.glyphicon-earphone.subtle-text
+                  | &nbsp;
+                  = number_to_phone(@campsite.phone)
+              - if @campsite.url
+                p.pad-sm.text-center
+                  span.glyphicon.glyphicon-globe.subtle-text
+                  | &nbsp;
+                  a href=@campsite.url Campground website 
 .container
   / About ===================================================
   .row
     .col-md-offset-1.col-md-7.pad-top-lg
-      h3.col-md-12 About these campsites
+      h3.col-md-12 About #{@campsite.name}
       p.col-md-12 "Yatta yatta yatta"
       p.col-md-12 <a> Contact Host </a>
-    .col-md-3
-      button.btn.btn-default.btn-bar 
-        span.glyphicon.
-        | Add to Wishlist
+    .col-md-4
+      .col-md-12.pad-top-sm
+        button.btn.btn-default.btn-lg.btn-block
+          span.glyphicon.glyphicon-star-empty
+          |  Add to Wishlist
+        button.btn.btn-default.btn-lg.btn-block
+          span.glyphicon.glyphicon-ok
+          |  Been Here
   / Essentials ===================================================
   .row.pad-top-md
     hr.col-md-offset-1.col-md-7
@@ -36,14 +57,16 @@
       p.col-md-12 
         strong.subtle-text Campground Basics
     .col-md-6.pad-top-lg
-      .col-md-6
+      .col-md-3.text-center
+        img.img.img-responsive src=toilets_image(@campsite)
         - if @campsite.no_toilets
           p.subtle-text toilets
         - elsif @campsite.likely_toilets
           p.subtle-text no toilets
         - else
           p.subtle-text probably toilets
-      .col-md-6
+      .col-md-3.text-center
+        img.img.img-responsive src=showers_image(@campsite)
         - if @campsite.showers
           p.subtle-text showers
         - else
@@ -51,30 +74,33 @@
   / RV Ameneties ===================================================
   .row.pad-top-md
     hr.col-md-offset-1.col-md-7
-  .row
+  .row.pad-bottom-xl
     .col-md-offset-1.col-md-2
       p.col-md-12 
         strong.subtle-text RV Amenities
     .col-md-6.pad-top-lg
-      .col-md-6
+      .col-md-3.text-center
+        img.img.img-responsive src=electricity_image(@campsite)
         - if @campsite.electricity
           p.subtle-text electricity
         - else
           p.subtle-text no electricy
-      .col-md-6
+      .col-md-3.text-center
+        img.img.img-responsive src=water_image(@campsite)
         - if @campsite.water
           p.subtle-text water hookups
         - else
           p.subtle-text no water hookups
-      .col-md-6
+      .col-md-3.text-center
+        img.img.img-responsive src=dump_image(@campsite)
         - if @campsite.dump
           p.subtle-text dump
         - else
           p.subtle-text no dump
   / Extra Features ===================================================
-  .row.pad-top-md
+  /.row.pad-top-md
     hr.col-md-offset-1.col-md-7
-  .row.pad-bottom-xl
+  /.row.pad-bottom-xl
     .col-md-offset-1.col-md-2
       p.col-md-12 
         strong.subtle-text Extra Features
@@ -87,13 +113,14 @@
 .container#mapRow.no-spacing
   #campsiteMap
 
-.container.grey-background.fill-width
+.container.beige-background.fill-width
   .row
     p.lead.text-center.pad-top-md
       | #{@campsite.latitude}N, #{-@campsite.longitude}W
       - if @campsite.elevation
         br
         small Elevation: #{@campsite.elevation}'
+/ These rows are too wide!
 .contaner
   .row
     .col-md-offset-1.col-md-7.pad-top-xl
@@ -107,6 +134,6 @@
   .row
     .col-md-offset-1.col-md-7.pad-top-lg
       hr.col-md-12
-      h3.col-md-12 More campsites nearby
+      h3.col-md-12 More Campgrounds Nearby
       p.col-md-12 Put extra stuff here...
 

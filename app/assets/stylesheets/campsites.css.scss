@@ -18,3 +18,13 @@ $campsiteMapHeight: 500px;
 .campsite-detail-page {
   h1, h2, h3, h4, h5 {color:$dark-slate-grey; }
 }
+
+#booking-box {
+  .booking-box-row { margin:0px; }
+  
+  h4 { color:white; }
+  
+  p { margin:0px; 
+      padding:$sm-spacing;
+    }
+}
