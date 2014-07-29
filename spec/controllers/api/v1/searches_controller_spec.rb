@@ -11,7 +11,7 @@ RSpec.describe Api::V1::SearchesController, :type => :controller do
       before do
         # Be careful here.  For some reason, this part of the test is very finicky.  
         # It doesn't want to find the nearby_campsite...
-        get :show, {keywords:"#{(campsite.latitude + nearby_campsite.latitude)/2}, #{(campsite.longitude + nearby_campsite.longitude)/2}", 
+        get :show, {latitude:"#{(campsite.latitude + nearby_campsite.latitude)/2}", longitude:"#{(campsite.longitude + nearby_campsite.longitude)/2}", 
                     api_key:"1af20713-4a94-4c86-b1f4-219fb22e7b1a"}
       end
       let(:result_json) { JSON.parse(response.body) }
@@ -54,7 +54,7 @@ RSpec.describe Api::V1::SearchesController, :type => :controller do
     before do
       # Be careful here.  For some reason, this part of the test is very finicky.  
       # It doesn't want to find the nearby_campsite...
-      get :show, {keywords:"#{(campsite.latitude + nearby_campsite.latitude)/2}, #{(campsite.longitude + nearby_campsite.longitude)/2}", 
+      get :show, {latitude:"#{(campsite.latitude + nearby_campsite.latitude)/2}", longitude:"#{(campsite.longitude + nearby_campsite.longitude)/2}", 
                   api_key:"i_am_a_clever_hacker"}
     end
     let(:result_json) { JSON.parse(response.body) }
