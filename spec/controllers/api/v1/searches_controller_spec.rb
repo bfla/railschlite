@@ -23,23 +23,12 @@ RSpec.describe Api::V1::SearchesController, :type => :controller do
         expect(result_json[0]["name"]).to eq nearby_campsite.name
       end
 
-      it "should respond with states" do
-        expect(result_json[0]["state"]).to eq nearby_campsite.state
-      end
-
-      it "should respond with latitude and longitudes" do
+      # The to_json_v1 method is already unit tested in the campsite spec so
+      # here, it's only necessary to test that some correct json is in the response
+      it "should respond with appropriate json from the to_json_v1 method" do
+        expect(result_json[0]["name"]).to eq nearby_campsite.name
         expect(result_json[0]["latitude"]).to eq nearby_campsite.latitude
         expect(result_json[0]["longitude"]).to eq nearby_campsite.longitude
-      end
-
-      it "should respond with elevations" do
-        expect(result_json[0]["elevation"]).to eq nearby_campsite.elevation
-      end
-
-      it "should respond with showers, dump, and outhouses" do
-        expect(result_json[0]["showers"]).to eq nearby_campsite.showers
-        expect(result_json[0]["dump"]).to eq nearby_campsite.dump
-        expect(result_json[0]["outhouse"]).to eq nearby_campsite.outhouse
       end
 
       it "should respond with success" do
