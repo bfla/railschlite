@@ -1,7 +1,7 @@
 class Campsite < ActiveRecord::Base
-  reverse_geocoded_by :latitude, :longitude
+  reverse_geocoded_by :latitude, :longitude, address: :location
   validates :name, presence:true, allow_blank:false
-  validates :state, presence:true, allow_blank:false
+  validates :state_abbrev, presence:true, allow_blank:false
   validates :phone, allow_nil:true, numericality: { only_integer: true }
   validates :longitude, presence:true, numericality: { less_than: 0 }
   validates :latitude, presence:true, numericality: { greater_than: 0}
@@ -27,7 +27,7 @@ class Campsite < ActiveRecord::Base
     json = {
       id: self.id,
       name: self.name,
-      state: self.state,
+      state: self.state_abbrev,
       owner: self.owner,
       latitude: self.latitude,
       longitude: self.longitude,
@@ -72,6 +72,15 @@ class Campsite < ActiveRecord::Base
       }
     }
 
+  end
+
+  def add_city_and_address
+    geo_results = Geocoder.search("#{self.latitude}, #{self.longitude}")
+    if geo = geo_results.first
+      self.address = geo.address
+      self.city_name = geo.city
+      self.save
+    end
   end
 
   #def analyze_toilets

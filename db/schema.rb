@@ -11,11 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140725212723) do
+ActiveRecord::Schema.define(version: 20140730142422) do
 
   create_table "campsites", force: true do |t|
     t.string   "name"
-    t.string   "state"
+    t.string   "state_abbrev"
     t.float    "latitude"
     t.float    "longitude"
     t.integer  "elevation"
@@ -47,6 +47,18 @@ ActiveRecord::Schema.define(version: 20140725212723) do
     t.boolean  "no_toilets",                 default: false
     t.integer  "ch_id"
     t.boolean  "electricity"
+    t.string   "city_name"
+    t.string   "address"
+    t.boolean  "sewer_hookup"
+    t.boolean  "fifty_amp"
+    t.boolean  "thirty_amp"
+    t.boolean  "twenty_amp"
+    t.boolean  "pull_thrus"
+    t.boolean  "wifi"
+    t.boolean  "laundry"
+    t.boolean  "beach"
+    t.boolean  "on_lake"
+    t.boolean  "on_river"
   end
 
   add_index "campsites", ["backcountry"], name: "index_campsites_on_backcountry"

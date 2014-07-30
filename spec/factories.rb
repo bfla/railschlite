@@ -2,7 +2,7 @@ FactoryGirl.define do
 
   factory :campsite do
     name        'Tranquil Dawn Campground'
-    state       'MI'
+    state_abbrev 'MI'
     latitude    44.91311
     longitude   -86.02031
     elevation   30
@@ -16,7 +16,7 @@ FactoryGirl.define do
 
   factory :nearby_campsite, class: Campsite do
     name        'Nearby Sublime Campground'
-    state       'MI'
+    state_abbrev 'MI'
     latitude    44.91311
     longitude   -86.02031
     elevation   29

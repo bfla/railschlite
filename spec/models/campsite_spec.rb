@@ -7,18 +7,32 @@ RSpec.describe Campsite, :type => :model do
   describe "when new Campsite is created with valid inputs" do 
     it { is_expected.to respond_to(:id) }
     it { is_expected.to respond_to(:name) }
-    it { is_expected.to respond_to(:state) }
+    it { is_expected.to respond_to(:state_abbrev) }
+    it { is_expected.to respond_to(:city_name) }
+    it { is_expected.to respond_to(:address) }
     it { is_expected.to respond_to(:latitude) }
     it { is_expected.to respond_to(:longitude) }
     it { is_expected.to respond_to(:elevation) }
     it { is_expected.to respond_to(:phone) }
     it { is_expected.to respond_to(:total_sites) }
     it { is_expected.to respond_to(:electric_sites) }
+    it { is_expected.to respond_to(:electricity) }
     it { is_expected.to respond_to(:outhouse) }
     it { is_expected.to respond_to(:showers) }
     it { is_expected.to respond_to(:dump) }
+    it { is_expected.to respond_to(:on_lake) }
+    it { is_expected.to respond_to(:on_river) }
+    it { is_expected.to respond_to(:beach) }
+    it { is_expected.to respond_to(:fifty_amp) }
+    it { is_expected.to respond_to(:thirty_amp) }
+    it { is_expected.to respond_to(:twenty_amp) }
+    it { is_expected.to respond_to(:wifi) }
+    it { is_expected.to respond_to(:laundry) }
+    it { is_expected.to respond_to(:pull_thrus) }
 
     it { is_expected.to respond_to(:to_json_v1) }
+    it { is_expected.to respond_to(:to_geojson) }
+    it { is_expected.to respond_to(:add_city_and_address) }
     it { is_expected.to be_valid }
   end
 
@@ -97,37 +111,70 @@ RSpec.describe Campsite, :type => :model do
 
   # API V1 METHODS ==============================================================================================
   describe "to_json_v1 method" do
-    #before { cgjson = @campsite.to_json_v1 }
-    #let(:attributes) { JSON.parse(cgjson) }
+    before { @campsite.save }
+    let(:json) { JSON.parse(@campsite.to_json_v1.to_json) }
 
-    describe "should return JSON object" do
-
+    it "should return name for each campsite as :name" do
+      expect(json["name"]).to eq @campsite.name
     end
-
-    describe "should return name for each campsite" do
-
+    it "should return :owner" do
+      expect(json["owner"]).to eq @campsite.owner
     end
-
-    describe "should return phone number" do
+    it "should return :state_abbrev" do
+      expect(json["state"]).to eq @campsite.state_abbrev
     end
-
-    describe "should return latitude and longitude" do
+    it "should return phone number as :phone" do
+      expect(json["phone"]).to eq @campsite.phone
     end
-
-    describe "should return elevation" do
+    it "should return latitude as :latitude" do
+      expect(json["latitude"]).to eq @campsite.latitude
     end
-
-    describe "should return showers, outhouse, and dump" do
+    it "should return longitude as :longitude" do
+      expect(json["longitude"]).to eq @campsite.longitude
     end
-
+    it "should return elevation as :elevation" do
+      expect(json["elevation"]).to eq @campsite.elevation
+    end
+    it "should return :showers, :electricity, :dump, :water, and toilet info" do
+      expect(json["showers"]).to eq @campsite.showers 
+      expect(json["electricity"]).to eq @campsite.electricity
+      expect(json["dump"]).to eq @campsite.dump
+      expect(json["water"]).to eq @campsite.water
+      expect(json["likely_toilets"]).to eq @campsite.likely_toilets
+      expect(json["no_toilets"]).to eq @campsite.no_toilets
+    end
+    it "should return :rustic, :rv, :backcountry, :horse" do
+      expect(json["owner"]).to eq @campsite.owner
+    end
   end
 
+  # METHODS FOR UI LOGIC ============================================================================================
+  describe "to_geojson" do 
+    it "should respond with campsite properties" do
+      json = JSON.parse(@campsite.to_geojson.to_json)
+      expect(json["properties"]["title"]).to eq @campsite.name
+    end
+    it "should respond with campsite longitude" do
+      json = JSON.parse(@campsite.to_geojson.to_json)
+      expect(json["geometry"]["coordinates"][0]).to eq @campsite.longitude
+    end
+  end
+
+  # METHODS FOR SEEDING DATA ========================================================================================
   describe "analyze_toilets method" do
     describe "should run before_save" do
     end
     describe "should set likely_toilets to true under appropriate conditions" do
     end
     describe "should set no_toilets to true under appropriate conditions" do
+    end
+  end
+
+  describe "add_city_and_address" do
+    it "should add and save city and address names" do
+      @campsite.add_city_and_address
+      expect(@campsite.city_name).not_to be_nil
+      expect(@campsite.address).not_to be_nil
     end
   end
 
