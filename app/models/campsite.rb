@@ -1,4 +1,6 @@
 class Campsite < ActiveRecord::Base
+  extend CampsiteSearchers
+  include CampsiteFormatters
   reverse_geocoded_by :latitude, :longitude, address: :location
   validates :name, presence:true, allow_blank:false
   validates :state_abbrev, presence:true, allow_blank:false
@@ -9,70 +11,6 @@ class Campsite < ActiveRecord::Base
   validates :showers, :outhouse, :dump, :rustic, :rv, :backcountry, :horse,
             allow_nil:true, inclusion: { in: [true, false] }
   #before_save :analyze_toilets
-
-  def to_json_v1
-    electric_bool =  if self.electric_sites && self.electric_sites > 0
-      true 
-    elsif self.electric_sites && self.electric_sites == 0
-      false
-    else
-      nil
-    end
-    warning = if self.boatin
-      "Might only accessible by boat."
-    else
-      nil
-    end
-
-    json = {
-      id: self.id,
-      name: self.name,
-      state: self.state_abbrev,
-      owner: self.owner,
-      latitude: self.latitude,
-      longitude: self.longitude,
-      elevation: self.elevation,
-      phone: self.phone,
-      url: self.url,
-      showers: self.showers,
-      dump: self.dump,
-      electricity:self.electricity,
-      likely_toilets: self.likely_toilets,
-      no_toilets: self.no_toilets,
-      water: self.water,
-      electric_sites: electric_bool,
-      rustic: self.rustic,
-      rv: self.rv,
-      backcountry: self.backcountry,
-      horse: self.horse,
-      warning: warning }
-  end
-
-  def to_geojson
-
-    geojson = {
-      type: 'Feature',
-      geometry: {
-        type: 'Point',
-        coordinates: [self.longitude, self.latitude]
-      },
-      properties: {
-        title: self.name,
-        campsiteId:self.id,
-        # Extra data for iOS search:
-        #reservable: self.reservable,
-        #walkins: self.walkins,
-        #avg_rating: self.avg_rating,
-        #ranking: self.rank,
-        #tribes_dict: self.tribes.each {|tribe| self.tribes << tribe.to_json },
-        #reviews_dict: self.reviews.each { |review| self.reviews << review.to_json },
-        :'marker-color' => "\#09b",
-        :'marker-symbol' => 'campsite',
-        :'marker-size' => 'large'
-      }
-    }
-
-  end
 
   def add_city_and_address
     geo_results = Geocoder.search("#{self.latitude}, #{self.longitude}")

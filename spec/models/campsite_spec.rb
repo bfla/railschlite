@@ -32,6 +32,8 @@ RSpec.describe Campsite, :type => :model do
 
     it { is_expected.to respond_to(:to_json_v1) }
     it { is_expected.to respond_to(:to_geojson) }
+    it { is_expected.to respond_to(:name_search) }
+    it { is_expected.to respond_to(:map_search) }
     it { is_expected.to respond_to(:add_city_and_address) }
     it { is_expected.to be_valid }
   end
@@ -148,7 +150,7 @@ RSpec.describe Campsite, :type => :model do
     end
   end
 
-  # METHODS FOR UI LOGIC ============================================================================================
+  # METHODS FOR SEARCH/MAPPING LOGIC ============================================================================================
   describe "to_geojson" do 
     it "should respond with campsite properties" do
       json = JSON.parse(@campsite.to_geojson.to_json)
@@ -158,6 +160,12 @@ RSpec.describe Campsite, :type => :model do
       json = JSON.parse(@campsite.to_geojson.to_json)
       expect(json["geometry"]["coordinates"][0]).to eq @campsite.longitude
     end
+  end
+
+  describe "map_search method" do
+  end
+
+  describe "name_search method" do
   end
 
   # METHODS FOR SEEDING DATA ========================================================================================
