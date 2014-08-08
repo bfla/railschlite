@@ -1,6 +1,9 @@
 Chlite::Application.routes.draw do
 
+  resources :cities
+
   post :dest_import, to:"destinations#import", as:"dest_import"
+  post :cit_import, to:"cities#import", as:"cit_import"
 
   resources :states
   resources :destinations

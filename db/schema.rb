@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140808161215) do
+ActiveRecord::Schema.define(version: 20140808165512) do
 
   create_table "campsites", force: true do |t|
     t.string   "name"
@@ -60,9 +60,11 @@ ActiveRecord::Schema.define(version: 20140808161215) do
     t.boolean  "on_lake"
     t.boolean  "on_river"
     t.integer  "state_id"
+    t.integer  "city_id"
   end
 
   add_index "campsites", ["backcountry"], name: "index_campsites_on_backcountry"
+  add_index "campsites", ["city_id"], name: "index_campsites_on_city_id"
   add_index "campsites", ["dump"], name: "index_campsites_on_dump"
   add_index "campsites", ["horse"], name: "index_campsites_on_horse"
   add_index "campsites", ["latitude"], name: "index_campsites_on_latitude"
@@ -70,6 +72,27 @@ ActiveRecord::Schema.define(version: 20140808161215) do
   add_index "campsites", ["rustic"], name: "index_campsites_on_rustic"
   add_index "campsites", ["rv"], name: "index_campsites_on_rv"
   add_index "campsites", ["showers"], name: "index_campsites_on_showers"
+  add_index "campsites", ["state_id"], name: "index_campsites_on_state_id"
+
+  create_table "cities", force: true do |t|
+    t.integer  "state_id"
+    t.string   "name"
+    t.string   "state_abbrev"
+    t.string   "state_hashtag"
+    t.text     "description"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.integer  "zoom"
+    t.string   "slug"
+    t.integer  "campsites_count", default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "cities", ["latitude"], name: "index_cities_on_latitude"
+  add_index "cities", ["longitude"], name: "index_cities_on_longitude"
+  add_index "cities", ["slug"], name: "index_cities_on_slug"
+  add_index "cities", ["state_id"], name: "index_cities_on_state_id"
 
   create_table "destinations", force: true do |t|
     t.integer  "state_id"

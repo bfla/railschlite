@@ -1,9 +1,10 @@
 FactoryGirl.define do
 
   factory :campsite do
+    state
+    city
     name        'Tranquil Dawn Campground'
     state_abbrev 'PR'
-    state
     latitude    44.91311
     longitude   -86.02031
     elevation   30
@@ -16,9 +17,10 @@ FactoryGirl.define do
   end
 
   factory :nearby_campsite, class: Campsite do
+    state
+    city
     name        'Nearby Sublime Campground'
     state_abbrev 'PR'
-    state
     latitude    44.91311
     longitude   -86.02031
     elevation   29
@@ -32,7 +34,7 @@ FactoryGirl.define do
 
   factory :state do
     name            'Puerto Rico'
-    abbrev    'PR'
+    abbrev          'PR'
     description     'Tropical paradis, ideal for camping!'
     hashtag         '51stCampers'
     zoom            10
@@ -40,9 +42,21 @@ FactoryGirl.define do
     longitude       -86.02031
   end
 
-  factory :destination do
-    name        "Lilliput"
+  factory :city do
     state
+    name            'Gotham'
+    state_abbrev    'PR'
+    state_hashtag   '51stCampers'
+    description     'Dirty. High crime. Vigilantes running around in bat costumes.'
+    latitude        44.91311
+    longitude       -86.02031
+    zoom            6
+
+  end
+
+  factory :destination do
+    state
+    name        "Lilliput"
     latitude    44.91311
     longitude   -86.02031
     zoom        6

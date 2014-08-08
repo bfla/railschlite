@@ -1,46 +1,47 @@
 - content_for :body_class, "scaffold"
-h1 Listing destinations
-
-table
-  thead
-    tr
-      th State
-      th Name
-      th Description
-      th Latitude
-      th Longitude
-      th Zoom
-      th Radius
-      th Slug
-      th Highlights
-      th Things to do
-      th Camping tips
-      th
-      th
-      th
-
-  tbody
-    - @destinations.each do |destination|
+.row
+  h1 Listing destinations
+.row
+  table
+    thead
       tr
-        td = destination.state_id
-        td = destination.name
-        td = destination.description
-        td = destination.latitude
-        td = destination.longitude
-        td = destination.zoom
-        td = destination.radius
-        td = destination.slug
-        td = destination.highlights
-        td = destination.things_to_do
-        td = destination.camping_tips
-        td = link_to 'Show', destination
-        td = link_to 'Edit', edit_destination_path(destination)
-        td = link_to 'Destroy', destination, data: {:confirm => 'Are you sure?'}, :method => :delete
+        th State
+        th Name
+        th Description
+        th Latitude
+        th Longitude
+        th Zoom
+        th Radius
+        th Slug
+        th Highlights
+        th Things to do
+        th Camping tips
+        th
+        th
+        th
 
-br
+    tbody
+      - @destinations.each do |destination|
+        tr
+          td = destination.state_id
+          td = destination.name
+          td = destination.description
+          td = destination.latitude
+          td = destination.longitude
+          td = destination.zoom
+          td = destination.radius
+          td = destination.slug
+          td = destination.highlights
+          td = destination.things_to_do
+          td = destination.camping_tips
+          td = link_to 'Show', destination
+          td = link_to 'Edit', edit_destination_path(destination)
+          td = link_to 'Destroy', destination, data: {:confirm => 'Are you sure?'}, :method => :delete
 
-= link_to 'New Destination', new_destination_path
-br
-= form_tag dest_import_path, multipart:true  do
-  = file_field_tag :file
-  = submit_tag "Import CSV"
+  br
+.row
+  = link_to 'New Destination', new_destination_path
+  br
+  = form_tag dest_import_path, multipart:true  do
+    = file_field_tag :file
+    = submit_tag "Import CSV"

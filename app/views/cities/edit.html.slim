@@ -1,0 +1,10 @@
+-content_for :body_class, "scaffold"
+.row
+  h1 Editing city
+.row
+  == render 'form'
+.row
+  = link_to 'Show', @city
+  '|
+  = link_to 'Back', cities_path
+

@@ -1,0 +1,32 @@
+-content_for :body_class, "scaffold"
+.row
+  p#notice = notice
+.row
+  p
+    strong State:
+    = @city.state_id
+  p
+    strong Name:
+    = @city.name
+  p
+    strong Description:
+    = @city.description
+  p
+    strong Latitude:
+    = @city.latitude
+  p
+    strong Longitude:
+    = @city.longitude
+  p
+    strong Zoom:
+    = @city.zoom
+  p
+    strong Slug:
+    = @city.slug
+  p
+    strong Campsites count:
+    = @city.campsites_count
+.row
+  = link_to 'Edit', edit_city_path(@city)
+  '|
+  = link_to 'Back', cities_path
