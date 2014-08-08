@@ -6,14 +6,14 @@
 - content_for :body_class, "no-container"
 
 // HEADER ===================================================
-#mobile-teaser-header alt="An image of CampHero's iOS app. The background depicts camping-like scenery." title="Find Michigan Campgrounds with CampHero's iOS app" style='background-image:url("#{request.protocol}#{request.host_with_port}#{ asset_path "/images/backgrounds/blurry.jpg"}"); height:500px;'
+#mobile-teaser-header alt="CampHero's background image for its header is a photo of beautiful Bay View Campground in Michigan." description="Find Michigan Campgrounds with CampHero's iOS app" style='background-image:url("#{request.protocol}#{request.host_with_port}#{ asset_path "/images/backgrounds/redwoods.jpg"}"); height:500px;'
   .container.pad-top-xl
     .row
       h1.white-text.promo-heading.text-center CampHero
       p.lead.white-text.text-center 
-        | Find campgrounds & campsites super-easily (USA only)
-        br
-        | More than 18,000 campgrounds & growing
+        | Find awesome campgrounds
+        br 
+        | Camp like a superhero
     .row
         = form_tag searches_path, method: "get", class: "form", role: "search" do
           = label_tag :keywords, 'Where do you want to go?', class: 'sr-only'
@@ -26,6 +26,7 @@
                     span.glyphicon.glyphicon-search
                     |  Find campsites!
                   .visible-xs Go!
+
 // Below the fold ===============================================
 .container
   p.col-md-offset-3
@@ -34,3 +35,11 @@
       /= image_tag "/images/icons/AppStoreBadge.png", class:"img"
   .col-md-offset-2.col-md-5
     /= image_tag "/images/landing/5s-with-iPod.png", class:"img img-responsive pad-top-lg"
+
+// License ====================================================
+.container
+  .row
+    p.subtle-text.pad-top-xl
+      small
+        | Photo credits: Redwoods @MichaelBalint (header, modified from original).&nbsp;
+      a.subtle-text href="http://creativecommons.org/licenses/by/2.0/" Creative Commons Attribution License.

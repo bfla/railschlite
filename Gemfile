@@ -53,6 +53,7 @@ gem 'bootstrap-sass', '~> 3.0.3.0'
 gem 'slim-rails'
 gem 'gon'
 gem 'kaminari'
+gem 'clearance'
 
 group :development, :test do
   gem 'sqlite3' # use sqlite3 during development and testing
