@@ -18,6 +18,11 @@ class DestinationsController < ApplicationController
     @destination = Destination.new
   end
 
+  def import
+    Destination.import(params[:file])
+    redirect_to root_url, notice:"imported!"
+  end
+
   # GET /destinations/1/edit
   def edit
   end
@@ -70,6 +75,6 @@ class DestinationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def destination_params
-      params.require(:destination).permit(:state_id, :name, :description, :latitude, :longitude, :zoom, :radius, :slug, :highlights, :things_to_do, :camping_tips)
+      params.require(:destination).permit(:state_id, :name, :description, :latitude, :longitude, :zoom, :radius, :slug, :highlights, :things_to_do, :camping_tips, :file)
     end
 end

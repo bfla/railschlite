@@ -1,7 +1,9 @@
 Chlite::Application.routes.draw do
-  resources :destinations
+
+  post :dest_import, to:"destinations#import", as:"dest_import"
 
   resources :states
+  resources :destinations
 
   get :unauthorized, to:"pages#unauthorized", as:"unauthorized"
 

@@ -1,6 +1,11 @@
 class Campsite < ActiveRecord::Base
   extend CampsiteSearchers
   include CampsiteFormatters
+  # include CampsiteDataHandlers
+
+  #extend FriendlyId
+  #friendly_id :slug_me_up, use: :slugged
+
   reverse_geocoded_by :latitude, :longitude, address: :location
   belongs_to :state, counter_cache: :campsites_count
   validates :name, presence:true, allow_blank:false
@@ -36,6 +41,15 @@ class Campsite < ActiveRecord::Base
     CSV.foreach(file.path, headers:true) do |row|
       Campsite.create! row.to_hash
       #sleep(0.5)
+    end
+  end
+
+  # Format URLs like this
+  def slug_me_up
+    if name
+      "#{name} in #{city_name} #{state_abbrev} camping"
+    else
+      ""
     end
   end
 end

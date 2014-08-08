@@ -40,3 +40,7 @@ table
 br
 
 = link_to 'New Destination', new_destination_path
+br
+= form_tag dest_import_path, multipart:true  do
+  = file_field_tag :file
+  = submit_tag "Import CSV"

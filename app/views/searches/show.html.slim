@@ -12,7 +12,7 @@ input#activeTribeId type="hidden" value="0"
 input#activeReservableFilter type="hidden" value="false"
 input#activeWalkinsFilter type="hidden" value="false"
 // Results area
-#results-container.col-md-4.well.white.fill-height.remove-bottom-margin.pad-left-sm
+#results-container.col-md-4.well.white.fill-height.remove-bottom-margin.pad-left-sm.hidden-sm.hidden-xs
   .result-list.fill-height
     / Filters============================================
     .row
@@ -65,7 +65,7 @@ input#activeWalkinsFilter type="hidden" value="false"
           | CampHero &copy 2014&nbsp;
           = link_to 'Terms', terms_path
 // MAP ===========================================================================================================
-.mapColumn.col-md-8.fill-height.no-spacing.hidden-xs
+.mapColumn.col-md-8.fill-height.no-spacing
   script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.js'
   / Map
   #resultsMap
