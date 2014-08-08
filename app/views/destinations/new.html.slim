@@ -1,5 +1,7 @@
-h1 New destination
-
-== render 'form'
-
-= link_to 'Back', destinations_path
+- content_for :body_class, "scaffold"
+.row
+  h1 New destination
+.row
+  == render 'form'
+.row
+  = link_to 'Back', destinations_path

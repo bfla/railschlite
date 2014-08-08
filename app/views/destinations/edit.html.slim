@@ -1,8 +1,9 @@
-h1 Editing destination
-
-== render 'form'
-
-= link_to 'Show', @destination
-'|
-= link_to 'Back', destinations_path
-
+- content_for :body_class, "scaffold"
+.row
+  h1 Editing destination
+.row
+  == render 'form'
+.row
+  = link_to 'Show', @destination
+  '|
+  = link_to 'Back', destinations_path

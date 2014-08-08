@@ -1,6 +1,6 @@
 class DestinationsController < ApplicationController
   before_action :set_destination, only: [:show, :edit, :update, :destroy]
-  before_action :verify_admin, except: [:show]
+  #before_action :verify_admin, except: [:show]
 
   # GET /destinations
   # GET /destinations.json

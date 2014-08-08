@@ -1,39 +1,41 @@
-p#notice = notice
+- content_for :body_class, "scaffold"
+.row
+  p#notice = notice
 
-p
-  strong State:
-  = @destination.state_id
-p
-  strong Name:
-  = @destination.name
-p
-  strong Description:
-  = @destination.description
-p
-  strong Latitude:
-  = @destination.latitude
-p
-  strong Longitude:
-  = @destination.longitude
-p
-  strong Zoom:
-  = @destination.zoom
-p
-  strong Radius:
-  = @destination.radius
-p
-  strong Slug:
-  = @destination.slug
-p
-  strong Highlights:
-  = @destination.highlights
-p
-  strong Things to do:
-  = @destination.things_to_do
-p
-  strong Camping tips:
-  = @destination.camping_tips
+  p
+    strong State:
+    = @destination.state_id
+  p
+    strong Name:
+    = @destination.name
+  p
+    strong Description:
+    = @destination.description
+  p
+    strong Latitude:
+    = @destination.latitude
+  p
+    strong Longitude:
+    = @destination.longitude
+  p
+    strong Zoom:
+    = @destination.zoom
+  p
+    strong Radius:
+    = @destination.radius
+  p
+    strong Slug:
+    = @destination.slug
+  p
+    strong Highlights:
+    = @destination.highlights
+  p
+    strong Things to do:
+    = @destination.things_to_do
+  p
+    strong Camping tips:
+    = @destination.camping_tips
 
-= link_to 'Edit', edit_destination_path(@destination)
-'|
-= link_to 'Back', destinations_path
+  = link_to 'Edit', edit_destination_path(@destination)
+  '|
+  = link_to 'Back', destinations_path
