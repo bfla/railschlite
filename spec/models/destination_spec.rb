@@ -20,6 +20,4 @@ RSpec.describe Destination, :type => :model do
     it { is_expected.to respond_to(:camping_tips) }
   end
 
-  
-
 end

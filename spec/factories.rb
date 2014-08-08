@@ -49,7 +49,7 @@ FactoryGirl.define do
     radius      30
     description "This place is neat but too small"
     highlights  "Huge Gulliver.  Small people."
-    things_to_to "Tie down huge Gulliver"
+    things_to_do "Tie down huge Gulliver"
     camping_tips "Watch out for the little people. They bite."
   end
 
