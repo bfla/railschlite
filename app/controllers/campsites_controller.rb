@@ -5,7 +5,7 @@ class CampsitesController < ApplicationController
   # GET /campsites
   # GET /campsites.json
   def index
-    @campsites = Campsite.all.last(100)
+    @campsites = Campsite.page(params[:page]).per(100)
   end
 
   # GET /campsites/1
@@ -73,6 +73,6 @@ class CampsitesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def campsite_params
-      params.require(:campsite).permit(:name, :state_abbrev, :latitude, :longitude, :elevation, :phone, :total_sites, :electric_sites, :outhouse, :showers, :dump)
+      params.require(:campsite).permit(:name, :state_abbrev, :latitude, :longitude, :elevation, :phone, :total_sites, :electric_sites, :outhouse, :showers, :dump, :page)
     end
 end

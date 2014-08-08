@@ -1,11 +1,11 @@
 class DestinationsController < ApplicationController
   before_action :set_destination, only: [:show, :edit, :update, :destroy]
-  #before_action :verify_admin, except: [:show]
+  #before_action :verify_admin, except: [:index, :show]
 
   # GET /destinations
   # GET /destinations.json
   def index
-    @destinations = Destination.all
+    @destinations = Destination.page(params[:page]).per(50)
   end
 
   # GET /destinations/1
@@ -75,6 +75,6 @@ class DestinationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def destination_params
-      params.require(:destination).permit(:state_id, :name, :description, :latitude, :longitude, :zoom, :radius, :slug, :highlights, :things_to_do, :camping_tips, :file)
+      params.require(:destination).permit(:state_id, :name, :description, :latitude, :longitude, :zoom, :radius, :slug, :highlights, :things_to_do, :camping_tips, :file, :page)
     end
 end

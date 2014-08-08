@@ -1,10 +1,11 @@
 class CitiesController < ApplicationController
   before_action :set_city, only: [:show, :edit, :update, :destroy]
+  #before_action :verify_admin, except:[:show, :index]
 
   # GET /cities
   # GET /cities.json
   def index
-    @cities = City.all
+    @cities = City.page(params[:page]).per(50)
   end
 
   # GET /cities/1
@@ -74,6 +75,6 @@ class CitiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def city_params
-      params.require(:city).permit(:state_id, :name, :description, :latitude, :longitude, :zoom, :slug, :campsites_count)
+      params.require(:city).permit(:state_id, :name, :description, :latitude, :longitude, :zoom, :slug, :campsites_count, :file, :page)
     end
 end

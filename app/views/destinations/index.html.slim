@@ -1,45 +1,26 @@
+- content_for :title, "U.S. Camping Destinations"
+- content_for :head
+  meta name="description" content="Top U.S. Camping Destinations on CampHero. CampHero has web pages for the top camping destinations in the US including information about which campgrounds are nearby."
+  meta name="keywords" content="CampHero, camping, campgrounds, top U.S. camping destinations, USA camping destinations, travel, RV parks, backpacking, backcountry camping"
+  
+
 - content_for :body_class, "scaffold"
 .row
-  h1 Listing destinations
+  h1.text-center U.S. Camping Destinations
+  p.col-md-6.col-md-offset-3.text-center CampHero has guides for top camping destinations in the US, including tips about where to camp and lists of campgrounds near the destination.  You can find them on this list, but most of the time it's easier to <a href="#{root_path}">search for campgrounds.</a>
+.row.text-center = paginate @destinations
 .row
-  table
-    thead
-      tr
-        th State
-        th Name
-        th Description
-        th Latitude
-        th Longitude
-        th Zoom
-        th Radius
-        th Slug
-        th Highlights
-        th Things to do
-        th Camping tips
-        th
-        th
-        th
-
-    tbody
-      - @destinations.each do |destination|
-        tr
-          td = destination.state_id
-          td = destination.name
-          td = destination.description
-          td = destination.latitude
-          td = destination.longitude
-          td = destination.zoom
-          td = destination.radius
-          td = destination.slug
-          td = destination.highlights
-          td = destination.things_to_do
-          td = destination.camping_tips
-          td = link_to 'Show', destination
-          td = link_to 'Edit', edit_destination_path(destination)
-          td = link_to 'Destroy', destination, data: {:confirm => 'Are you sure?'}, :method => :delete
+  - @destinations.each do |destination|
+    p.text-center
+      = link_to "Campgrounds near #{destination.name}", destination
+      = link_to 'Edit', edit_destination_path(destination)
+      = link_to 'Destroy', destination, data: {:confirm => 'Are you sure?'}, :method => :delete
 
   br
-.row
+.row.text-center
+  = paginate @destinations
+
+.row.text-center
   = link_to 'New Destination', new_destination_path
   br
   = form_tag dest_import_path, multipart:true  do
