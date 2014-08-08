@@ -9,6 +9,15 @@ nav.navbar.navbar-fixed-top.navbar-inverse.navbar-color.navbar-border role="navi
         span.icon-bar
         span.icon-bar
       a.navbar-brand.brand href=root_path CampHero
+      = form_tag searches_path, method: "get", class: "navbar-form navbar-left navbar-input-group", role: "search" do
+        .form-group
+          = label_tag :keywords, 'Find camping near...', class: 'sr-only'
+          = text_field_tag :keywords, params[:keywords], class: "form-control navBarSearchTracker", placeholder: "Find camping near..."
+        .btn-group
+          button.btn.btn-default type='submit' 
+            .hidden-xs
+              span.glyphicon.glyphicon-search
+            .visible-xs Go!
     .navbar-right.hidden-xs
       button#listing-btn.btn.btn-success.btn-sm Add a listing
     / Collect the nav links, forms, and other content for toggling

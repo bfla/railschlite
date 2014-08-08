@@ -1,4 +1,36 @@
-- content_for :title, "CampHero Lite"
+- content_for :title, "CampHero: Find Super Campgrounds"
+- content_for :head
+  meta name="keywords" contents="CampHero, campgrounds, tent camping, RV parks, backcountry camping, backpacking, USA campground finder, camping superpowers"
+  meta name="description" content="Find campgrounds on CampHero.  CampHero has more than 18,000 campgrounds (virtually all of the public ones in the continental USA and a growing number of private campgrounds. It includes rustic campgrounds, RV parks, and a growing number of backcountry & equestrian campsites."
 
-h1.pad-heading.text-center CampHero Lite
-p.lead.text-center Supercharge your camping
+- content_for :body_class, "no-container"
+
+// HEADER ===================================================
+#mobile-teaser-header alt="An image of CampHero's iOS app. The background depicts camping-like scenery." title="Find Michigan Campgrounds with CampHero's iOS app" style='background-image:url("#{request.protocol}#{request.host_with_port}#{ asset_path "/images/backgrounds/blurry.jpg"}"); height:500px;'
+  .container.pad-top-xl
+    .row
+      h1.white-text.promo-heading.text-center CampHero
+      p.lead.white-text.text-center 
+        | Find campgrounds & campsites super-easily (USA only)
+        br
+        | More than 18,000 campgrounds & growing
+    .row
+        = form_tag searches_path, method: "get", class: "form", role: "search" do
+          = label_tag :keywords, 'Where do you want to go?', class: 'sr-only'
+          .col-md-6.col-md-offset-3
+            .input-group
+              = text_field_tag :keywords, params[:keywords], class: "form-control input-lg", placeholder: "Where do you want to go?"
+              span.input-group-btn.homeSearchBtnTracker
+                button.btn.btn-success.btn-lg type='submit' 
+                  .hidden-xs
+                    span.glyphicon.glyphicon-search
+                    |  Find campsites!
+                  .visible-xs Go!
+// Below the fold ===============================================
+.container
+  p.col-md-offset-3
+    /a href=app_store_url title="Get the iOS app"
+      GET THE FREE IOS APP
+      /= image_tag "/images/icons/AppStoreBadge.png", class:"img"
+  .col-md-offset-2.col-md-5
+    /= image_tag "/images/landing/5s-with-iPod.png", class:"img img-responsive pad-top-lg"

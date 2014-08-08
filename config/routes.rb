@@ -26,7 +26,7 @@ Chlite::Application.routes.draw do
   end
 
   #root to:"pages#home"
-  root to:"searches#show"
+  root to:"pages#home"
   get :terms, to:"pages#terms", as:"terms"
   get :privacy, to:"pages#privacy", as:"privacy"
   get :takedown, to:"pages#takedown", as:"takedown"
