@@ -13,7 +13,7 @@ html.fill-height
     == render 'shared/headscripts'
     == yield :head_javascripts
 
-  body class="#{yield :body_class || fill-height.background}"
+  body class="#{yield :body_class || 'fill-height'}"
     - if notice
         .col-md-10.col-md-offset-1.pad-top-xl
             .panel.panel-primary
@@ -38,7 +38,8 @@ html.fill-height
     == yield
 
     / Footer goes here
-    == render 'shared/footer'
+    div class="#{yield :footer_class}"
+        == render 'shared/footer'
     
     == yield :end
     == render 'shared/bottomScripts'

@@ -48,6 +48,9 @@ module CampsiteFormatters
       properties: {
         title: self.name,
         campsiteId:self.id,
+        rustic:self.rustic,
+        rv:self.rv,
+        backcountry:self.backcountry,
         # Extra data for iOS search:
         #reservable: self.reservable,
         #walkins: self.walkins,

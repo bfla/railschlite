@@ -1,0 +1,32 @@
+- content_for :body_class, "scaffold"
+.row
+  p#notice = notice
+
+  p
+    strong Name:
+    = @state.name
+  p
+    strong Abbrev:
+    = @state.abbrev
+  p
+    strong Description:
+    = @state.description
+  p
+    strong Latitude:
+    = @state.latitude
+  p
+    strong Longitude:
+    = @state.longitude
+  p
+    strong Hashtag:
+    = @state.hashtag
+  p
+    strong Zoom:
+    = @state.zoom
+  p
+    strong Slug:
+    = @state.slug
+
+  = link_to 'Edit', edit_state_path(@state)
+  '|
+  = link_to 'Back', states_path

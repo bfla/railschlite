@@ -2,6 +2,7 @@ class Campsite < ActiveRecord::Base
   extend CampsiteSearchers
   include CampsiteFormatters
   reverse_geocoded_by :latitude, :longitude, address: :location
+  belongs_to :state, counter_cache: :campsites_count
   validates :name, presence:true, allow_blank:false
   validates :state_abbrev, presence:true, allow_blank:false
   validates :phone, allow_nil:true, numericality: { only_integer: true }

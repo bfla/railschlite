@@ -1,0 +1,36 @@
+- content_for :body_class, "scaffold"
+h1 Listing states
+
+table
+  thead
+    tr
+      th Name
+      th Abbrev
+      th Description
+      th Latitude
+      th Longitude
+      th Hashtag
+      th Zoom
+      th Slug
+      th
+      th
+      th
+
+  tbody
+    - @states.each do |state|
+      tr
+        td = state.name
+        td = state.abbrev
+        td = state.description
+        td = state.latitude
+        td = state.longitude
+        td = state.hashtag
+        td = state.zoom
+        td = state.slug
+        td = link_to 'Show', state
+        td = link_to 'Edit', edit_state_path(state)
+        td = link_to 'Destroy', state, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New State', new_state_path

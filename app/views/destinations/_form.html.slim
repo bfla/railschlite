@@ -1,0 +1,42 @@
+= form_for @destination do |f|
+  - if @destination.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@destination.errors.count, "error")} prohibited this destination from being saved:"
+      ul
+        - @destination.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :state_id
+    = f.number_field :state_id
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :description
+    = f.text_area :description
+  .field
+    = f.label :latitude
+    = f.text_field :latitude
+  .field
+    = f.label :longitude
+    = f.text_field :longitude
+  .field
+    = f.label :zoom
+    = f.number_field :zoom
+  .field
+    = f.label :radius
+    = f.number_field :radius
+  .field
+    = f.label :slug
+    = f.text_field :slug
+  .field
+    = f.label :highlights
+    = f.text_area :highlights
+  .field
+    = f.label :things_to_do
+    = f.text_area :things_to_do
+  .field
+    = f.label :camping_tips
+    = f.text_area :camping_tips
+  .actions = f.submit 'Save'

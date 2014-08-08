@@ -163,12 +163,22 @@ RSpec.describe Campsite, :type => :model do
   end
 
   describe "map_search method" do
+    it "should respond with nearby campsites" do
+      results = Campsite.map_search("#{@campsite.latitude}, #{@campsite.longitude}", 10, 30)
+      expect(results.first).to be_include @campsite
+    end
   end
 
   describe "name_search method" do
+    it "should respond with campsite when the name matches" do
+      expect(Campsite.name_search(@campsite.name).first).to eq @campsite
+    end
+    it "should not respond with campsite when the name does not match" do
+      expect(Campsite.name_search("banana")).to be_blank
+    end
   end
 
-  # METHODS FOR SEEDING DATA ========================================================================================
+  # METHODS FOR GENERATING DATA ========================================================================================
   describe "analyze_toilets method" do
     describe "should run before_save" do
     end

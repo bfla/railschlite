@@ -1,3 +1,80 @@
 // Place all the styles related to the Searches controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+// Seach page ===============================
+#resultsMap {
+  height:100%;
+  width:100%;
+  //height:800px;
+  //width:800px;
+  position:absolute;
+}
+
+#map {
+  padding-top:70px;
+  height:400px;
+  width:400px;
+  position:absolute;
+}
+
+#searchReset {
+  padding-bottom:0px;
+  background:rgba(0.1, 0.1, 0.1, .6);
+}
+
+.popupText {
+    padding-top:$sm-spacing;
+}
+
+#results-container {
+  min-height:100%;
+  padding-top: $top-navbar-height;
+  overflow-y: auto; 
+  overflow-x: hidden;
+  max-height:100%;
+}
+
+#results-container::-webkit-scrollbar{
+  width:5px;
+  background-color:#e1e1e1;
+}
+
+#results-container::-webkit-scrollbar-thumb{
+  background-color:#cccccc;
+}
+
+.activeSearchFilter {
+  border: 2px solid #65b045; 
+  background:#d5eacb;
+}
+
+.searchFilterThumbnail {
+  margin-bottom:5px;
+  padding:5px;
+}
+
+.result-list {padding-top:$md-spacing;}
+
+#filter-chevron {font-size:32px;}
+
+#map-ui {
+  position: absolute; 
+  top: 60px; 
+  left: 5px; 
+  z-index: 100; 
+  margin-left:5px; 
+  padding-left:5px;
+}
+
+#search-reset-glyph {
+  font-size:40px; 
+  color:#666666;
+}
+
+#map-notice {
+  position:absolute; 
+  top: 60px; 
+  right:5px; 
+  z-index:100;
+}

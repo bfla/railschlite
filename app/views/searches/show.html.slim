@@ -1,0 +1,88 @@
+- content_for :title, "CampHero - Find campsites"
+- content_for :body_class, "fill-height"
+
+- content_for :head
+  meta name="keywords" contents='Camping, travel, CampHero, campgrounds, find campgrounds, rustic camping, rv parks, budget camping, camping sites, backcountry camping, backcountry camping, rv campgrounds'
+  meta name="description" content="CampHero makes it ultra-easy to find campsites.  It has a complete listing of public campgrounds (and many private campgrounds) in the USA, including rustic campgrounds, RV campgrounds, and backcountry or backpacking camping sites."
+  link href='//api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.css' rel='stylesheet'
+
+// BODY CONTENT ===============================================
+// Hidden inputs
+input#activeTribeId type="hidden" value="0"
+input#activeReservableFilter type="hidden" value="false"
+input#activeWalkinsFilter type="hidden" value="false"
+// Results area
+#results-container.col-md-4.well.white.fill-height.remove-bottom-margin.pad-left-sm
+  .result-list.fill-height
+    / Filters============================================
+    .row
+      .col-md-3
+        #allSearchFilter.searchFilterThumbnail.thumbnail.searchTribeFilterTracker data-tribe-id="0"
+          = image_tag 'icons/Rustic120.png', class:'img-circle img-responsive tribe-background'
+        p.no-spacing.text-center
+            small.no-spacing
+              small.no-spacing Show all
+      .col-md-3
+        .searchFilterThumbnail.thumbnail.searchTribeFilterTracker data-tribe-id="1"
+          = image_tag 'icons/Rustic120.png', class:'img-circle img-responsive tribe-background'
+        p.no-spacing.text-center
+            small.no-spacing
+              small.no-spacing Rustic
+      .col-md-3
+        .searchFilterThumbnail.thumbnail.searchTribeFilterTracker data-tribe-id="2"
+          = image_tag 'icons/RV120.png', class:'img-circle img-responsive tribe-background'
+        p.no-spacing.text-center
+            small.no-spacing
+              small.no-spacing RV
+      .col-md-3
+        .searchFilterThumbnail.thumbnail.searchTribeFilterTracker data-tribe-id="3"
+          = image_tag 'icons/Backcountry120.png', class:'img-circle img-responsive tribe-background'
+        p.no-spacing.text-center
+            small.no-spacing
+              small.no-spacing Backcountry
+
+    / If no results ===============
+    - if @campsites.blank?
+      .row.results.pad-top-lg
+        .col-md-12
+          .panel.panel-warning
+            .panel-heading Super-frick!  No campsites matched your search.
+            .panel-body
+              ul
+                li Maybe my advanced computer brain didn't recognize the place you entered.
+                li Maybe you did nothing wrong and I just messed up.  If so, I am ultra-sorry.  Even heroes make mistakes.  Maybe my servers are down.
+
+    // RESULTS ===================================================================================================
+    - else
+      - @campsites.each do |campsite|
+        p.searchResult data-rustic="#{campsite.rustic}" data-rv="#{campsite.rv}" data-backcountry="#{campsite.backcountry}" 
+          = link_to campsite.name, campsite
+
+    / Legal boilerplate =============================================
+    .row
+      p.col-md-12
+        small.subtle-text 
+          | CampHero &copy 2014&nbsp;
+          = link_to 'Terms', terms_path
+// MAP ===========================================================================================================
+.mapColumn.col-md-8.fill-height.no-spacing.hidden-xs
+  script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.js'
+  / Map
+  #resultsMap
+  / Reset button
+  #map-ui
+    button#searchReset.thumbnail.add-tooltip.searchMapResetTracker data-toggle="tooltip" type="submit" title="Search this area" data-placement="right"
+      span#search-reset-glyph.glyphicon.glyphicon-repeat
+  - if @campsites.size >= 50
+    #map-notice
+      .well.black.white-text 
+        small
+          | Your mighty search resulted in more than 50 campsites.
+          br
+          | Narrow your search-area to see more campsites.
+
+- content_for :footer_class, "hidden"
+
+javascript:
+  makeSearchMap(gon.center, gon.zoom, gon.geoJson);
+  

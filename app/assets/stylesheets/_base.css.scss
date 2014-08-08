@@ -54,6 +54,8 @@
                   margin:0px;}
 .no-margin {      margin:0px; }
 
+.hidden { display: hidden };
+
 h1 {              font-family:$brand-font;}
 
 .orange {
@@ -94,6 +96,7 @@ h1 {              font-family:$brand-font;}
 }
 
 .fill-width {width:100%;}
+.fill-height {    height:100%;} // add this to a body & html elements
 
 // Banner styles=================================
 @import 'navbar';
@@ -116,7 +119,6 @@ h1 {              font-family:$brand-font;}
                   height:$footer-height;}
 
 // Sticky footers==================================
-.fill-height {    height:100%;} // add this to a body & html elements
 #wrap {           min-height:100%;} // add this around the main page content
   
 #main { // add this to the main content or container div

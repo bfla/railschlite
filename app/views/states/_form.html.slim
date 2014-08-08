@@ -1,0 +1,33 @@
+= form_for @state do |f|
+  - if @state.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@state.errors.count, "error")} prohibited this state from being saved:"
+      ul
+        - @state.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :abbrev
+    = f.text_field :abbrev
+  .field
+    = f.label :description
+    = f.text_area :description
+  .field
+    = f.label :latitude
+    = f.text_field :latitude
+  .field
+    = f.label :longitude
+    = f.text_field :longitude
+  .field
+    = f.label :hashtag
+    = f.text_field :hashtag
+  .field
+    = f.label :zoom
+    = f.number_field :zoom
+  .field
+    = f.label :slug
+    = f.text_field :slug
+  .actions = f.submit 'Save'

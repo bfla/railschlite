@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140730142422) do
+ActiveRecord::Schema.define(version: 20140808161215) do
 
   create_table "campsites", force: true do |t|
     t.string   "name"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20140730142422) do
     t.boolean  "beach"
     t.boolean  "on_lake"
     t.boolean  "on_river"
+    t.integer  "state_id"
   end
 
   add_index "campsites", ["backcountry"], name: "index_campsites_on_backcountry"
@@ -69,5 +70,40 @@ ActiveRecord::Schema.define(version: 20140730142422) do
   add_index "campsites", ["rustic"], name: "index_campsites_on_rustic"
   add_index "campsites", ["rv"], name: "index_campsites_on_rv"
   add_index "campsites", ["showers"], name: "index_campsites_on_showers"
+
+  create_table "destinations", force: true do |t|
+    t.integer  "state_id"
+    t.string   "name"
+    t.text     "description"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.integer  "zoom"
+    t.integer  "radius"
+    t.string   "slug"
+    t.text     "highlights"
+    t.text     "things_to_do"
+    t.text     "camping_tips"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "destinations", ["slug"], name: "index_destinations_on_slug"
+  add_index "destinations", ["state_id"], name: "index_destinations_on_state_id"
+
+  create_table "states", force: true do |t|
+    t.string   "name"
+    t.string   "abbrev"
+    t.text     "description"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.string   "hashtag"
+    t.integer  "zoom"
+    t.integer  "campsites_count", default: 0
+    t.string   "slug"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "states", ["abbrev"], name: "index_states_on_abbrev"
 
 end

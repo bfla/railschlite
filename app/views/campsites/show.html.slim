@@ -4,20 +4,19 @@
   / Mapbox script
   script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.js'
 
-.container.beige-background.fill-width.below-navbar
- h1 Put photo header here
+
+#campsite-detail-header alt="Photo for #{@campsite.name}." title="Header for #{@campsite.name}" style='background-image:url("#{request.protocol}#{request.host_with_port}#{ asset_path "/images/backgrounds/blurry.jpg"}");'
 .beige-background.fill-width
-  .container
     / Header
     .row
       .col-md-offset-1.col-md-7.pad-top-lg
         img.img.img-responsive.col-md-2 src=tribe_icon(@campsite)
         h1.col-md-10
           = @campsite.name
-        p.col-md-10.dark-grey
-          | Host: #{@campsite.owner}
+        p.col-md-10.dark-grey.pad-bottom-lg
+          | #{tribe_name(@campsite)} campground in #{@campsite.state_abbrev}
           br
-          | Campground type: #{tribe_name(@campsite)}
+          | Host: #{@campsite.owner}
       - if @campsite.phone.present? or @campsite.url.present?
         .col-md-4
           #booking-box.col-md-12.margin-top-sm
@@ -39,9 +38,32 @@
   .row
     .col-md-offset-1.col-md-7.pad-top-lg
       h3.col-md-12 About #{@campsite.name}
-      p.col-md-12 "Yatta yatta yatta"
-      p.col-md-12 <a> Contact Host </a>
-    .col-md-4
+      p.col-md-12
+        | #{@campsite.name} is a 
+        - if @campsite.backcountry
+          |  backcountry camping area
+        - elsif @campsite.rv
+          |  RV-friendly campground and is a good fit for RV travelers.
+        - elsif @campsite.rustic
+          | rustic campground best suited for tent camping.
+        - if @campsite.backcountry
+          |  The camping area is managed by the #{@campsite.owner}.
+        - else
+          |  The campground is managed by the #{@campsite.owner}.
+        - if !@campsite.showers && !@campsite.electricity
+          |  Campsites here do not offer modern ameneties like showers or electricity
+          - if @campsite.outhouse || @campsite.likely_toilets
+            |  but there is a bathroom.
+          - elsif @campsite.no_toilets
+            |  and it does not have restrooms.
+          - else
+            |  but it probably has bathrooms (CampHero still needs to confirm this).
+        - if @campsite.showers || @campsite.electricity
+          |  Campsites here have modern ameneties.  (See details below.)
+        |  #{@campsite.name} is located in #{@campsite.state_abbrev}.
+
+      /p.col-md-12 <a> Contact Host </a>
+    /.col-md-4
       .col-md-12.pad-top-sm
         button.btn.btn-default.btn-lg.btn-block
           span.glyphicon.glyphicon-star-empty
@@ -122,18 +144,46 @@
         small Elevation: #{@campsite.elevation}'
 / These rows are too wide!
 .contaner
-  .row
+  /.row
     .col-md-offset-1.col-md-7.pad-top-xl
       h3.col-md-12 Campground Rules
       p.col-md-12 Hello there.  I have some rules.  They are as follows...
-  .row
+  /.row
     .col-md-offset-1.col-md-7.pad-top-lg
       hr.col-md-12
       h3.col-md-12 Description
       p.col-md-12 Put extra stuff here...
-  .row
+  - unless @nearbys.empty?
+    .row
+      .col-md-offset-1.col-md-11.pad-top-lg
+        /hr.col-md-12
+        h3.col-md-12 
+          | More Campgrounds Nearby &nbsp;
+          small = link_to "See all nearby campgrounds >>", searches_path(keywords:"#{@campsite.latitude}, #{@campsite.longitude}")
+    .row.pad-top-md
+      .col-md-offset-1.col-md-10
+        - @nearbys.first(4).each do |n|
+          .col-md-3.pad-top-md
+            a href=campsites_path(n)
+              .thumbnail.nearby-thumb
+                img.img.img-responsive src=tribe_icon(n)
+                h5.text-center = link_to truncate(n.name, length:20, seperator:" "), n
+    - if @nearbys.length > 4
+      .row.pad-top-md
+        .col-md-offset-1.col-md-10
+          - @nearbys[3..6].each do |n|
+            .col-md-3.pad-top-md
+              a href=campsites_path(n)
+                .thumbnail.nearby-thumb
+                  img.img.img-responsive src=tribe_icon(n)
+                  h5.text-center = link_to truncate(n.name, length:20, seperator:" "), n
+  /.row
     .col-md-offset-1.col-md-7.pad-top-lg
       hr.col-md-12
-      h3.col-md-12 More Campgrounds Nearby
-      p.col-md-12 Put extra stuff here...
+      h3.col-md-12 Reviews
+      p.col-md-12 Add reviews here...
 
+- content_for :footer_class, "pad-top-xl"
+
+javascript:
+  makeCampsiteMap();
