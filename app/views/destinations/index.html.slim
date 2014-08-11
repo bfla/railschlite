@@ -20,9 +20,10 @@
 .row.text-center
   = paginate @destinations
 
-.row.text-center
-  = link_to 'New Destination', new_destination_path
-  br
-  = form_tag dest_import_path, multipart:true  do
-    = file_field_tag :file
-    = submit_tag "Import CSV"
+- if admin_signed_in? && current_admin.approved?
+  .row.text-center
+    = link_to 'New Destination', new_destination_path
+    br
+    = form_tag upload_destination_path, multipart:true  do
+      = file_field_tag :file
+      = submit_tag "Import CSV"

@@ -32,5 +32,10 @@ table
         td = link_to 'Destroy', state, data: {:confirm => 'Are you sure?'}, :method => :delete
 
 br
-
-= link_to 'New State', new_state_path
+- if admin_signed_in? && current_admin.approved?
+  .row.text-center
+    = link_to 'New State', new_state_path
+    br
+    = form_tag upload_state_path, multipart:true  do
+      = file_field_tag :file
+      = submit_tag "Import CSV"

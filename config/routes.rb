@@ -1,22 +1,13 @@
 Chlite::Application.routes.draw do
 
+  devise_for :admins
   resources :cities
-
-  post :dest_import, to:"destinations#import", as:"dest_import"
-  post :cit_import, to:"cities#import", as:"cit_import"
-
   resources :states
   resources :destinations
 
-  get :unauthorized, to:"pages#unauthorized", as:"unauthorized"
-
   get :searches, to:"searches#show", as:"searches"
 
-  resources :campsites do
-    collection do
-      post 'import', to:"imports#create", as:"import"
-    end
-  end
+  resources :campsites
 
   namespace :api do
     namespace :v1 do
@@ -25,13 +16,21 @@ Chlite::Application.routes.draw do
     end
   end
 
-  #root to:"pages#home"
+  # STATIC PAGES =====================================================
   root to:"pages#home"
   get :terms, to:"pages#terms", as:"terms"
   get :privacy, to:"pages#privacy", as:"privacy"
   get :takedown, to:"pages#takedown", as:"takedown"
   get :mobile_teaser, to:"pages#mobile_teaser", as:"mobile_teaser"
   get :support, to:"pages#support", as:"support"
+  get :unauthorized, to:"pages#unauthorized", as:"unauthorized"
+
+  # IMPORTS ==========================================================
+  post :upload_destination, to:"imports#destination_import", as:"upload_destination"
+  post :upload_city, to:"imports#city_import", as:"upload_city"
+  post :upload_state, to:"imports#state_import", as:"upload_state"
+  post :special_one_time_import, to:"imports#special_one_time_import", as:"special_one_time_import"
+  post :upload_cg, to:"imports#campsite_import", as:"upload_cg"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

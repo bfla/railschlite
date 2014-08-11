@@ -1,69 +1,26 @@
-- if true
-  - content_for :title, "U.S. Campgrounds"
-  - content_for :head
-    meta name="description" content="CampHero has information about virtually all public campgrounds in the US and growing number of private ones including rustic campgrounds, RV parks, and backcountry camping sites.  Search for campgrounds or find them on a list."
-    meta name="keywords" content="CampHero, camping, campgrounds, search for campgrounds, USA campgrounds, U.S. campgrounds, travel, RV parks, backpacking, backcountry camping"
-  - content_for :body_class, "scaffold"
-  .row
-    h1.text-center U.S. Campgrounds & Camping
-    p.col-md-6.col-md-offset-3.text-center CampHero has more than 18,000 campgrounds and campsites including rustic campgrounds, RV parks, backcountry campgrounds, and more.  You can find them on this list, but most of the time it's easier to <a href="#{root_path}">search for campgrounds.</a>
-    hr.col-md-10.col-md-offset-1
-  .row
-    - @campsites.each do |campsite|
-      p.text-center = link_to "#{campsite.name} in CITY, #{campsite.state_abbrev}"
+- content_for :title, "U.S. Campgrounds"
+- content_for :head
+  meta name="description" content="CampHero has information about virtually all public campgrounds in the US and growing number of private ones including rustic campgrounds, RV parks, and backcountry camping sites.  Search for campgrounds or find them on a list."
+  meta name="keywords" content="CampHero, camping, campgrounds, search for campgrounds, USA campgrounds, U.S. campgrounds, travel, RV parks, backpacking, backcountry camping"
+- content_for :body_class, "scaffold"
+.row
+  h1.text-center U.S. Campgrounds & Camping
+  p.col-md-6.col-md-offset-3.text-center CampHero has more than 18,000 campgrounds and campsites including rustic campgrounds, RV parks, backcountry campgrounds, and more.  You can find them on this list, but most of the time it's easier to <a href="#{root_path}">search for campgrounds.</a>
+  hr.col-md-10.col-md-offset-1
+.row
+  - @campsites.each do |campsite|
+    p.text-center = link_to "#{campsite.name} in CITY, #{campsite.state_abbrev}"
+.row.text-center
+  = paginate @campsites
+
+- if admin_signed_in? && current_admin.approved?
   .row.text-center
-    = paginate @campsites
-
-- else
-  h1 Listing campsites
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>State</th>
-        <th>Latitude</th>
-        <th>Longitude</th>
-        <th>Elevation</th>
-        <th>Phone</th>
-        <th>Total sites</th>
-        <th>Electric sites</th>
-        <th>Outhouse</th>
-        <th>Showers</th>
-        <th>Dump</th>
-        <th></th>
-        <th></th>
-        <th></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @campsites.each do |campsite| %>
-        <tr>
-          <td><%= campsite.name %></td>
-          <td><%= campsite.state_abbrev %></td>
-          <td><%= campsite.latitude %></td>
-          <td><%= campsite.longitude %></td>
-          <td><%= campsite.elevation %></td>
-          <td><%= campsite.phone %></td>
-          <td><%= campsite.total_sites %></td>
-          <td><%= campsite.electric_sites %></td>
-          <td><%= campsite.outhouse %></td>
-          <td><%= campsite.showers %></td>
-          <td><%= campsite.dump %></td>
-          <td><%= link_to 'Show', campsite %></td>
-          <td><%= link_to 'Edit', edit_campsite_path(campsite) %></td>
-          <td><%= link_to 'Destroy', campsite, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-
-  <br>
-
-  <%= link_to 'New Campsite', new_campsite_path %>
-  <br>
-  <%= form_tag import_campsites_path, multipart:true  do %>
-    <%= file_field_tag :file %>
-    <%= submit_tag "Import CSV" %>
-  <% end %>
+    = link_to 'New Campsite', new_campsite_path
+    br
+    = form_tag special_one_time_import_path, multipart:true  do
+      = file_field_tag :file
+      = submit_tag "Update CSV"
+    /= form_tag upload_cg_path, multipart:true  do
+      = file_field_tag :file
+      = submit_tag "Import CSV"
 

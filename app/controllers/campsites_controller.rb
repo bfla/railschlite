@@ -1,6 +1,6 @@
 class CampsitesController < ApplicationController
   before_action :set_campsite, only: [:show, :edit, :update, :destroy]
-  #before_action :verify_admin, except: [:show]
+  before_action :verify_admin, except: [:show, :index]
 
   # GET /campsites
   # GET /campsites.json

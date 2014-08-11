@@ -1,0 +1,27 @@
+// REQUIRED PARAMETERS:
+// place with place.name, place.latitude, place.longitude
+// header_path = "/place-where/my/header/image/is"
+// 
+
+// OPTIONAL PARAMETERS:
+// place.description, place.zoom
+
+
+- content_for :body_class, "no-spacing guide-page"
+- content_for :head
+  / Since the background photo needs to change from one page to another, this particular style is included in the html.
+  style 
+    #guide-header {background-image:url("#{yield(:header_path)}");}  
+
+/ Header photo
+#guide-header alt="Photo for #{yield(:name)}." title="Header for #{yield(:name)}"
+
+/ Heading
+.beige-background.fill-width
+  .container
+    .row
+      - yield :heading_row
+/ Content
+.container
+
+- content_for :footer_class, "pad-top-xl"

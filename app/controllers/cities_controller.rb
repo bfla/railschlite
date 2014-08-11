@@ -1,6 +1,6 @@
 class CitiesController < ApplicationController
   before_action :set_city, only: [:show, :edit, :update, :destroy]
-  #before_action :verify_admin, except:[:show, :index]
+  before_action :verify_admin, except:[:show, :index]
 
   # GET /cities
   # GET /cities.json
@@ -16,11 +16,6 @@ class CitiesController < ApplicationController
   # GET /cities/new
   def new
     @city = City.new
-  end
-
-  def import
-    City.import(params[:file])
-    redirect_to root_url, notice:"imported!"
   end
 
   # GET /cities/1/edit

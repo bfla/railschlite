@@ -45,6 +45,15 @@ class Campsite < ActiveRecord::Base
     end
   end
 
+  def self.special_one_time_import(file)
+    CSV.foreach(file.path, headers:true) do |row|
+      upload = row.to_hash
+      c = Campsite.find_by_orig_id(upload["orig_id"])
+      puts "GOT CG WITH NAME #{c.name}"
+      c.update(slug:upload["slug"], city_name:upload["city_name"]) #if c.present?
+    end
+  end
+
   # Format URLs like this
   def slug_me_up
     if name

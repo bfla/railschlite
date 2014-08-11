@@ -17,10 +17,12 @@
 .row
   .row.text-center
     = paginate @cities
-.row
-  .col-md-offset-1
-    = link_to 'New City', new_city_path
-    br
-    = form_tag cit_import_path, multipart:true  do
-      = file_field_tag :file
-      = submit_tag "Import CSV"
+
+- if admin_signed_in? && current_admin.approved?
+  .row
+    .text-center
+      = link_to 'New City', new_city_path
+      br
+      = form_tag upload_city_path, multipart:true  do
+        = file_field_tag :file
+        = submit_tag "Import CSV"

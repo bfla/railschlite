@@ -1,6 +1,6 @@
 class DestinationsController < ApplicationController
   before_action :set_destination, only: [:show, :edit, :update, :destroy]
-  #before_action :verify_admin, except: [:index, :show]
+  before_action :verify_admin, except: [:index, :show]
 
   # GET /destinations
   # GET /destinations.json
@@ -16,11 +16,6 @@ class DestinationsController < ApplicationController
   # GET /destinations/new
   def new
     @destination = Destination.new
-  end
-
-  def import
-    Destination.import(params[:file])
-    redirect_to root_url, notice:"imported!"
   end
 
   # GET /destinations/1/edit

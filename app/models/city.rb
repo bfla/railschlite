@@ -8,7 +8,11 @@ class City < ActiveRecord::Base
   # import CSV file
   def self.import(file)
     CSV.foreach(file.path, headers:true) do |row|
-      City.create! row.to_hash
+      upload = row.to_hash
+      City.create(name:upload["name"], state_abbrev:upload["state_abbrev"], description:upload["description"],
+                  longitude:upload["longitude"], latitude:upload["latitude"], zoom:upload["zoom"],
+                  slug:upload["slug"], campsites_count:upload["campsites_count"])
+      #City.create! row.to_hash
       #sleep(0.5)
     end
   end

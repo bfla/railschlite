@@ -11,7 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140808165512) do
+ActiveRecord::Schema.define(version: 20140811163656) do
+
+  create_table "admins", force: true do |t|
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,     null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.boolean  "approved",               default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "admins", ["approved"], name: "index_admins_on_approved"
+  add_index "admins", ["email"], name: "index_admins_on_email", unique: true
+  add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
 
   create_table "campsites", force: true do |t|
     t.string   "name"
@@ -45,7 +65,7 @@ ActiveRecord::Schema.define(version: 20140808165512) do
     t.boolean  "horse"
     t.boolean  "likely_toilets",             default: false
     t.boolean  "no_toilets",                 default: false
-    t.integer  "ch_id"
+    t.integer  "orig_id"
     t.boolean  "electricity"
     t.string   "city_name"
     t.string   "address"
@@ -61,6 +81,7 @@ ActiveRecord::Schema.define(version: 20140808165512) do
     t.boolean  "on_river"
     t.integer  "state_id"
     t.integer  "city_id"
+    t.string   "slug"
   end
 
   add_index "campsites", ["backcountry"], name: "index_campsites_on_backcountry"
@@ -72,6 +93,7 @@ ActiveRecord::Schema.define(version: 20140808165512) do
   add_index "campsites", ["rustic"], name: "index_campsites_on_rustic"
   add_index "campsites", ["rv"], name: "index_campsites_on_rv"
   add_index "campsites", ["showers"], name: "index_campsites_on_showers"
+  add_index "campsites", ["slug"], name: "index_campsites_on_slug"
   add_index "campsites", ["state_id"], name: "index_campsites_on_state_id"
 
   create_table "cities", force: true do |t|
@@ -87,6 +109,8 @@ ActiveRecord::Schema.define(version: 20140808165512) do
     t.integer  "campsites_count", default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "orig_id"
+    t.integer  "zip"
   end
 
   add_index "cities", ["latitude"], name: "index_cities_on_latitude"
@@ -108,6 +132,7 @@ ActiveRecord::Schema.define(version: 20140808165512) do
     t.text     "camping_tips"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "orig_id"
   end
 
   add_index "destinations", ["slug"], name: "index_destinations_on_slug"
