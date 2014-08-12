@@ -15,7 +15,7 @@ input#activeWalkinsFilter type="hidden" value="false"
 #results-container.col-md-4.well.white.fill-height.remove-bottom-margin.pad-left-sm.hidden-sm.hidden-xs
   .result-list.fill-height
     / Filters============================================
-    .row
+    /.row
       .col-md-3
         #allSearchFilter.searchFilterThumbnail.thumbnail.searchTribeFilterTracker data-tribe-id="0"
           = image_tag 'icons/All120.png', class:'img-circle img-responsive tribe-background'
@@ -40,13 +40,21 @@ input#activeWalkinsFilter type="hidden" value="false"
         p.no-spacing.text-center
             small.no-spacing
               small.no-spacing Backcountry
+    / Beta notice =============================================
+    .row.results.pad-top-lg
+      .col-md-12
+        .panel.panel-success
+          .panel-heading 
+            | CampHero Ultra Search Beta
+            #panelClose.button.close type="button" data-dismiss="panel" aria-hidden="true" &times;
+          .panel-body This feature is brand new.  It might be buggy for the first few days.  If it glitches out on you, try reloading the page.
 
-    / If no results ===============
+    / If no results =============================================
     - if @campsites.blank?
       .row.results.pad-top-lg
         .col-md-12
           .panel.panel-warning
-            .panel-heading Super-frick!  No campsites matched your search.
+            .panel-heading Super-darn!  No campsites matched your search.
             .panel-body
               ul
                 li Maybe my advanced computer brain didn't recognize the place you entered.

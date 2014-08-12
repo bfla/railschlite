@@ -1,0 +1,3 @@
+$ ->
+  $('#panelClose').click ->
+    $('.panel').hide()

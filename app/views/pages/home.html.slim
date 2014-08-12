@@ -11,9 +11,8 @@
     .row
       h1.white-text.promo-heading.text-center CampHero
       p.lead.white-text.text-center 
-        | Find awesome campgrounds
-        br 
-        | Camp like a superhero
+        | Find super campgrounds in the continental USA
+        
     .row
         = form_tag searches_path, method: "get", class: "form", role: "search" do
           = label_tag :keywords, 'Where do you want to go?', class: 'sr-only'

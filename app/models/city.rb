@@ -1,4 +1,8 @@
 class City < ActiveRecord::Base
+  extend FriendlyId # use friendly ids for urls
+  friendly_id :slug_me_up, use: :slugged
+  reverse_geocoded_by :latitude, :longitude
+
   belongs_to :state
   has_many :campsites
   validates :name, presence: true
@@ -15,5 +19,9 @@ class City < ActiveRecord::Base
       #City.create! row.to_hash
       #sleep(0.5)
     end
+  end
+
+  def slug_me_up
+    "#{name} #{state.abbreviation} camping"
   end
 end

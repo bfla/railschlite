@@ -1,12 +1,12 @@
 class Campsite < ActiveRecord::Base
   extend CampsiteSearchers
   include CampsiteFormatters
-  # include CampsiteDataHandlers
+  # Use friendly ids for urls
+  extend FriendlyId
 
-  #extend FriendlyId
-  #friendly_id :slug_me_up, use: :slugged
-
+  friendly_id :slug_me_up, use: :slugged
   reverse_geocoded_by :latitude, :longitude, address: :location
+  
   belongs_to :state, counter_cache: :campsites_count
   belongs_to :city, counter_cache: :campsites_count
   validates :name, presence:true, allow_blank:false
@@ -62,4 +62,5 @@ class Campsite < ActiveRecord::Base
       ""
     end
   end
+
 end

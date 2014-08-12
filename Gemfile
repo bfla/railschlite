@@ -50,12 +50,11 @@ gem 'json'
 # SPECIAL GEMS FOR FRONT-FACING INTERFACE
 gem 'compass-rails'
 gem 'bootstrap-sass', '~> 3.0.3.0'
-gem 'slim-rails'
-gem 'gon'
-gem 'kaminari'
-gem 'devise'
-#gem 'devise'
-#gem 'clearance'
+gem 'slim-rails' 
+gem 'gon' # For passing js variables to the front-end
+gem 'kaminari' # For pagination
+gem 'devise' # For Authentication
+gem 'friendly_id', '~> 5.0.0' #use friendly URLs with slugs
 
 group :development, :test do
   gem 'sqlite3' # use sqlite3 during development and testing
