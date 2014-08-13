@@ -1,0 +1,10 @@
+- content_for :title, "All Campgrounds near #{@destination.name} #{@destination.state_abbrev} on CampHero"
+- content_for :description, "CampHero has a list of campgrounds near #{@destination.name} #{@destination.state_abbrev}"
+- content_for :keywords, "Camping near #{@destination.name} #{@destination.state_abbrev}, camping #{@destination.name} #{@destination.state_abbrev}, Campgrounds near #{@destination.name} #{@destination.state_abbrev}, RV parks near #{@destination.name} #{@destination.state_abbrev}"
+
+.row.pad-top-xl
+  h1.col-md-12.text-center All Campgrounds in #{@destination.name} #{@destination.state_abbrev}
+  p.col-md-12.text-center = link_to "Explore map", search_destination_map(@destination)
+  hr.col-md-10.col-md-offset-1
+
+== render "shared/browse_campsites", campsites:@campsites

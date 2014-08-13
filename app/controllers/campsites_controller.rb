@@ -5,7 +5,7 @@ class CampsitesController < ApplicationController
   # GET /campsites
   # GET /campsites.json
   def index
-    @campsites = Campsite.page(params[:page]).per(100)
+    @campsites = Campsite.all.page(params[:page]).per(100)
   end
 
   # GET /campsites/1

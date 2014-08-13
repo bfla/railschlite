@@ -13,8 +13,9 @@
   - @destinations.each do |destination|
     p.text-center
       = link_to "Campgrounds near #{destination.name}", destination
-      = link_to 'Edit', edit_destination_path(destination)
-      = link_to 'Destroy', destination, data: {:confirm => 'Are you sure?'}, :method => :delete
+      - if authorized?
+        = link_to 'Edit', edit_destination_path(destination)
+        = link_to 'Destroy', destination, data: {:confirm => 'Are you sure?'}, :method => :delete
 
   br
 .row.text-center

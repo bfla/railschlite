@@ -11,7 +11,7 @@
     | Camping near #{@destination.name}
     - if @destination.state_hashtag
       small.orange   ##{@destination.state_hashtag}
-  p.lead The best campgrounds in #{@destination.name} are on CampHero
+  p.lead The best campgrounds near #{@destination.name} are on CampHero
 
 // HEADER PHOTO =============================================
 - content_for :header_alt, "This header photo depicts camping in {@destination.name}"
