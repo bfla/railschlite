@@ -1,6 +1,6 @@
 class StatesController < ApplicationController
-  before_action :set_state, only: [:show, :edit, :update, :destroy]
-  before_action :verify_admin, except: [:show, :index]
+  before_action :set_state, only: [:edit, :update, :destroy]
+  before_action :verify_admin, except: [:show, :index, :browse_destinations, :browse_cities, :browse_campgrounds]
 
   # GET /states
   # GET /states.json
@@ -8,9 +8,24 @@ class StatesController < ApplicationController
     @states = State.all
   end
 
+  def browse_destinations
+    @state = State.includes(:destinations).friendly.find(params[:id])
+  end
+
+  def browse_cities
+    @state = State.includes(:cities).friendly.find(params[:id])
+  end
+
+  def browse_campgrounds
+    @state = State.friendly.find(params[:id])
+    @campsites = Campsite.where(state_id:@state.id).by_name.page(params[:page]).per(20)
+  end
+
   # GET /states/1
   # GET /states/1.json
   def show
+    @state = State.includes(:top_campsites, :top_cities, :top_destinations).friendly.find(params[:id])
+    render layout: "layouts/guide"
   end
 
   # GET /states/new

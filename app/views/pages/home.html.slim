@@ -3,15 +3,17 @@
   meta name="keywords" contents="CampHero, campgrounds, tent camping, RV parks, backcountry camping, backpacking, USA campground finder, camping superpowers"
   meta name="description" content="Find campgrounds on CampHero.  CampHero has more than 18,000 campgrounds (virtually all of the public ones in the continental USA and a growing number of private campgrounds. It includes rustic campgrounds, RV parks, and a growing number of backcountry & equestrian campsites."
 
-- content_for :body_class, "no-container"
+- content_for :body_class, "no-container white"
 
 // HEADER ===================================================
-#mobile-teaser-header alt="CampHero's background image for its header is a photo of beautiful Bay View Campground in Michigan." description="Find Michigan Campgrounds with CampHero's iOS app" style='background-image:url("#{request.protocol}#{request.host_with_port}#{ asset_path "/images/backgrounds/redwoods.jpg"}"); height:500px;'
-  .container.pad-top-xl
+#mobile-teaser-header alt="CampHero's background image for its header is a photo of beautiful Bay View Campground in Michigan." description="Find Michigan Campgrounds with CampHero's iOS app" style='background-image:url("#{request.protocol}#{request.host_with_port}#{ asset_path "/images/backgrounds/CampHero-camping-1.jpg"}"); height:500px;'
+  .container
     .row
-      h1.white-text.promo-heading.text-center CampHero
+      h1.white-text.promo-heading.text-center.pad-top-huge CampHero
       p.lead.white-text.text-center 
-        | Find super campgrounds in the continental USA
+        | Find super campgrounds anywhere in the continental USA
+        br
+        | 17,000 campgrounds & growing. Online bookings coming soon.
         
     .row
         = form_tag searches_path, method: "get", class: "form", role: "search" do
@@ -25,15 +27,20 @@
                     span.glyphicon.glyphicon-search
                     |  Find campsites!
                   .visible-xs Go!
+    .row
+      p.text-center.col-md-12.pad-top-md
+        a href=app_store_url
+          img.img.img-responsive.center-img src="/images/icons/AppStoreBadge.png" alt="App Store Badge" description="App Store"
 
 // Below the fold ===============================================
-.container
-  p.col-md-offset-3
-    /a href=app_store_url title="Get the iOS app"
-      GET THE FREE IOS APP
-      /= image_tag "/images/icons/AppStoreBadge.png", class:"img"
-  .col-md-offset-2.col-md-5
-    /= image_tag "/images/landing/5s-with-iPod.png", class:"img img-responsive pad-top-lg"
+/.container
+  h3 Featured Destinations
+
+
+
+/.container
+  h3 Find Campgrounds by State
+
 
 // License ====================================================
 .container

@@ -1,0 +1,6 @@
+// Takes a campsite, which is a Campsite object
+.col-md-3.pad-top-md
+  a href=campsite_path(campsite)
+    .thumbnail.nearby-thumb
+      img.img.img-responsive src=tribe_icon(campsite)
+      h5.text-center = link_to truncate(campsite.name, length:20, seperator:" "), campsite

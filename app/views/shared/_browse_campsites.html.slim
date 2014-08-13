@@ -1,0 +1,26 @@
+- if campsites && !campsites.empty?
+  .row.pad-top-xl
+    .col-md-offset-1.col-md-10
+      - campsites.first(4).each do |cg|
+        == render "shared/campsite_thumb", campsite:cg
+  - if campsites.length > 4
+    .row.pad-top-md
+      .col-md-offset-1.col-md-10
+        - campsites[3..6].each do |cg|
+          == render "shared/campsite_thumb", campsite:cg
+  - if campsites.length > 8
+    .row.pad-top-md
+      .col-md-offset-1.col-md-10
+        - campsites[7..10].each do |cg|
+          == render "shared/campsite_thumb", campsite:cg
+  - if campsites.length > 12
+    .row.pad-top-md
+      .col-md-offset-1.col-md-10
+        - campsites[11..14].each do |cg|
+          == render "shared/campsite_thumb", campsite:cg
+
+  - if campsites.length > 16
+    .row.pad-top-md
+      .col-md-offset-1.col-md-10
+        - campsites[14..16].each do |cg|
+          == render "shared/campsite_thumb", campsite:cg

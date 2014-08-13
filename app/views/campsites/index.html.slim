@@ -9,7 +9,7 @@
   hr.col-md-10.col-md-offset-1
 .row
   - @campsites.each do |campsite|
-    p.text-center = link_to "#{campsite.name} in CITY, #{campsite.state_abbrev}"
+    p.text-center = link_to "#{campsite.name} in #{campsite.city_name}, #{campsite.state_abbrev}", campsite
 .row.text-center
   = paginate @campsites
 

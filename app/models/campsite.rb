@@ -19,6 +19,10 @@ class Campsite < ActiveRecord::Base
             allow_nil:true, inclusion: { in: [true, false] }
   #before_save :analyze_toilets
 
+  def self.by_name
+    order('name ASC')
+  end
+
   def add_city_and_address
     geo_results = Geocoder.search("#{self.latitude}, #{self.longitude}")
     if geo = geo_results.first

@@ -4,21 +4,24 @@
   meta name="keywords" content="CampHero, camping, campgrounds, U.S. Cities with campgrounds, USA camping destinations, travel, RV parks, backpacking, backcountry camping"
 
 -content_for :body_class, "scaffold"
-.row
+.row.pad-top-xl
   h1.col-md-12.text-center US cities with campgrounds
   p.col-md-6.col-md-offset-3.text-center CampHero knows of campgrounds in all of the US cities listed below.  If you want, you can find cities on the list and visit their pages to see which campgrounds are there.  But most of the time it's easier to <a href="#{root_path}">search for them.</a>
 .row
+  hr.col-md-12
+.row
   - @cities.each do |city|
-    p 
+    p.text-center
       = link_to "Campgrounds in #{city.name}, #{city.state_abbrev}", city
-      = link_to 'Edit', edit_city_path(city)
-      = link_to 'Destroy', city, data: {:confirm => 'Are you sure?'}, :method => :delete
+      - if authorized?
+        = link_to 'Edit', edit_city_path(city)
+        = link_to 'Destroy', city, data: {:confirm => 'Are you sure?'}, :method => :delete
   br
 .row
   .row.text-center
     = paginate @cities
 
-- if admin_signed_in? && current_admin.approved?
+- if authorized?
   .row
     .text-center
       = link_to 'New City', new_city_path

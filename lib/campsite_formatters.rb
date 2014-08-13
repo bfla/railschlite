@@ -1,4 +1,16 @@
 module CampsiteFormatters
+
+  def city_name # I should probably just save this to campsite bc it is static
+    city.name
+  end
+
+  def city_campsites_count # I should probably just save this to campsite bc it is static
+    city.campsites_count
+  end
+
+  def state_name # I should probably just save this to campsite bc it is static
+    state.name
+  end
   
   def to_json_v1
     electric_bool =  if self.electric_sites && self.electric_sites > 0

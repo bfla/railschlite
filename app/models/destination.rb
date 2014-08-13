@@ -5,6 +5,15 @@ class Destination < ActiveRecord::Base
 
   belongs_to :state
 
+  def state_abbrev
+    state.abbrev if state.present?
+  end
+  def state_name
+    state.name if state.present?
+  end
+  def state_hashtag
+    state.hashtag if state.present?
+  end
   # import CSV file
   def self.import(file)
     CSV.foreach(file.path, headers:true) do |row|

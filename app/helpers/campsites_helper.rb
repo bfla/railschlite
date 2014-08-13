@@ -1,4 +1,9 @@
 module CampsitesHelper
+
+  def campsite_header_url(campsite)
+    asset_path "/images/backgrounds/camping-header.jpg"
+  end
+
   def tribe_name(campsite)
     if campsite.horse?
       "Horse Friendly"

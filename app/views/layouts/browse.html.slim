@@ -1,0 +1,35 @@
+doctype html
+html.fill-height
+  head
+    title == yield :title
+    meta name="description" content=yield(:description)
+    mata name="keywords" content=yield(:keywords)
+    / meta tags
+    == yield :head
+
+    / styles
+    == render 'shared/headstyles'
+    == yield :extra_stylesheets
+
+    / scripts
+    == render 'shared/headscripts'
+    == yield :head_javascripts
+
+  body class="#{yield :body_class || 'fill-height'}"
+    == yield :extra_modals
+    / Top navbar goes here
+    == render 'shared/navbar'
+
+    / Body goes here
+    .container
+      .row.pad-top.lg
+        == yield :heading
+    .container
+      == yield
+
+    / Footer goes here
+    div class="#{yield :footer_class}"
+        == render 'shared/footer'
+    
+    == yield :end
+    == render 'shared/bottomScripts'

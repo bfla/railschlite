@@ -9,6 +9,10 @@ class City < ActiveRecord::Base
   validates :longitude, presence: true
   validates :latitude, presence: true
 
+  def state_name
+    state.present? ? state.name : nil
+  end
+
   # import CSV file
   def self.import(file)
     CSV.foreach(file.path, headers:true) do |row|

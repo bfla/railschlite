@@ -4,20 +4,30 @@
   / Mapbox script
   script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.js'
 
-
-#campsite-detail-header alt="Photo for #{@campsite.name}." title="Header for #{@campsite.name}" style='background-image:url("#{request.protocol}#{request.host_with_port}#{ asset_path "/images/backgrounds/blurry.jpg"}");'
-.beige-background.fill-width
-    / Header
-    .row
-      .col-md-offset-1.col-md-7.pad-top-lg
-        img.img.img-responsive.col-md-2 src=tribe_icon(@campsite)
-        h1.col-md-10
-          = @campsite.name
-        p.col-md-10.dark-grey.pad-bottom-lg
-          | #{tribe_name(@campsite)} campground in #{@campsite.state_abbrev}
-          br
-          | Host: #{@campsite.owner}
-      - if @campsite.phone.present? or @campsite.url.present?
+.schema-data-holder itemscope="itemscope" itemtype="http://schema.org/Campground http://schema.org/Place"
+  #campsite-detail-header alt="Photo for #{@campsite.name}." title="Header for #{@campsite.name}" style='background-image:url("#{request.protocol}#{request.host_with_port}#{ asset_path "/images/backgrounds/blurry.jpg"}");'
+  .beige-background.fill-width
+    .container
+      / Header
+      .row
+        .col-md-offset-1.col-md-7.pad-top-sm
+          // Breadcrumb with Schema markup
+          ol.breadcrumb
+            li itemprop="containedIn" itemscope="itemscope" itemtype="http://schema.org/Place"
+              meta itemprop="name" content="#{@campsite.state_name}"
+              meta itemprop="description" content="The state of #{@campsite.state_name}"
+              = link_to "#{@campsite.state_name} Campgrounds", state_path(@campsite.state)
+            li itemprop="containedIn" itemscope="itemscope" itemtype="http://schema.org/Place"
+              a href=city_path(@campsite.city) itemprop="name" = @campsite.city_name
+              meta itemprop="description" content="The city of #{@campsite.city_name} in #{@campsite.state_name}"
+            li.active = @campsite.name
+        .col-md-offset-1.col-md-7
+          img.img.img-responsive.col-md-2 src=tribe_icon(@campsite)
+          h1.col-md-10 itemprop="name" = @campsite.name
+          p.col-md-10.dark-grey.pad-bottom-lg
+            | #{tribe_name(@campsite)} campground in <a href="#{city_path(@campsite.city)}"> #{@campsite.city_name}, #{@campsite.state_abbrev}</a>
+            br
+            | Host: #{@campsite.owner}
         .col-md-4
           #booking-box.col-md-12.margin-top-sm
             .dark-background.fill-width.no-margin
@@ -25,165 +35,168 @@
             .white.fill-width.light-border.no-margin
               - if @campsite.phone
                 p.pad-sm.text-center
-                  span.glyphicon.glyphicon-earphone.subtle-text
+                  span.glyphicon.glyphicon-earphone.subtle-text itemprop="telephone"
                   | &nbsp;
                   = number_to_phone(@campsite.phone)
               - if @campsite.url
                 p.pad-sm.text-center
-                  span.glyphicon.glyphicon-globe.subtle-text
+                  span.glyphicon.glyphicon-globe.subtle-text itemprop="url"
                   | &nbsp;
                   a href=@campsite.url Campground website 
-.container
-  / About ===================================================
-  .row
-    .col-md-offset-1.col-md-7.pad-top-lg
-      h3.col-md-12 About #{@campsite.name}
-      p.col-md-12
-        | #{@campsite.name} is a 
-        - if @campsite.backcountry
-          |  backcountry camping area
-        - elsif @campsite.rv
-          |  RV-friendly campground and is a good fit for RV travelers.
-        - elsif @campsite.rustic
-          | rustic campground best suited for tent camping.
-        - if @campsite.backcountry
-          |  The camping area is managed by the #{@campsite.owner}.
-        - else
-          |  The campground is managed by the #{@campsite.owner}.
-        - if !@campsite.showers && !@campsite.electricity
-          |  Campsites here do not offer modern ameneties like showers or electricity
-          - if @campsite.outhouse || @campsite.likely_toilets
-            |  but there is a bathroom.
-          - elsif @campsite.no_toilets
-            |  and it does not have restrooms.
-          - else
-            |  but it probably has bathrooms (CampHero still needs to confirm this).
-        - if @campsite.showers || @campsite.electricity
-          |  Campsites here have modern ameneties.  (See details below.)
-        |  #{@campsite.name} is located in #{@campsite.state_abbrev}.
-
-      /p.col-md-12 <a> Contact Host </a>
-    /.col-md-4
-      .col-md-12.pad-top-sm
-        button.btn.btn-default.btn-lg.btn-block
-          span.glyphicon.glyphicon-star-empty
-          |  Add to Wishlist
-        button.btn.btn-default.btn-lg.btn-block
-          span.glyphicon.glyphicon-ok
-          |  Been Here
-  / Essentials ===================================================
-  .row.pad-top-md
-    hr.col-md-offset-1.col-md-7
-  .row
-    .col-md-offset-1.col-md-2
-      p.col-md-12 
-        strong.subtle-text Campground Basics
-    .col-md-6.pad-top-lg
-      .col-md-3.text-center
-        img.img.img-responsive src=toilets_image(@campsite)
-        - if @campsite.no_toilets
-          p.subtle-text toilets
-        - elsif @campsite.likely_toilets
-          p.subtle-text no toilets
-        - else
-          p.subtle-text probably toilets
-      .col-md-3.text-center
-        img.img.img-responsive src=showers_image(@campsite)
-        - if @campsite.showers
-          p.subtle-text showers
-        - else
-          p.subtle-text no showers
-  / RV Ameneties ===================================================
-  .row.pad-top-md
-    hr.col-md-offset-1.col-md-7
-  .row.pad-bottom-xl
-    .col-md-offset-1.col-md-2
-      p.col-md-12 
-        strong.subtle-text RV Amenities
-    .col-md-6.pad-top-lg
-      .col-md-3.text-center
-        img.img.img-responsive src=electricity_image(@campsite)
-        - if @campsite.electricity
-          p.subtle-text electricity
-        - else
-          p.subtle-text no electricy
-      .col-md-3.text-center
-        img.img.img-responsive src=water_image(@campsite)
-        - if @campsite.water
-          p.subtle-text water hookups
-        - else
-          p.subtle-text no water hookups
-      .col-md-3.text-center
-        img.img.img-responsive src=dump_image(@campsite)
-        - if @campsite.dump
-          p.subtle-text dump
-        - else
-          p.subtle-text no dump
-  / Extra Features ===================================================
-  /.row.pad-top-md
-    hr.col-md-offset-1.col-md-7
-  /.row.pad-bottom-xl
-    .col-md-offset-1.col-md-2
-      p.col-md-12 
-        strong.subtle-text Extra Features
-    .col-md-6.pad-top-lg
-      .col-md-6
-        p.subtle-text beach
-
-
-/ Map ===================================================
-.container#mapRow.no-spacing
-  #campsiteMap
-
-.container.beige-background.fill-width
-  .row
-    p.lead.text-center.pad-top-md
-      | #{@campsite.latitude}N, #{-@campsite.longitude}W
-      - if @campsite.elevation
-        br
-        small Elevation: #{@campsite.elevation}'
-/ These rows are too wide!
-.contaner
-  /.row
-    .col-md-offset-1.col-md-7.pad-top-xl
-      h3.col-md-12 Campground Rules
-      p.col-md-12 Hello there.  I have some rules.  They are as follows...
-  /.row
-    .col-md-offset-1.col-md-7.pad-top-lg
-      hr.col-md-12
-      h3.col-md-12 Description
-      p.col-md-12 Put extra stuff here...
-  - unless @nearbys.empty?
+              p.subtle-text.text-center New! More booking info coming soon!
+  .container
+    / About ===================================================
     .row
-      .col-md-offset-1.col-md-11.pad-top-lg
-        /hr.col-md-12
-        h3.col-md-12 
-          | More Campgrounds Nearby &nbsp;
-          small = link_to "See all nearby campgrounds >>", searches_path(keywords:"#{@campsite.latitude}, #{@campsite.longitude}")
+      .col-md-offset-1.col-md-7.pad-top-lg
+        h3.col-md-12 About #{@campsite.name}
+        p.col-md-12 itemprop="description"
+          | #{@campsite.name} is a 
+          - if @campsite.backcountry
+            |  backcountry camping area
+          - elsif @campsite.rv
+            |  RV-friendly campground and is a good fit for RV travelers.
+          - elsif @campsite.rustic
+            | rustic campground best suited for tent camping.
+          - if @campsite.backcountry
+            |  The camping area is managed by the #{@campsite.owner}.
+          - else
+            |  The campground is managed by the #{@campsite.owner}.
+          - if !@campsite.showers && !@campsite.electricity
+            |  Campsites here do not offer modern ameneties like showers or electricity
+            - if @campsite.outhouse || @campsite.likely_toilets
+              |  but there is a bathroom.
+            - elsif @campsite.no_toilets
+              |  and it does not have restrooms.
+            - else
+              |  but it probably has bathrooms (CampHero still needs to confirm this).
+          - if @campsite.showers || @campsite.electricity
+            |  Campsites here have modern ameneties.  (See details below.)
+          |  #{@campsite.name} is located in <a href="#{city_path(@campsite.city)}"> #{@campsite.city_name}, #{@campsite.state_abbrev}</a>, which has a total of #{pluralize(@campsite.city_campsites_count, "campground")}.
+
+        /p.col-md-12 <a> Contact Host </a>
+      /.col-md-4
+        .col-md-12.pad-top-sm
+          button.btn.btn-default.btn-lg.btn-block
+            span.glyphicon.glyphicon-star-empty
+            |  Add to Wishlist
+          button.btn.btn-default.btn-lg.btn-block
+            span.glyphicon.glyphicon-ok
+            |  Been Here
+    / Essentials ===================================================
     .row.pad-top-md
-      .col-md-offset-1.col-md-10
-        - @nearbys.first(4).each do |n|
-          .col-md-3.pad-top-md
-            a href=campsites_path(n)
-              .thumbnail.nearby-thumb
-                img.img.img-responsive src=tribe_icon(n)
-                h5.text-center = link_to truncate(n.name, length:20, seperator:" "), n
-    - if @nearbys.length > 4
+      hr.col-md-offset-1.col-md-7
+    .row
+      .col-md-offset-1.col-md-2
+        p.col-md-12 
+          strong.subtle-text Campground Basics
+      .col-md-6.pad-top-lg
+        .col-md-3.text-center
+          img.img.img-responsive src=toilets_image(@campsite)
+          - if @campsite.no_toilets
+            p.subtle-text toilets
+          - elsif @campsite.likely_toilets
+            p.subtle-text no toilets
+          - else
+            p.subtle-text probably toilets
+        .col-md-3.text-center
+          img.img.img-responsive src=showers_image(@campsite)
+          - if @campsite.showers
+            p.subtle-text showers
+          - else
+            p.subtle-text no showers
+    / RV Ameneties ===================================================
+    .row.pad-top-md
+      hr.col-md-offset-1.col-md-7
+    .row.pad-bottom-xl
+      .col-md-offset-1.col-md-2
+        p.col-md-12 
+          strong.subtle-text RV Amenities
+      .col-md-6.pad-top-lg
+        .col-md-3.text-center
+          img.img.img-responsive src=electricity_image(@campsite)
+          - if @campsite.electricity
+            p.subtle-text electricity
+          - else
+            p.subtle-text no electricy
+        .col-md-3.text-center
+          img.img.img-responsive src=water_image(@campsite)
+          - if @campsite.water
+            p.subtle-text water hookups
+          - else
+            p.subtle-text no water hookups
+        .col-md-3.text-center
+          img.img.img-responsive src=dump_image(@campsite)
+          - if @campsite.dump
+            p.subtle-text dump
+          - else
+            p.subtle-text no dump
+    / Extra Features ===================================================
+    /.row.pad-top-md
+      hr.col-md-offset-1.col-md-7
+    /.row.pad-bottom-xl
+      .col-md-offset-1.col-md-2
+        p.col-md-12 
+          strong.subtle-text Extra Features
+      .col-md-6.pad-top-lg
+        .col-md-6
+          p.subtle-text beach
+
+
+  / Map ===================================================
+  .container#mapRow.no-spacing
+    #campsiteMap
+
+  .container.beige-background.fill-width
+    .row
+      p.lead.text-center.pad-top-md itemprop="geo" itemscope="itemscope" itemtype="http://schema.org/Place"
+        span itemprop="latitude" #{@campsite.latitude}N
+        |, 
+        span itemprop="longitude"  #{-@campsite.longitude}W
+        - if @campsite.elevation
+          br
+          small itemprop="elevation" Elevation: #{@campsite.elevation}'
+  / These rows are too wide!
+  .contaner
+    /.row
+      .col-md-offset-1.col-md-7.pad-top-xl
+        h3.col-md-12 Campground Rules
+        p.col-md-12 Hello there.  I have some rules.  They are as follows...
+    /.row
+      .col-md-offset-1.col-md-7.pad-top-lg
+        hr.col-md-12
+        h3.col-md-12 Description
+        p.col-md-12 Put extra stuff here...
+    - unless @nearbys.empty?
+      .row
+        .col-md-offset-1.col-md-11.pad-top-lg
+          /hr.col-md-12
+          h3.col-md-12 
+            | More Campgrounds Nearby &nbsp;
+            small = link_to "See all nearby campgrounds >>", searches_path(keywords:"#{@campsite.latitude}, #{@campsite.longitude}"), rel:"nofollow"
       .row.pad-top-md
         .col-md-offset-1.col-md-10
-          - @nearbys[3..6].each do |n|
+          - @nearbys.first(4).each do |n|
             .col-md-3.pad-top-md
               a href=campsites_path(n)
                 .thumbnail.nearby-thumb
                   img.img.img-responsive src=tribe_icon(n)
                   h5.text-center = link_to truncate(n.name, length:20, seperator:" "), n
-  /.row
-    .col-md-offset-1.col-md-7.pad-top-lg
-      hr.col-md-12
-      h3.col-md-12 Reviews
-      p.col-md-12 Add reviews here...
+      - if @nearbys.length > 4
+        .row.pad-top-md
+          .col-md-offset-1.col-md-10
+            - @nearbys[3..6].each do |n|
+              .col-md-3.pad-top-md
+                a href=campsite_path(n)
+                  .thumbnail.nearby-thumb
+                    img.img.img-responsive src=tribe_icon(n)
+                    h5.text-center = link_to truncate(n.name, length:20, seperator:" "), n
+    /.row
+      .col-md-offset-1.col-md-7.pad-top-lg
+        hr.col-md-12
+        h3.col-md-12 Reviews
+        p.col-md-12 Add reviews here...
 
-- content_for :footer_class, "pad-top-xl"
+  - content_for :footer_class, "pad-top-xl"
 
-javascript:
-  makeCampsiteMap();
+  javascript:
+    makeCampsiteMap();

@@ -6,6 +6,7 @@ table
     tr
       th Name
       th Abbrev
+    - if authorized?
       th Description
       th Latitude
       th Longitude
@@ -19,8 +20,9 @@ table
   tbody
     - @states.each do |state|
       tr
-        td = state.name
+        td = link_to state.name, state
         td = state.abbrev
+      - if authorized?
         td = state.description
         td = state.latitude
         td = state.longitude

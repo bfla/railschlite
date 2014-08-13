@@ -1,6 +1,6 @@
 class DestinationsController < ApplicationController
-  before_action :set_destination, only: [:show, :edit, :update, :destroy]
-  before_action :verify_admin, except: [:index, :show]
+  before_action :set_destination, only: [:show, :edit, :update, :destroy, :browse]
+  before_action :verify_admin, except: [:index, :show, :browse]
 
   # GET /destinations
   # GET /destinations.json
@@ -8,9 +8,16 @@ class DestinationsController < ApplicationController
     @destinations = Destination.page(params[:page]).per(50)
   end
 
+  def browse
+    @campsites = Campsite.near([@destination.latitude, @destination.longitude], 40)
+  end
+
   # GET /destinations/1
   # GET /destinations/1.json
   def show
+    @campsites = Campsite.near([@destination.latitude, @destination.longitude], 40)
+    @nearby_cities = City.near([@destination.latitude, @destination.longitude], 30).first(4)
+    render layout:"layouts/guide"
   end
 
   # GET /destinations/new

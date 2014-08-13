@@ -1,13 +1,28 @@
 Chlite::Application.routes.draw do
 
-  devise_for :admins
-  resources :cities
-  resources :states
-  resources :destinations
-
   get :searches, to:"searches#show", as:"searches"
 
   resources :campsites
+
+  resources :states do
+    member do
+      get 'camping-destinations', to:"states#browse_destinations", as:"collect_destinations"
+      get 'cities', to:"states#browse_cities", as:"collect_cities"
+      get 'campgrounds', to:"states#browse_campgrounds", as:"collect_campgrounds"
+      get 'browse_destinations' #old syntax. But leave it for Google
+      get 'browse_cities' #old syntax. But leave it for Google
+      get 'browse_campgrounds' #old syntax. But leave it for Google
+    end
+  end
+
+  resources :cities do
+    get :campgrounds, on: :member, to:"cities#browse", as:"collect_campsites"
+    get :browse, on: :member
+  end
+  resources :destinations do
+    get :campgrounds, on: :member, to:"destinations#browse", as:"collect_campsites"
+    get :browse, on: :member
+  end
 
   namespace :api do
     namespace :v1 do
@@ -15,6 +30,8 @@ Chlite::Application.routes.draw do
       get :searches, to:"searches#show", as:"searches"
     end
   end
+
+  devise_for :admins
 
   # STATIC PAGES =====================================================
   root to:"pages#home"

@@ -1,6 +1,6 @@
 class CitiesController < ApplicationController
   before_action :set_city, only: [:show, :edit, :update, :destroy]
-  before_action :verify_admin, except:[:show, :index]
+  before_action :verify_admin, except:[:show, :index, :browse]
 
   # GET /cities
   # GET /cities.json
@@ -8,9 +8,20 @@ class CitiesController < ApplicationController
     @cities = City.page(params[:page]).per(50)
   end
 
+  def browse
+    @city = City.includes(:campsites, :state).friendly.find(params[:id])
+  end
+
   # GET /cities/1
   # GET /cities/1.json
   def show
+    @city = City.includes(:campsites, :state).friendly.find(params[:id])
+    # Get nearby cities but exclude the @city
+    @nearby_cities = City.near([@city.latitude, @city.longitude], 40).where.not(id:@city.id).first(4)
+    # Get nearby campsites but exclude campsites in the @city
+    @nearby_campsites = Campsite.near([@city.latitude, @city.longitude], 40).where.not(city_id:@city.id)
+    #@nearby_campsites.each_with_index {|cg, index| @nearby_cities.delete_at(index) if cg.city_id == @city.id}
+    render layout:"layouts/guide"
   end
 
   # GET /cities/new

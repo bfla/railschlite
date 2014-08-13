@@ -1,32 +1,74 @@
-- content_for :body_class, "scaffold"
-.row
-  p#notice = notice
+- content_for :title, "#{@state.name} Campgrounds on CampHero"
+- content_for :keywords, "#{@state.name}, #{@state.name} campgrounds, #{@state.name} camping, #{@state.name} RV parks, #{@state.name} tent camping, #{@state.name} backpacking, CampHero, top campgrounds in #{@state.name}, best campgrounds in #{@state.name}"
+- content_for :description, "#{@state.name} Campgrounds: CampHero has information about #{@state.campsites_count} campgrounds in #{@state.name}, making it your best resource for #{@state.name} camping information. CampHero has #{@state.abbrev} camping maps, lists of the best campgrounds, top camping destinations, reviews, photos, and more."
 
-  p
-    strong Name:
-    = @state.name
-  p
-    strong Abbrev:
-    = @state.abbrev
-  p
-    strong Description:
-    = @state.description
-  p
-    strong Latitude:
-    = @state.latitude
-  p
-    strong Longitude:
-    = @state.longitude
-  p
-    strong Hashtag:
-    = @state.hashtag
-  p
-    strong Zoom:
-    = @state.zoom
-  p
-    strong Slug:
-    = @state.slug
+- content_for :breadcrumb
+  li.active = link_to "#{@state.name} Campgrounds", state_path(@state)
 
-  = link_to 'Edit', edit_state_path(@state)
-  '|
-  = link_to 'Back', states_path
+- content_for :heading
+  h1 
+    | #{@state.name} Campgrounds
+    - if @state.hashtag.present?
+      small.orange   ##{@state.hashtag}
+  p.lead The best campgrounds in #{@state.name} are on CampHero
+
+// HEADER PHOTO =============================================
+- content_for :header_alt, "Header photo depicts camping in {@state.name}"
+- content_for :header_description, "Camping in {@state.name}"
+- content_for :header_img_url, state_header_url(@state)
+
+// Main content =========================================
+.container
+  / About ===================================================
+  .row
+    .col-md-offset-1.col-md-7.pad-top-lg
+      h3.col-md-12 About camping in #{@state.name}
+      p.col-md-12 
+        - if @state.description
+          = @state.description
+        | #{@state.name} is home to #{@state.campsites_count} campgrounds on CampHero.  It has #{@state.cities_count} cities with campgrounds.  Stay tuned: This site is brand new and more #{@state.name} camping information is coming soon.
+  .row
+    hr.col-md-10.col-md-offset-1
+  .row
+    .col-md-offset-1.col-md-10.pad-top-lg
+      h3.col-md-12 
+        | Find #{@state.name} campgrounds on CampHero's map&nbsp;
+        small = link_to "Explore map", search_state_map(@state), rel:"nofollow"
+      p.col-md-6 CampHero's searchable map makes it easy to find places to camp in #{@state.name}.  <a href=#{search_state_map(@state)}> Click here to find #{@state.name} campgrounds on a map.</a>  
+  .row
+    .col-md-offset-2.col-md-6
+      a.thumbnail href=search_state_map(@state)
+        img src="http://maps.googleapis.com/maps/api/staticmap?center=#{@state.latitude}%2C+#{@state.longitude}&zoom=#{@state.zoom}&size=900x200&maptype=roadmap&sensor=false" rel="Map of campgrounds in #{@state.name}"
+  - unless @state.top_destinations.empty?
+    .row
+      hr.col-md-10.col-md-offset-1
+    .row
+      .col-md-offset-1.col-md-10.pad-top-lg
+        h3.col-md-12 
+          | Popular Camping Destinations in #{@state.name}
+          small   <a href="#{collect_destinations_state_path(id:@state)}">See all #{@state.name} camping destinations > </a>
+        - @state.top_destinations.each do |d|
+          p.col-md-12 = link_to d.name, d
+  .row
+    hr.col-md-10.col-md-offset-1
+  .row
+    .col-md-offset-1.col-md-10.pad-top-lg.pad-bottom-lg
+      h3.col-md-12
+        |  #{@state.name} Cities with Campgrounds
+        small   <a href="#{collect_cities_state_path(id:@state)}">See all #{@state.name} cities with campgrounds > </a>
+
+      - @state.top_cities.each do |d|
+        p.col-md-12 = link_to d.name, d
+  .row
+    hr.col-md-10.col-md-offset-1
+  .row
+    .col-md-offset-1.col-md-10.pad-top-lg
+      h3.col-md-12 
+        | Campgrounds in #{@state.name} (#{@state.campsites_count} total)
+        small   <a href="#{collect_campgrounds_state_path(id:@state)}">See all #{@state.name} campgrounds > </a>
+      - @state.top_campsites.each do |cg|
+        p.col-md-12 = link_to cg.name, cg
+      p.col-md-12 = link_to "See more #{@state.name} campgrounds >>", collect_campgrounds_state_path(id:@state)
+
+
+

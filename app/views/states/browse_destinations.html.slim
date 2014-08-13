@@ -1,0 +1,13 @@
+- content_for :title, "Top camping destinations in #{@state.name} on CampHero"
+- content_for :keywords, "#{@state.name}, #{@state.name} camping destinations, #{@state.name} camping, #{@state.name} RV parks, #{@state.name} tent camping, #{@state.name} backpacking, CampHero, top camping destinations in #{@state.name}, best camping destinations in #{@state.name}"
+- content_for :description, "#{@state.name} camping destinations: See all of the top camping destinations in #{@state.name}.  CampHero has information on #{@state.campsites_count} campgrounds in #{@state.name}, making it your best resource for #{@state.name} camping."
+
+.container
+  .row
+    h1.col-md-12.pad-top-xl.text-center Top camping destinations in #{@state.name}
+    p.col-md-6.col-md-offset-3.text-center CampHero has the top camping destinations in #{@state.name}.  Click on a destination to see which campgrounds, RV parks, and backcountry camping areas are nearby.
+  .row
+    hr.col-md-12
+  .row
+    - @state.destinations.each do |d|
+      p.text-center = link_to d.name, d

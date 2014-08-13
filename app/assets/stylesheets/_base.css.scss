@@ -98,6 +98,8 @@ h1 {              font-family:$brand-font;}
 .fill-width {width:100%;}
 .fill-height {    height:100%;} // add this to a body & html elements
 
+.center-img { margin:0 auto; }
+
 // Banner styles=================================
 @import 'navbar';
 .brand {

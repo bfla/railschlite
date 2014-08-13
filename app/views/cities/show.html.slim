@@ -1,32 +1,118 @@
--content_for :body_class, "scaffold"
-.row
-  p#notice = notice
-.row
-  p
-    strong State:
-    = @city.state_id
-  p
-    strong Name:
-    = @city.name
-  p
-    strong Description:
-    = @city.description
-  p
-    strong Latitude:
-    = @city.latitude
-  p
-    strong Longitude:
-    = @city.longitude
-  p
-    strong Zoom:
-    = @city.zoom
-  p
-    strong Slug:
-    = @city.slug
-  p
-    strong Campsites count:
-    = @city.campsites_count
-.row
-  = link_to 'Edit', edit_city_path(@city)
-  '|
-  = link_to 'Back', cities_path
+- content_for :title, "Campgrounds in #{@city.name} #{@city.state_abbrev} on CampHero"
+- content_for :keywords, "#{@city.name}, #{@city.name} campgrounds, #{@city.name} camping, #{@city.name} RV parks, #{@city.name} tent camping, #{@city.name} backpacking, CampHero, top campgrounds in #{@city.name}, best campgrounds in #{@city.name}"
+- content_for :description, "#{@city.name} Campgrounds: CampHero has information about #{@city.campsites_count} campgrounds in #{@city.name} #{@city.state_abbrev}, making it your best resource for #{@city.name} camping information. CampHero has #{@city.name} camping maps, lists of the best campgrounds, top camping destinations, photos, and more."
+
+- content_for :breadcrumb
+  li = link_to "#{@city.state_name} Campgrounds", state_path(@city.state_id)
+  li.active = @city.name
+
+- content_for :heading
+  h1 
+    | #{@city.name} Campgrounds
+    - if @city.state_hashtag
+      small.orange   ##{@city.state_hashtag}
+  p.lead The best campgrounds in #{@city.name} are on CampHero
+
+// HEADER PHOTO =============================================
+- content_for :header_alt, "This header photo depicts camping in {@city.name}"
+- content_for :header_description, "Camping in {@city.name}"
+- content_for :header_img_url, city_header_url(@city)
+
+// Main content =========================================
+.container
+  / About ===================================================
+  .row
+    .col-md-offset-1.col-md-7.pad-top-lg
+      h3.col-md-12 About camping in #{@city.name}
+      p.col-md-12 
+        - if @city.description
+          = @city.description
+        /|  There #{@city.campsites_count == 1 ? 'is' : 'are'} #{pluralize(@city.campsites_count, "campgrounds")} in #{@city.name} including #{pluralize(rustic_campsites(@city).count, "rustic campground", "rustic campgrounds")}, #{pluralize(rv_campsites(@city).count, "RV park", "RV parks")}, and #{pluralize(backcountry_campsites(@city).count, "backcountry camping area", "backcountry camping areas")}. Stay tuned: This site is brand new and more #{@city.name} camping information is coming soon.
+  .row
+    hr.col-md-10.col-md-offset-1
+  .row
+    .col-md-offset-1.col-md-10.pad-top-lg
+      h3.col-md-12 
+        | Find #{@city.name} campgrounds on CampHero's map&nbsp;
+        small = link_to "Explore map", search_city_map(@city), rel:"nofollow"
+      p.col-md-6 CampHero's searchable map makes it easy to find places to camp in #{@city.name}.  <a href=#{search_city_map(@city)}> Click here to find #{@city.name} campgrounds on a map.</a>  
+  .row
+    .col-md-offset-2.col-md-6
+      a.thumbnail href=search_city_map(@city)
+        img src="http://maps.googleapis.com/maps/api/staticmap?center=#{@city.latitude}%2C+#{@city.longitude}&zoom=#{@city.zoom}&size=900x200&maptype=roadmap&sensor=false" rel="Map of campgrounds in #{@city.name}"
+  - unless @city.campsites.empty?
+    .row
+      hr.col-md-10.col-md-offset-1
+    .row
+      .col-md-offset-1.col-md-10.pad-top-lg
+        h3.col-md-12 
+          | Top Campgrounds in #{@city.name} #{@city.state_abbrev}
+          small   <a href="#{collect_campsites_city_path(id:@city)}">see all> </a>
+        - @city.campsites.first(5).each do |cg|
+          p.col-md-12 = link_to cg.name, cg
+        p.col-md-12 = link_to "see all >>", collect_campsites_city_path(id:@city)
+  /- unless rustic_campsites(@city).empty?
+  - unless city_rustic_campsites(@city).empty?
+    .row
+      hr.col-md-10.col-md-offset-1
+    .row
+      .col-md-offset-1.col-md-10.pad-top-lg.pad-bottom-lg
+        h3.col-md-12
+          |  Best Rustic Campgrounds in #{@city.name} #{@city.state_abbrev}
+          small   <a href="#{collect_campsites_city_path(id:@city)}">see all>> </a>
+
+        - city_rustic_campsites(@city).first(5).each do |cg|
+          p.col-md-12 = link_to cg.name, cg
+        p.col-md-12 = link_to "see all >>", collect_campsites_city_path(id:@city)
+  - unless city_rv_campsites(@city).empty?
+    .row
+      hr.col-md-10.col-md-offset-1
+    .row
+      .col-md-offset-1.col-md-10.pad-top-lg.pad-bottom-lg
+        h3.col-md-12
+          |  Best RV Campgrounds in #{@city.name} #{@city.state_abbrev}
+          small   <a href="#{collect_campsites_city_path(id:@city)}">see all>> </a>
+
+        - city_rv_campsites(@city).first(5).each do |cg|
+          p.col-md-12 = link_to cg.name, cg
+        p.col-md-12 = link_to "see all >>", collect_campsites_city_path(id:@city)
+  - unless city_backcountry_campsites(@city).empty?
+    .row
+      hr.col-md-10.col-md-offset-1
+    .row
+      .col-md-offset-1.col-md-10.pad-top-lg.pad-bottom-lg
+        h3.col-md-12
+          |  Best Backcountry Camping in #{@city.name} #{@city.state_abbrev}
+          small   <a href="#{collect_campsites_city_path(id:@city)}">see all>> </a>
+
+        - city_backcountry_campsites(@city).first(5).each do |cg|
+          p.col-md-12 = link_to cg.name, cg
+        p.col-md-12 = link_to "see all >>", collect_campsites_city_path(id:@city)
+  - unless @nearby_cities.empty?
+    .row
+      hr.col-md-10.col-md-offset-1
+    .row
+      .col-md-offset-1.col-md-10.pad-top-lg.pad-bottom-lg
+        h3.col-md-12
+          |  More Cities With Camping Nearby
+          small   <a href="#{search_city_map(@city)}">Explore map></a>
+
+        - @nearby_cities.each do |c|
+          p.col-md-12 = link_to c.name, c
+  - unless @nearby_campsites.empty?
+    .row
+      hr.col-md-10.col-md-offset-1
+    .row
+      .col-md-offset-1.col-md-10.pad-top-lg.pad-bottom-lg
+        h3.col-md-12
+          |  More campgrounds in cities near #{@city.name}
+          small   <a href="search_city_map(@city)">Explore map></a>
+
+        - @nearby_campsites.first(5).each do |cg|
+          p.col-md-12 = link_to cg.name, cg
+        p.col-md-12 = link_to "see all >>", collect_campsites_city_path(id:@city)
+
+
+
+
+
