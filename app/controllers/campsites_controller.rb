@@ -1,5 +1,5 @@
 class CampsitesController < ApplicationController
-  before_action :set_campsite, only: [:show, :edit, :update, :destroy]
+  before_action :set_campsite, only: [:edit, :update, :destroy]
   before_action :verify_admin, except: [:show, :index]
 
   # GET /campsites
@@ -11,6 +11,7 @@ class CampsitesController < ApplicationController
   # GET /campsites/1
   # GET /campsites/1.json
   def show
+    @campsite = Campsite.includes(:city, :state).friendly.find(params[:id])
     @nearbys = @campsite.nearbys.limit(10)
     gon.initCenter = [@campsite.latitude, @campsite.longitude]
     gon.geoJson = @campsite.to_geojson

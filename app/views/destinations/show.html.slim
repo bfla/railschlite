@@ -54,7 +54,7 @@
         h3.col-md-12 
           | Top Campgrounds near #{@destination.name}
           small   <a href="#{collect_campsites_destination_path(id:@destination)}">see all> </a>
-        - @destination.campsites.first(5).each do |cg|
+        - @campsites.first(5).each do |cg|
           p.col-md-12 = link_to cg.name, cg
         p.col-md-12 = link_to "see all >>", collect_campsites_destination_path(id:@destination)
   - unless rustic_campsites(@campsites).empty?

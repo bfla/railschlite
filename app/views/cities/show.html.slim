@@ -27,7 +27,7 @@
       p.col-md-12 
         - if @city.description
           = @city.description
-        /|  There #{@city.campsites_count == 1 ? 'is' : 'are'} #{pluralize(@city.campsites_count, "campgrounds")} in #{@city.name} including #{pluralize(rustic_campsites(@city).count, "rustic campground", "rustic campgrounds")}, #{pluralize(rv_campsites(@city).count, "RV park", "RV parks")}, and #{pluralize(backcountry_campsites(@city).count, "backcountry camping area", "backcountry camping areas")}. Stay tuned: This site is brand new and more #{@city.name} camping information is coming soon.
+          |  There #{@city.campsites_count == 1 ? 'is' : 'are'} #{pluralize(@city.campsites_count, "campgrounds")} in #{@city.name} including #{pluralize(rustic_campsites(@city).count, "rustic campground", "rustic campgrounds")}, #{pluralize(rv_campsites(@city).count, "RV park", "RV parks")}, and #{pluralize(backcountry_campsites(@city).count, "backcountry camping area", "backcountry camping areas")}. Stay tuned: This site is brand new and more #{@city.name} camping information is coming soon.
   .row
     hr.col-md-10.col-md-offset-1
   .row
@@ -95,7 +95,7 @@
       .col-md-offset-1.col-md-10.pad-top-lg.pad-bottom-lg
         h3.col-md-12
           |  More Cities With Camping Nearby
-          small   <a href="#{search_city_map(@city)}">Explore map></a>
+          small   <a href="#{search_city_map(@city)}">explore map></a>
 
         - @nearby_cities.each do |c|
           p.col-md-12 = link_to c.name, c
@@ -106,7 +106,7 @@
       .col-md-offset-1.col-md-10.pad-top-lg.pad-bottom-lg
         h3.col-md-12
           |  More campgrounds in cities near #{@city.name}
-          small   <a href="search_city_map(@city)">Explore map></a>
+          small   <a href="search_city_map(@city)">explore map></a>
 
         - @nearby_campsites.first(5).each do |cg|
           p.col-md-12 = link_to cg.name, cg

@@ -47,7 +47,7 @@
         h3.col-md-12 
           | Popular Camping Destinations in #{@state.name}
           small   <a href="#{collect_destinations_state_path(id:@state)}">See all #{@state.name} camping destinations > </a>
-        - @state.top_destinations.each do |d|
+        - @state.top_destinations.first(8).each do |d|
           p.col-md-12 = link_to d.name, d
   .row
     hr.col-md-10.col-md-offset-1
