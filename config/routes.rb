@@ -35,12 +35,17 @@ Chlite::Application.routes.draw do
 
   # STATIC PAGES =====================================================
   root to:"pages#home"
+  get :sitemap, to:"pages#sitemap", as:"sitemap"
   get :terms, to:"pages#terms", as:"terms"
   get :privacy, to:"pages#privacy", as:"privacy"
   get :takedown, to:"pages#takedown", as:"takedown"
   get :mobile_teaser, to:"pages#mobile_teaser", as:"mobile_teaser"
   get :support, to:"pages#support", as:"support"
   get :unauthorized, to:"pages#unauthorized", as:"unauthorized"
+
+  get :bloggers, to:"pages#bloggers", as:"bloggers"
+  get :smallbiz, to:"pages#smallbiz", as:"smallbiz"
+  get :reasons, to:"pages#reasons", as:"reasons"
 
   # IMPORTS ==========================================================
   post :upload_destination, to:"imports#destination_import", as:"upload_destination"

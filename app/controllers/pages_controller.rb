@@ -34,7 +34,7 @@ class PagesController < ApplicationController
   def reasons
   end
 
-  def show
+  def sitemap
     @domain = "http://#{request.host_with_port}"
 
     @static_sites = [
