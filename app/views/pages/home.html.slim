@@ -9,7 +9,7 @@
 #mobile-teaser-header alt="CampHero's background image for its header is a photo of beautiful Bay View Campground in Michigan." description="Find Michigan Campgrounds with CampHero's iOS app" style='background-image:url("#{request.protocol}#{request.host_with_port}#{ asset_path "/images/backgrounds/CampHero-camping-1.jpg"}"); height:500px;'
   .container
     .row
-      h1.white-text.promo-heading.text-center.pad-top-huge CampHero
+      h1.white-text.promo-heading.text-center.pad-top-huge CampHero <small> Beta </small>
       p.lead.white-text.text-center 
         | Find super campgrounds anywhere in the continental USA
         br
@@ -33,19 +33,41 @@
           img.img.img-responsive.center-img src="/images/icons/AppStoreBadge.png" alt="App Store Badge" description="App Store"
 
 // Below the fold ===============================================
-/.container
-  h3 Featured Destinations
+.container.home-page-content.white
+  .row
+    .col-md-5.col-md-offset-1
+      h3.col-md-12 Popular States
+      hr.col-md-9
+      - @states.each do |s|
+        p.col-md-12 = link_to s.name, s
+      p.col-md-12 = link_to "See all states >>", states_path
 
+    .col-md-5
+      h3.col-md-12 Featured Camping Destinations
+      hr.col-md-9
+      - @destinations.each do |d|
+        p.col-md-12 = link_to d.name, d
+      p.col-md-12 = link_to "See all popular camping destinations >>", destinations_path
+  .row
+    .col-md-5.col-md-offset-1
+      h3.col-md-12 Featured Cities with Campgrounds
+      hr.col-md-9
+      - @cities.each do |c|
+        p.col-md-12 = link_to c.name, c
+      p.col-md-12 = link_to "See all cities with camping >>", cities_path
 
-
-/.container
-  h3 Find Campgrounds by State
-
+    .col-md-5
+      h3.col-md-12 Featured Campgrounds
+      hr.col-md-9
+      - @campsites.each do |cg|
+        p.col-md-12 = link_to cg.name, cg
+      p.col-md-12 = link_to "See all featured campgrounds >>", campsites_path
 
 // License ====================================================
-.container
+.container.white
   .row
-    p.subtle-text.pad-top-xl
+    p.subtle-text.pad-top-xl.col-md-offset-1.col-md-10
       small
         | Photo credits: Redwoods @MichaelBalint (header, modified from original).&nbsp;
         a.subtle-text href="http://creativecommons.org/licenses/by/2.0/" Creative Commons Attribution License.
+- content_for :footer_class, "pad-top-huge"

@@ -7,7 +7,7 @@
   li.active = @destination.name
 
 - content_for :heading
-  h1 
+  h1
     | Camping near #{@destination.name}
     - if @destination.state_hashtag
       small.orange   ##{@destination.state_hashtag}
@@ -28,14 +28,20 @@
         - if @destination.description
           = @destination.description
         |  There #{@campsites_count == 1 ? 'is' : 'are'} #{pluralize(@campsites.count, "campgrounds")} near #{@destination.name} including #{pluralize(rustic_campsites(@campsites).count, "rustic campground", "rustic campgrounds")}, #{pluralize(rv_campsites(@campsites).count, "RV park", "RV parks")}, and #{pluralize(backcountry_campsites(@campsites).count, "backcountry camping area", "backcountry camping areas")}. Stay tuned: This site is brand new and more #{@destination.name} camping information is coming soon.
+      - if @destination.highlights
+        p.col-md-12 Highlights: #{@destination.highlights}
+      - if @destination.things_to_do
+        p.col-md-12 Things to do: #{@destination.things_to_do}
+      - if @destination.camping_tips
+        p.col-md-12  Camping tips: #{@destination.camping_tips}
   .row
     hr.col-md-10.col-md-offset-1
   .row
     .col-md-offset-1.col-md-10.pad-top-lg
-      h3.col-md-12 
+      h3.col-md-10
         | Find #{@destination.name} campgrounds on CampHero's map&nbsp;
         small = link_to "Explore map", search_destination_map(@destination), rel:"nofollow"
-      p.col-md-6 CampHero's searchable map makes it easy to find places to camp in #{@destination.name}.  <a href=#{search_destination_map(@destination)}> Click here to find #{@destination.name} campgrounds on a map.</a>  
+      p.col-md-10 CampHero's searchable map makes it easy to find places to camp in #{@destination.name}.  <a href=#{search_destination_map(@destination)}> Click here to find #{@destination.name} campgrounds on a map.</a>  
   .row
     .col-md-offset-2.col-md-6
       a.thumbnail href=search_destination_map(@destination)

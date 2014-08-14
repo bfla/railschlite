@@ -8,9 +8,9 @@
     p.col-md-6.col-md-offset-3.text-center This is CampHero's list of all the campgrounds in #{@state.name}.  You can find campgrounds on this list.  But it's usually easier to find them on CampHero's <a href="#{searches_path(keywords:"#{@state.latitude}, #{@state.longitude}", distance:500)}" rel="nofollow"> map of #{@state.name} campgrounds.</a>
   .row
     hr.col-md-12
+
   .row
-    - @campsites.each do |cg|
-      p.text-center = link_to cg.name, cg
+    == render "shared/browse_campsites", campsites:@campsites
   .row.text-center
     = paginate @campsites
 

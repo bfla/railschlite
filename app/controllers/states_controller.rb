@@ -18,7 +18,7 @@ class StatesController < ApplicationController
 
   def browse_campgrounds
     @state = State.friendly.find(params[:id])
-    @campsites = Campsite.where(state_id:@state.id).by_name.page(params[:page]).per(20)
+    @campsites = Campsite.where(state_id:@state.id).by_name.page(params[:page]).per(16)
   end
 
   # GET /states/1

@@ -57,7 +57,7 @@
         |  #{@state.name} Cities with Campgrounds
         small   <a href="#{collect_cities_state_path(id:@state)}">See all #{@state.name} cities with campgrounds > </a>
 
-      - @state.top_cities.each do |d|
+      - @state.top_cities.first(4).each do |d|
         p.col-md-12 = link_to d.name, d
   .row
     hr.col-md-10.col-md-offset-1
@@ -66,7 +66,7 @@
       h3.col-md-12 
         | Campgrounds in #{@state.name} (#{@state.campsites_count} total)
         small   <a href="#{collect_campgrounds_state_path(id:@state)}">See all #{@state.name} campgrounds > </a>
-      - @state.top_campsites.each do |cg|
+      - @state.top_campsites.first(4).each do |cg|
         p.col-md-12 = link_to cg.name, cg
       p.col-md-12 = link_to "See more #{@state.name} campgrounds >>", collect_campgrounds_state_path(id:@state)
 

@@ -1,26 +1,30 @@
-- content_for :title, "U.S. Campgrounds"
+- content_for :title, "U.S. Campgrounds on CampHero"
 - content_for :head
   meta name="description" content="CampHero has information about virtually all public campgrounds in the US and growing number of private ones including rustic campgrounds, RV parks, and backcountry camping sites.  Search for campgrounds or find them on a list."
   meta name="keywords" content="CampHero, camping, campgrounds, search for campgrounds, USA campgrounds, U.S. campgrounds, travel, RV parks, backpacking, backcountry camping"
 - content_for :body_class, "scaffold"
-.row
-  h1.text-center U.S. Campgrounds & Camping
-  p.col-md-6.col-md-offset-3.text-center CampHero has more than 18,000 campgrounds and campsites including rustic campgrounds, RV parks, backcountry campgrounds, and more.  You can find them on this list, but most of the time it's easier to <a href="#{root_path}">search for campgrounds.</a>
-  hr.col-md-10.col-md-offset-1
-.row
-  - @campsites.each do |campsite|
-    p.text-center = link_to "#{campsite.name} in #{campsite.city_name}, #{campsite.state_abbrev}", campsite
-.row.text-center
-  = paginate @campsites
 
-- if admin_signed_in? && current_admin.approved?
-  .row.text-center
-    = link_to 'New Campsite', new_campsite_path
-    br
-    = form_tag special_one_time_import_path, multipart:true  do
-      = file_field_tag :file
-      = submit_tag "Update CSV"
-    /= form_tag upload_cg_path, multipart:true  do
-      = file_field_tag :file
-      = submit_tag "Import CSV"
+.container
+  .row.pad-top-xl
+    h1.text-center U.S. Campgrounds & Camping
+    p.col-md-6.col-md-offset-3.text-center CampHero has more than 18,000 campgrounds and campsites including rustic campgrounds, RV parks, backcountry campgrounds, and more.  You can find them on this list, but most of the time it's easier to <a href="#{root_path}">search for campgrounds.</a>
+    hr.col-md-10.col-md-offset-1
+
+  .row
+    - @campsites.each do |cg|
+      p.text-center = link_to "#{cg.name} in #{cg.city_name}, #{cg.state_abbrev}", cg
+
+  .row.text-center.pad-top-xl.pad-bottom-lg
+    = paginate @campsites
+
+  - if admin_signed_in? && current_admin.approved?
+    .row.text-center
+      = link_to 'New Campsite', new_campsite_path
+      br
+      = form_tag special_one_time_import_path, multipart:true  do
+        = file_field_tag :file
+        = submit_tag "Update CSV"
+      /= form_tag upload_cg_path, multipart:true  do
+        = file_field_tag :file
+        = submit_tag "Import CSV"
 
