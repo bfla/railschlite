@@ -26,6 +26,6 @@ class City < ActiveRecord::Base
   end
 
   def slug_me_up
-    "#{name} #{state.abbreviation} camping"
+    "#{name} #{state.abbrev} camping"
   end
 end
