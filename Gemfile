@@ -43,9 +43,10 @@ gem 'unicorn'
 # gem 'debugger', group: [:development, :test]
 
 
-# SPECIAL GEMS FOR THIS SERVICE =========================================================================
+# GEMS FOR THE SERVICE =========================================================================
 gem 'geocoder' #use geocoder for geospatial processing and mapping
 gem 'json'
+gem "paperclip", "~> 4.1"
 
 # SPECIAL GEMS FOR FRONT-FACING INTERFACE
 gem 'compass-rails'

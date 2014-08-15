@@ -2,13 +2,17 @@ class State < ActiveRecord::Base
   extend FriendlyId
   friendly_id :slug_me_up, use: :slugged
 
-  validates :abbrev, presence: true
   has_many :cities
   has_many :destinations
   has_many :campsites
   has_many :top_campsites, :class_name => 'Campsite', :limit => 10
   has_many :top_destinations, :class_name => 'Destination', :limit => 10
   has_many :top_cities, :class_name => 'City', :limit => 10
+  has_attached_file :lead_photo, :styles => { :header => "2000x400>", :thumb => ["200x200#", :png] }, :default_url => "/images/:style/missing.png"
+  validates_attachment :lead_photo, size: {less_than: 5.megabytes}
+  validates_attachment_content_type :lead_photo, :content_type => ['image/jpeg', 'image/png']
+  validates :abbrev, presence: true
+
 
   def cities_count #Create a column to cache this count...
     cities.size

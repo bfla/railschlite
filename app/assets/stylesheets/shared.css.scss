@@ -3,3 +3,27 @@
 .guide-page {
   h1, h2, h3, h4, h5 {color:$dark-slate-grey; }
 }
+
+.place-thumb {
+  img {
+    width:100%;
+    margin-bottom:-60px;
+    z-index:1;
+  }
+  .place-thumb-text {
+    width:100%;
+    //background: #242424;
+    //background-color: #242424;
+    color: white;
+    font-color: white;
+    margin-top:-60px;
+    padding-top:12px;
+    padding-bottom:12px;
+    z-index:2;
+    .place-thumb-link {
+      color: white;
+      &:visited {     color: white; }
+      &:hover {       color: $white-smoke; }
+    }
+  }
+}

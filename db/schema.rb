@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140812151547) do
+ActiveRecord::Schema.define(version: 20140815175738) do
 
   create_table "admins", force: true do |t|
     t.string   "email",                  default: "",    null: false
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 20140812151547) do
     t.datetime "updated_at"
     t.integer  "num"
     t.string   "uuid"
-    t.text     "url",            limit: 255
+    t.text     "url",                     limit: 255
     t.string   "owner"
     t.integer  "rv_sites"
     t.boolean  "plumbing"
@@ -63,8 +63,8 @@ ActiveRecord::Schema.define(version: 20140812151547) do
     t.boolean  "rv"
     t.boolean  "backcountry"
     t.boolean  "horse"
-    t.boolean  "likely_toilets",             default: false
-    t.boolean  "no_toilets",                 default: false
+    t.boolean  "likely_toilets",                      default: false
+    t.boolean  "no_toilets",                          default: false
     t.integer  "orig_id"
     t.boolean  "electricity"
     t.string   "city_name"
@@ -82,11 +82,18 @@ ActiveRecord::Schema.define(version: 20140812151547) do
     t.integer  "state_id"
     t.integer  "city_id"
     t.string   "slug"
+    t.boolean  "featured",                            default: false
+    t.string   "lead_photo_file_name"
+    t.string   "lead_photo_content_type"
+    t.integer  "lead_photo_file_size"
+    t.datetime "lead_photo_updated_at"
+    t.string   "lead_license"
   end
 
   add_index "campsites", ["backcountry"], name: "index_campsites_on_backcountry"
   add_index "campsites", ["city_id"], name: "index_campsites_on_city_id"
   add_index "campsites", ["dump"], name: "index_campsites_on_dump"
+  add_index "campsites", ["featured"], name: "index_campsites_on_featured"
   add_index "campsites", ["horse"], name: "index_campsites_on_horse"
   add_index "campsites", ["latitude"], name: "index_campsites_on_latitude"
   add_index "campsites", ["longitude"], name: "index_campsites_on_longitude"
@@ -106,13 +113,20 @@ ActiveRecord::Schema.define(version: 20140812151547) do
     t.float    "longitude"
     t.integer  "zoom"
     t.string   "slug"
-    t.integer  "campsites_count", default: 0
+    t.integer  "campsites_count",         default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "orig_id"
     t.integer  "zip"
+    t.boolean  "featured",                default: false
+    t.string   "lead_photo_file_name"
+    t.string   "lead_photo_content_type"
+    t.integer  "lead_photo_file_size"
+    t.datetime "lead_photo_updated_at"
+    t.string   "lead_license"
   end
 
+  add_index "cities", ["featured"], name: "index_cities_on_featured"
   add_index "cities", ["latitude"], name: "index_cities_on_latitude"
   add_index "cities", ["longitude"], name: "index_cities_on_longitude"
   add_index "cities", ["slug"], name: "index_cities_on_slug"
@@ -133,8 +147,15 @@ ActiveRecord::Schema.define(version: 20140812151547) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "orig_id"
+    t.boolean  "featured",                default: false
+    t.string   "lead_photo_file_name"
+    t.string   "lead_photo_content_type"
+    t.integer  "lead_photo_file_size"
+    t.datetime "lead_photo_updated_at"
+    t.string   "lead_license"
   end
 
+  add_index "destinations", ["featured"], name: "index_destinations_on_featured"
   add_index "destinations", ["slug"], name: "index_destinations_on_slug"
   add_index "destinations", ["state_id"], name: "index_destinations_on_state_id"
 
@@ -159,12 +180,19 @@ ActiveRecord::Schema.define(version: 20140812151547) do
     t.float    "longitude"
     t.string   "hashtag"
     t.integer  "zoom"
-    t.integer  "campsites_count", default: 0
+    t.integer  "campsites_count",         default: 0
     t.string   "slug"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "featured",                default: false
+    t.string   "lead_photo_file_name"
+    t.string   "lead_photo_content_type"
+    t.integer  "lead_photo_file_size"
+    t.datetime "lead_photo_updated_at"
+    t.string   "lead_license"
   end
 
   add_index "states", ["abbrev"], name: "index_states_on_abbrev"
+  add_index "states", ["featured"], name: "index_states_on_featured"
 
 end

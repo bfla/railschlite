@@ -35,19 +35,31 @@
 // Below the fold ===============================================
 .container.home-page-content.white
   .row
-    .col-md-5.col-md-offset-1
-      h3.col-md-12 Popular States
-      hr.col-md-9
-      - @states.each do |s|
-        p.col-md-12 = link_to s.name, s
-      p.col-md-12 = link_to "See all states >>", states_path
+    h3.col-md-12.pad-top-lg 
+      | Featured Camping Destinations&nbsp;
+      small = link_to "See all popular camping destinations >>", destinations_path
+    .col-md-12
+      hr.col-md-10
+    - @destinations.each do |d|
+      div.place-thumb.col-md-3
+        a href=destination_path(d)
+          img.img.img-responsive src="/images/thumb-test.png"
+        .place-thumb-text
+          h4.text-center = link_to d.name, d, class:"place-thumb-link"
+    p.col-md-12 
 
-    .col-md-5
-      h3.col-md-12 Featured Camping Destinations
-      hr.col-md-9
-      - @destinations.each do |d|
-        p.col-md-12 = link_to d.name, d
-      p.col-md-12 = link_to "See all popular camping destinations >>", destinations_path
+  .row
+    h3.col-md-10.pad-top-lg
+      | Popular States&nbsp;
+      small = link_to "see all states >>", states_path
+    .col-md-12
+      hr.col-md-10
+    - @states.each do |s|
+      div.place-thumb.col-md-3
+        a href=destination_path(s)
+          img.img.img-responsive src="/images/thumb-test.png"
+        .place-thumb-text
+          h4.text-center = link_to s.name, s, class:"place-thumb-link"
   .row
     .col-md-5.col-md-offset-1
       h3.col-md-12 Featured Cities with Campgrounds

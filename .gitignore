@@ -20,3 +20,6 @@
 
 # Heroku says I should ignore this
 .env
+
+# Ignore development database photos
+/public/system
