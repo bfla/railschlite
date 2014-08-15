@@ -43,7 +43,7 @@
     - @destinations.each do |d|
       div.place-thumb.col-md-3
         a href=destination_path(d)
-          img.img.img-responsive src="/images/thumb-test.png"
+          img.img.img-responsive src="/images/test-thumb.png"
         .place-thumb-text
           h4.text-center = link_to d.name, d, class:"place-thumb-link"
     p.col-md-12 
@@ -56,8 +56,8 @@
       hr.col-md-10
     - @states.each do |s|
       div.place-thumb.col-md-3
-        a href=destination_path(s)
-          img.img.img-responsive src="/images/thumb-test.png"
+        a href=state_path(s)
+          img.img.img-responsive src="#{state_thumb_photo(s)}"
         .place-thumb-text
           h4.text-center = link_to s.name, s, class:"place-thumb-link"
   .row
