@@ -8,7 +8,8 @@
 
   .field
     = f.label :state_id
-    = f.number_field :state_id
+    = f.collection_select :state_id, State.all, :id, :name
+    //= f.number_field :state_id
   .field
     = f.label :name
     = f.text_field :name

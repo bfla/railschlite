@@ -37,38 +37,38 @@
   .row
     h3.col-md-12.pad-top-lg 
       | Featured Camping Destinations&nbsp;
-      small = link_to "See all popular camping destinations >>", destinations_path
+      small = link_to "see all popular camping destinations >>", destinations_path
     .col-md-12
       hr.col-md-10
     - @destinations.each do |d|
       div.place-thumb.col-md-3
         a href=destination_path(d)
-          img.img.img-responsive src="/images/test-thumb.png"
+          img.img.img-responsive src="#{destination_thumb_photo(d)}" alt="Camping near #{d.name}" description="Photo of #{d.name} camping"
         .place-thumb-text
           h4.text-center = link_to d.name, d, class:"place-thumb-link"
     p.col-md-12 
 
   .row
     h3.col-md-10.pad-top-lg
-      | Popular States&nbsp;
+      | Top States for Camping&nbsp;
       small = link_to "see all states >>", states_path
     .col-md-12
       hr.col-md-10
     - @states.each do |s|
       div.place-thumb.col-md-3
         a href=state_path(s)
-          img.img.img-responsive src="#{state_thumb_photo(s)}"
+          img.img.img-responsive src="#{state_thumb_photo(s)}" alt="Camping in #{s.name}" description="Photo of camping in #{s.name}"
         .place-thumb-text
           h4.text-center = link_to s.name, s, class:"place-thumb-link"
-  .row
-    .col-md-5.col-md-offset-1
+  .row.pad-top-xl
+    .col-md-6
       h3.col-md-12 Featured Cities with Campgrounds
       hr.col-md-9
       - @cities.each do |c|
         p.col-md-12 = link_to c.name, c
       p.col-md-12 = link_to "See all cities with camping >>", cities_path
 
-    .col-md-5
+    .col-md-6
       h3.col-md-12 Featured Campgrounds
       hr.col-md-9
       - @campsites.each do |cg|
@@ -82,13 +82,13 @@
       small
         | Photo credits: Redwoods @MichaelBalint (header).&nbsp;
         - @states.each do |s|
-          - if s.lead_license
+          - if s.lead_license.present?
             |  #{s.lead_license} (#{s.abbrev}).
         - @destinations.each do |d|
-          - if d.lead_license
+          - if d.lead_license.present?
             |  #{d.lead_license} (#{d.name}).
         - @cities.each do |c|
-          - if c.lead_license
+          - if c.lead_license.present?
             |  #{c.lead_license} (#{c.name}).
         |  Photos have been modified from the originals.
         a.subtle-text href="http://creativecommons.org/licenses/by/2.0/" Creative Commons Attribution License.

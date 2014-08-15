@@ -104,3 +104,10 @@
 
         - @nearby_cities.each do |c|
           p.col-md-12 = link_to c.name, c
+  - if @destination.lead_license.present?
+    .row
+      .col-md-offset-1.col-md-10.pad-top-lg
+        p.subtle-text 
+          small
+            | Photo credits: #{@destination.lead_license} (header, modified). 
+            a.subtle-text href="http://creativecommons.org/licenses/by/2.0/" Creative Commons Attribution License.
