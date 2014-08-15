@@ -36,6 +36,8 @@ Chlite::Application.routes.draw do
   # STATIC PAGES =====================================================
   root to:"pages#home"
   get :sitemap, to:"pages#sitemap", as:"sitemap"
+  get 'sitemap_for_state/:id', to:"pages#sitemap_for_state", as:"sitemap_for_state"
+  get :sitemap_for_static_pages, to:"pages#sitemap_for_static_pages", as:"sitemap_for_static_pages"
   get :terms, to:"pages#terms", as:"terms"
   get :privacy, to:"pages#privacy", as:"privacy"
   get :takedown, to:"pages#takedown", as:"takedown"

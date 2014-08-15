@@ -36,7 +36,10 @@ class PagesController < ApplicationController
 
   def sitemap
     @domain = "http://#{request.host_with_port}"
+    @states = State.all()
+  end
 
+  def sitemap_for_static_pages
     @static_sites = [
       '',
       '/terms',
@@ -52,15 +55,12 @@ class PagesController < ApplicationController
       '/cities',
       '/destinations',
     ]
+    @domain = "http://#{request.host_with_port}"
+  end
 
-    @campsites = Campsite.all()
-    @states = State.all()
-    @cities = City.all()
-    @destinations = Destination.all()
-
-    respond_to do |format|
-      format.xml
-    end
+  def sitemap_for_state
+    @domain = "http://#{request.host_with_port}"
+    @state = State.includes(:campsites, :cities, :destinations).find(params[:id])
   end
 
 end
