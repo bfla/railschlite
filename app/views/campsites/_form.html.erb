@@ -55,7 +55,13 @@
     <%= f.label :dump %><br>
     <%= f.check_box :dump %>
   </div>
+  <div class="field">
+    <%= f.file_field :lead_photo%><br>
+  <div class="field">
+    <%= f.label :lead_license%><br>
+    <%= f.text_field :lead_license%>
   <div class="actions">
     <%= f.submit %>
   </div>
+
 <% end %>

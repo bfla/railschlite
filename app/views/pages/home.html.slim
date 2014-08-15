@@ -80,6 +80,16 @@
   .row
     p.subtle-text.pad-top-xl.col-md-offset-1.col-md-10
       small
-        | Photo credits: Redwoods @MichaelBalint (header, modified from original).&nbsp;
+        | Photo credits: Redwoods @MichaelBalint (header).&nbsp;
+        - @states.each do |s|
+          - if s.lead_license
+            |  #{s.lead_license} (#{s.abbrev}).
+        - @destinations.each do |d|
+          - if d.lead_license
+            |  #{d.lead_license} (#{d.name}).
+        - @cities.each do |c|
+          - if c.lead_license
+            |  #{c.lead_license} (#{c.name}).
+        |  Photos have been modified from the originals.
         a.subtle-text href="http://creativecommons.org/licenses/by/2.0/" Creative Commons Attribution License.
 - content_for :footer_class, "pad-top-huge"

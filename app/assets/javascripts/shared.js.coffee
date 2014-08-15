@@ -2,6 +2,6 @@ $ ->
   $('#panelClose').click ->
     $('.panel').hide()
 
-#$ ->
-  #$('.place-thumb').hover ->
-    #$(this).css("opacity:.5")
+$ ->
+  $('.place-thumb').hover ->
+    $(this).style("opacity:.5")

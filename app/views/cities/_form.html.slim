@@ -30,4 +30,9 @@
   .field
     = f.label :campsites_count
     = f.number_field :campsites_count
+  .field
+    = f.file_field :lead_photo
+  .field
+    = f.label :lead_license
+    = f.text_field :lead_license
   .actions = f.submit 'Save'

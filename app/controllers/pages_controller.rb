@@ -1,10 +1,10 @@
 class PagesController < ApplicationController
 
   def home
-    @destinations = Destination.first(4)
-    @cities = City.first(4)
-    @states = State.featured
-    @campsites = Campsite.first(4)
+    @destinations = Destination.featured.first(4)
+    @cities = City.featured.first(4)
+    @states = State.featured.first(4)
+    @campsites = Campsite.featured.first(4)
   end
   
   def support
