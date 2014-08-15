@@ -1,11 +1,14 @@
 - content_for :body_class, "no-spacing campsite-detail-page"
+- content_for :title, "#{@campsite.name} in #{@campsite.city_name}, #{@campsite.state_abbrev} - Campgrounds - CampHero"
+- content_for :description, "#{@campsite.name} in #{@campsite.city_name}, #{@campsite.state_abbrev}: See reviews, photos, booking information, and more for #{@campsite.name}, one of #{@campsite.city_campsites_count} campgrounds in #{@campsite.city_name}, #{@campsite.state_abbrev}."
+- content_for :keywords, "#{@campsite.name}, #{@campsite.city_name} #{@campsite.state_abbrev}, campgrounds, camping, campsites, camping sites, RV parks, reservations, ratings, photos"
 - content_for :head
   link href='//api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.css' rel='stylesheet'
   / Mapbox script
   script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.js'
 
 .schema-data-holder itemscope="itemscope" itemtype="http://schema.org/Campground http://schema.org/Place"
-  #campsite-detail-header alt="Photo for #{@campsite.name}." title="Header for #{@campsite.name}" style='background-image:url("#{request.protocol}#{request.host_with_port}#{ asset_path "/images/backgrounds/blurry.jpg"}");'
+  #campsite-detail-header alt="Photo for #{@campsite.name}." title="Header for #{@campsite.name}" style='background-image:url("#{request.protocol}#{request.host_with_port}#{ asset_path "/images/backgrounds/camping-header.jpg"}");'
   .beige-background.fill-width
     .container
       / Header
@@ -149,12 +152,13 @@
   .container.beige-background.fill-width
     .row
       p.lead.text-center.pad-top-md itemprop="geo" itemscope="itemscope" itemtype="http://schema.org/Place"
+        meta itemprop="elevation" content=@campsite.elevation
         span itemprop="latitude" #{@campsite.latitude}N
         |, 
         span itemprop="longitude"  #{-@campsite.longitude}W
         - if @campsite.elevation
           br
-          small itemprop="elevation" Elevation: #{@campsite.elevation}'
+          small Elevation: #{@campsite.elevation}ft
   / These rows are too wide!
   .contaner
     /.row

@@ -3,6 +3,10 @@
 - content_for :description, "#{@state.name} camping destinations: See all of the top camping destinations in #{@state.name}.  CampHero has information on #{@state.campsites_count} campgrounds in #{@state.name}, making it your best resource for #{@state.name} camping."
 
 .container
+  .row.pad-top-xl
+    ol.breadcrumb.white
+      li = link_to "#{@state.name} Campgrounds", state_path(@state)
+      li All camping destinations
   .row
     h1.col-md-12.pad-top-xl.text-center Top camping destinations in #{@state.name}
     p.col-md-6.col-md-offset-3.text-center CampHero has the top camping destinations in #{@state.name}.  Click on a destination to see which campgrounds, RV parks, and backcountry camping areas are nearby.

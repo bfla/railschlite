@@ -3,6 +3,10 @@
 - content_for :description, "#{@state.name} cities with camping: This is CampHero's list of all the cities with camping in #{@state.name}."
 
 .container
+  .row.pad-top-xl
+    ol.breadcrumb.white
+      li = link_to "#{@state.name} Campgrounds", state_path(@state)
+      li All cities
   .row
     h1.col-md-12.pad-top-xl.text-center All cities with camping in #{@state.name}
     p.col-md-6.col-md-offset-3.text-center This is CampHero's list of all the cities with camping in #{@state.name}.  Click on a city to see its campgrounds and camping information.
