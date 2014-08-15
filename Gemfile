@@ -65,7 +65,7 @@ end
 group :production do
   gem 'rails_12factor' #Heroku's gem for Rails deployments
   gem 'pg' #Postgresql
-  #gem 'aws-sdk' #Assists with Amazon S3 integration
+  gem 'aws-sdk' #Assists with Amazon S3 integration
 end
 
 group :test do
