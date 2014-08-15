@@ -17,7 +17,7 @@ html.fill-height
 
   body class="#{yield :body_class || 'no-spacing guide-page'}"
     // PHOTO
-    .guide-header alt=yield(:header_alt) description=yield(:header_description) style='background-image:url("#{request.protocol}#{request.host_with_port}#{yield(:header_img_url)}");'
+    .guide-header alt=yield(:header_alt) description=yield(:header_description) style='background-image:url("#{yield(:header_img_url)}");'
 
     .beige-background.fill-width
       / Header

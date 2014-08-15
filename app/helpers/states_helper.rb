@@ -1,7 +1,7 @@
 module StatesHelper
   def state_header_url(state)
     if state.lead_photo.url.include? "missing.png"
-     asset_path "/images/backgrounds/camping-header.jpg"
+     "#{request.protocol}#{request.host_with_port}#{asset_path '/images/backgrounds/camping-header.jpg'}"
     else
       state.lead_photo.url(:header)
     end

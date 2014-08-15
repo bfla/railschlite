@@ -2,7 +2,7 @@ module DestinationsHelper
 
   def destination_header_url(destination)
     if destination.lead_photo.url.include? "missing.png"
-     asset_path "/images/backgrounds/camping-header.jpg"
+      "#{request.protocol}#{request.host_with_port}#{asset_path '/images/backgrounds/camping-header.jpg'}"
     else
       destination.lead_photo.url(:header)
     end
