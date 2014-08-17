@@ -63,6 +63,7 @@ module CampsiteFormatters
         rustic:self.rustic,
         rv:self.rv,
         backcountry:self.backcountry,
+        popup_url: "campsites/#{self.slug}",
         # Extra data for iOS search:
         #reservable: self.reservable,
         #walkins: self.walkins,

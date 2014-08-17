@@ -50,8 +50,8 @@
 
   .row
     h3.col-md-10.pad-top-lg
-      | Top States for Camping&nbsp;
-      small = link_to "see all states >>", states_path
+      | Top States to Camp in&nbsp;
+      small = link_to "see all state camping guides >>", states_path
     .col-md-12
       hr.col-md-10
     - @states.each do |s|
@@ -92,4 +92,6 @@
             |  #{c.lead_license} (#{c.name}).
         |  Photos have been modified from the originals.
         a.subtle-text href="http://creativecommons.org/licenses/by/2.0/" Creative Commons Attribution License.
+
+
 - content_for :footer_class, "pad-top-huge"
