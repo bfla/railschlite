@@ -1,6 +1,6 @@
 - content_for :body_class, "no-spacing campsite-detail-page"
 - content_for :title, "#{@campsite.name} in #{@campsite.city_name}, #{@campsite.state_abbrev} - Campgrounds - CampHero"
-- content_for :description, "#{@campsite.name} in #{@campsite.city_name}, #{@campsite.state_abbrev}: See reviews, photos, booking information, and more for #{@campsite.name}, one of #{@campsite.city_campsites_count} campgrounds in #{@campsite.city_name}, #{@campsite.state_abbrev}."
+- content_for :description, "#{@campsite.name} in #{@campsite.city_name}, #{@campsite.state_abbrev}: See reviews, photos, booking information, and more for #{@campsite.name}, one of #{@campsite.city_campsites_count} campgrounds in #{@campsite.city_name}, #{@campsite.state_abbrev}. #{@campsite.name} is best for #{tribe_name(@campsite)} camping."
 - content_for :keywords, "#{@campsite.name}, #{@campsite.city_name} #{@campsite.state_abbrev}, campgrounds, camping, campsites, camping sites, RV parks, reservations, ratings, photos"
 - content_for :head
   link href='//api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.css' rel='stylesheet'
@@ -150,15 +150,20 @@
     #campsiteMap
 
   .container.beige-background.fill-width
-    .row
-      p.lead.text-center.pad-top-md itemprop="geo" itemscope="itemscope" itemtype="http://schema.org/Place"
-        meta itemprop="elevation" content=@campsite.elevation
-        span itemprop="latitude" #{@campsite.latitude}N
-        |, 
-        span itemprop="longitude"  #{-@campsite.longitude}W
+    .row.pad-top-md
+      h4.text-center  Campground Location
+      p.lead.text-center itemprop="geo" itemscope="itemscope" itemtype="http://schema.org/Place"
+        | #{'%.4f' % @campsite.latitude}&#176; N, #{'%.4f' % -@campsite.longitude}&#176; W
+        meta itemprop="latitude" content=@campsite.latitude
+        meta itemprop="longitude" content=@campsite.longitude
         - if @campsite.elevation
           br
           small Elevation: #{@campsite.elevation}ft
+          meta itemprop="elevation" content=@campsite.elevation
+        - if @campsite.address
+          br
+          small Nearest address: @campsite.address
+
   / These rows are too wide!
   .contaner
     /.row

@@ -27,7 +27,7 @@
       p.col-md-12 
         - if @city.description
           = @city.description
-          |  There #{@city.campsites_count == 1 ? 'is' : 'are'} #{pluralize(@city.campsites_count, "campgrounds")} in #{@city.name} including #{pluralize(city_rustic_campsites(@city).count, "rustic campground", "rustic campgrounds")}, #{pluralize(city_rv_campsites(@city).count, "RV park", "RV parks")}, and #{pluralize(city_backcountry_campsites(@city).count, "backcountry camping area", "backcountry camping areas")}. Stay tuned: This site is brand new and more #{@city.name} camping information is coming soon.
+        |  There #{@city.campsites_count == 1 ? 'is' : 'are'} #{pluralize(@city.campsites_count, "campgrounds")} in #{@city.name} including #{pluralize(city_rustic_campsites(@city).count, "rustic campground", "rustic campgrounds")}, #{pluralize(city_rv_campsites(@city).count, "RV park", "RV parks")}, and #{pluralize(city_backcountry_campsites(@city).count, "backcountry camping area", "backcountry camping areas")}. Stay tuned: This site is brand new and more #{@city.name} camping information is coming soon.
   .row
     hr.col-md-10.col-md-offset-1
   .row

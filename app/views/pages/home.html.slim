@@ -38,6 +38,7 @@
     h3.col-md-12.pad-top-lg 
       | Featured Camping Destinations&nbsp;
       small = link_to "see all popular camping destinations >>", destinations_path
+    p.subtle-text.col-md-12 Find campgrounds near a particular destination
     .col-md-12
       hr.col-md-10
     - @destinations.each do |d|
@@ -50,8 +51,9 @@
 
   .row
     h3.col-md-10.pad-top-lg
-      | Top States to Camp in&nbsp;
+      | Top State Camping Guides&nbsp;
       small = link_to "see all state camping guides >>", states_path
+    p.subtle-text.col-md-12 Find the best camping your state has to offer
     .col-md-12
       hr.col-md-10
     - @states.each do |s|
@@ -60,16 +62,34 @@
           img.img.img-responsive src="#{state_thumb_photo(s)}" alt="Camping in #{s.name}" description="Photo of camping in #{s.name}"
         .place-thumb-text
           h4.text-center = link_to s.name, s, class:"place-thumb-link"
+  .row.pad-top-md
+    hr.col-md-10.col-md-offset-1
+  .row.pad-top-xl
+    .col-md-offset-2.col-md-4
+      = image_tag "/images/backgrounds/5s-alone.png", class:"img img-responsive", alt:"CampHero App iPhone", description:"An image of a black iPhone running the CampHero Mobile app"
+    .col-md-5
+      h3.col-md-12 Get CampHero's free iPhone App
+      p.lead.col-md-12 Camping superpowers for your iOS device.
+      p.col-md-12 <strong>Super-vision</strong>: No campground can hide from CampHero. Over 17,000 public campgrounds & a growing number of private ones.
+      p.col-md-12 <strong>Mega-strength</strong>: Powerful, easy-to-use filters make it easy to find RV parks, tent camping sites, or backcountry sites.
+      p.col-md-12 <strong>Ultra-speed</strong>: Find campgrounds on a map to see all your options in seconds. Don't waste hours searching on Google.
+      p.col-md-12 = link_to "Find out more about CampHero's iOS app >>", mobile_teaser_path
+      p.text-center.col-md-10.pad-top-md
+        a href=app_store_url
+          img.img.img-responsive.center-img src="/images/icons/AppStoreBadge.png" alt="App Store Badge" description="App Store"
+
   .row.pad-top-xl
     .col-md-6
       h3.col-md-12 Featured Cities with Campgrounds
+      p.subtle-text.col-md-12 Find campgrounds in a particular city
       hr.col-md-9
       - @cities.each do |c|
         p.col-md-12 = link_to c.name, c
-      p.col-md-12 = link_to "See all cities with camping >>", cities_path
+      p.col-md-12 = link_to "Explore camping by city >>", cities_path
 
     .col-md-6
       h3.col-md-12 Featured Campgrounds
+      p.subtle-text.col-md-12 Explore featured campgrounds
       hr.col-md-9
       - @campsites.each do |cg|
         p.col-md-12 = link_to cg.name, cg
