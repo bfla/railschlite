@@ -2,7 +2,9 @@ Chlite::Application.routes.draw do
 
   get :searches, to:"searches#show", as:"searches"
 
-  resources :campsites
+  resources :campsites do
+    get 'claim', to:"campsites#claim", as:"claim", on: :member
+  end
 
   resources :states do
     member do

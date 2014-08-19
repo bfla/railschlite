@@ -1,6 +1,10 @@
 class CampsitesController < ApplicationController
   before_action :set_campsite, only: [:edit, :update, :destroy]
-  before_action :verify_admin, except: [:show, :index]
+  before_action :verify_admin, except: [:show, :index, :claim]
+
+  def claim
+    @campsite = Campsite.friendly.find(params[:id])
+  end
 
   # GET /campsites
   # GET /campsites.json

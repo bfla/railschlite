@@ -1,43 +1,46 @@
-- content_for :body_class, "scaffold"
-h1 Listing states
+/- content_for :body_class, "scaffold"
+.container
+  .row
+    h1.pad-top-xl.text-center Camping by state
+    p.text-center Find the best camping in any state in the continental USA.
+  .row
+    table
+      thead
+        tr
+          th State
+        - if authorized?
+          th Abbrev
+          th Description
+          th Latitude
+          th Longitude
+          th Hashtag
+          th Zoom
+          th Slug
+          th
+          th
+          th
 
-table
-  thead
-    tr
-      th Name
-      th Abbrev
-    - if authorized?
-      th Description
-      th Latitude
-      th Longitude
-      th Hashtag
-      th Zoom
-      th Slug
-      th
-      th
-      th
+      tbody
+        - @states.each do |state|
+          tr
+            td = link_to "Camping in #{state.name}", state
+          - if authorized?
+            td = state.abbrev
+            td = state.description
+            td = state.latitude
+            td = state.longitude
+            td = state.hashtag
+            td = state.zoom
+            td = state.slug
+            td = link_to 'Show', state
+            td = link_to 'Edit', edit_state_path(state)
+            td = link_to 'Destroy', state, data: {:confirm => 'Are you sure?'}, :method => :delete
 
-  tbody
-    - @states.each do |state|
-      tr
-        td = link_to state.name, state
-        td = state.abbrev
-      - if authorized?
-        td = state.description
-        td = state.latitude
-        td = state.longitude
-        td = state.hashtag
-        td = state.zoom
-        td = state.slug
-        td = link_to 'Show', state
-        td = link_to 'Edit', edit_state_path(state)
-        td = link_to 'Destroy', state, data: {:confirm => 'Are you sure?'}, :method => :delete
-
-br
-- if admin_signed_in? && current_admin.approved?
-  .row.text-center
-    = link_to 'New State', new_state_path
     br
-    = form_tag upload_state_path, multipart:true  do
-      = file_field_tag :file
-      = submit_tag "Import CSV"
+    - if admin_signed_in? && current_admin.approved?
+      .row.text-center
+        = link_to 'New State', new_state_path
+        br
+        = form_tag upload_state_path, multipart:true  do
+          = file_field_tag :file
+          = submit_tag "Import CSV"

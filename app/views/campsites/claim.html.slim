@@ -1,0 +1,175 @@
+- content_for :title, "Claim Ownership of #{@campsite.name}"
+- content_for :description, "Are you the owner of #{@campsite.name}?  Claim ownership and take control of your profile.  It's completely free."
+- content_for :body_class, "white"
+.container.pad-top-xl
+  .row
+    h1.text-center.col-md-12 Claim your free campground listing
+    p.text-center.lead.col-md-12 
+      | Claim ownership & improve your campground's listing on CampHero for free. No strings attached.
+      br
+      | This should take 1-3 minutes to complete
+    hr.col-md-12
+  = form_for(@campsite) do |f|
+    
+    .row.pad-top-xl
+      h4.col-md-offset-1.col-md-2.subtle-text Basic info
+      .col-md-8
+        p <strong class="subtle-text">Name:</strong> #{@campsite.name}
+        p <strong class="subtle-text">Type:</strong> Primarily #{tribe_name(@campsite)} camping
+        p <strong class="subtle-text">Location:</strong> Check the map to the left
+        
+        h5.pad-top-lg Is the information above correct?
+        .checkbox
+          label
+            = check_box_tag(:correct)
+            | Yes! It looks right.
+        .checkbox
+          label
+            = check_box_tag(:incorrect)
+            | No! It is not correct.
+    .row.pad-top-xl
+      hr.col-md-10.col-md-offset-1
+    .row.pad-top-xl
+      h4.col-md-offset-1.col-md-2.subtle-text  Campsite Information
+      .col-md-8
+        .col-md-6
+          h5 Types of sites
+          .checkbox
+            label
+              = check_box_tag(:full_hookup)
+              | Full hookup (electricity, water, & sewer)
+          .checkbox
+            label
+              = check_box_tag(:electricity)
+              | Electricity but not full hookups
+          .checkbox
+            label
+              = check_box_tag(:rustic_sites)
+              | Rustic (no hookups)
+          .checkbox
+            label
+              = check_box_tag(:walkin)
+              | Walk-in
+          .checkbox
+            label
+              = check_box_tag(:hikein)
+              | Hike-in
+        .col-md-6
+          h5 Electrical hookups
+          .checkbox
+            label
+              = check_box_tag(:twenty_amp)
+              | 20 Amp
+          .checkbox
+            label
+              = check_box_tag(:thirty_amp)
+              | 30 Amp
+          .checkbox
+            label
+              = check_box_tag(:fifty_amp)
+              | 50 Amp
+    .row.pad-top-xl
+      hr.col-md-10.col-md-offset-1
+    .row.pad-top-xl
+      h4.col-md-offset-1.col-md-2.subtle-text Ameneties
+      .col-md-8
+        .col-md-6
+          .checkbox
+            label
+              = check_box_tag(:outhouse)
+              | Bathroom (or outhouse)
+          .checkbox
+            label
+              // THIS WILL NEED A FULL_HOOKUP FIELD
+              = check_box_tag(:showers) 
+              | Showers
+          .checkbox
+            label 
+              = check_box_tag(:dump)
+              | Dump station
+          .checkbox
+            label
+              = check_box_tag(:laundry)
+              | Laundry
+          .checkbox
+            label
+              = check_box_tag(:pool)
+              | Swimming pool
+        .col-md-6
+          .checkbox
+            label
+              = check_box_tag(:beach)
+              | Sandy swimming beach
+          .checkbox
+            label
+              = check_box_tag(:lakefront)
+              | Lakefront or oceanfront (ponds don't count)
+          .checkbox
+            label
+              = check_box_tag(:riverfront)
+              | Riverfront
+          .checkbox
+            label
+              = check_box_tag(:water_access)
+              | Water access
+
+    .row.pad-top-xl
+      hr.col-md-10.col-md-offset-1
+    .row.pad-top-xl
+      h4.col-md-offset-1.col-md-2.subtle-text Campground Rules
+      .col-md-8
+        .checkbox
+          label
+            = check_box_tag(:pet_friendly)
+            | Pets are allowed (on a leash)
+        .checkbox
+          label
+            = check_box_tag(:pet_restrictions)
+            | Pets are allowed (on a leash) but additional rules apply
+        .checkbox
+          label
+            = check_box_tag(:pet_restrictions)
+            | Pets are not allowed
+        .checkbox
+          label
+            = check_box_tag(:alcohol_okay)
+            | Alcohol is allowed (within reason)
+        .checkbox
+          label
+            = check_box_tag(:alcohol_restrictions)
+            | Alcohol is restricted
+        .checkbox
+          label
+            = check_box_tag(:no_tents)
+            | No tent camping
+        .checkbox
+          label
+            = check_box_tag(:no_campfires)
+            | No campfires
+        .checkbox
+          label
+            = check_box_tag(:quiet_hours)
+            | Quiet hours
+    /.row.pad-top-xl
+      hr.col-md-10.col-md-offset-1
+    /.row.pad-top-xl
+      h4.col-md-offset-1.col-md-2.subtle-text Fees
+      .col-md-8
+        .form-group
+          label Minimum daily fee: What is the minimum cost to book a campsite for the night?
+          = f.text_field :name, class:"form-control"
+        .checkbox
+          label
+            = check_box_tag(:extra_fees)
+            | Extra fees may apply. Common examples include usage fees for showers, cable, WiFi, dump stations, & parking.
+    .row.pad-top-xl
+      hr.col-md-10.col-md-offset-1
+    .row.pad-top-xl
+      p.text-center.pad-top-lg.pad-bottom-xl
+        input.btn.btn-success.btn-lg type="submit"
+
+- content_for :footer_class, "pad-top-huge"
+
+
+
+  
