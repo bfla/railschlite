@@ -30,9 +30,9 @@ module CampsitesHelper
 
   def toilets_image(campsite)
     if campsite.no_toilets
-      image_path 'icons/Outhouse100.png'
-    elsif campsite.likely_toilets
       image_path 'icons/NoOuthouse100.png'
+    elsif campsite.likely_toilets
+      image_path 'icons/Outhouse100.png'
     else
       image_path 'icons/MaybeOuthouse100.png'
     end
