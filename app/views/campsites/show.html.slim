@@ -46,6 +46,8 @@
                   span.glyphicon.glyphicon-globe.subtle-text itemprop="url"
                   | &nbsp;
                   a href=@campsite.url Campground website 
+              - if !@campsite.url && !@campsite.phone
+                p.pad-sm.text-center No booking information yet for #{@campsite.name}
               p.subtle-text.text-center New! More booking info coming soon!
   .container
     / About ===================================================
@@ -61,9 +63,13 @@
           - elsif @campsite.rustic
             | rustic campground best suited for tent camping.
           - if @campsite.backcountry
-            |  The camping area is managed by the #{@campsite.owner}.
+            |  The camping area is managed by the 
           - else
-            |  The campground is managed by the #{@campsite.owner}.
+            |  The campground is managed by the 
+          - if @campsite.owner && @campsite.owner.downcase == "state"
+            |  state of #{@campsite.state_name}.
+          - else
+            |  #{@campsite.owner}.
           - if !@campsite.showers && !@campsite.electricity
             |  Campsites here do not offer modern ameneties like showers or electricity
             - if @campsite.outhouse || @campsite.likely_toilets
@@ -75,6 +81,11 @@
           - if @campsite.showers || @campsite.electricity
             |  Campsites here have modern ameneties.  (See details below.)
           |  #{@campsite.name} is located in <a href="#{city_path(@campsite.city)}"> #{@campsite.city_name}, #{@campsite.state_abbrev}</a>, which has a total of #{pluralize(@campsite.city_campsites_count, "campground")}.
+      .col-md-4
+        p.subtle-text.col-md-12.pad-top-lg
+          small Share #{@campsite.name}
+        .col-md-12
+          .addthis_sharing_toolbox
 
         /p.col-md-12 <a> Contact Host </a>
       /.col-md-4
@@ -162,7 +173,7 @@
           meta itemprop="elevation" content=@campsite.elevation
         - if @campsite.address
           br
-          small Nearest address: @campsite.address
+          small Nearest address: #{@campsite.address}
 
   / These rows are too wide!
   .contaner
@@ -175,6 +186,7 @@
         hr.col-md-12
         h3.col-md-12 Description
         p.col-md-12 Put extra stuff here...
+    // NEARBY CAMPGROUNDS =====================================================
     - unless @nearbys.empty?
       .row
         .col-md-offset-1.col-md-11.pad-top-lg
@@ -182,6 +194,7 @@
           h3.col-md-12 
             | More Campgrounds Nearby &nbsp;
             small = link_to "See all nearby campgrounds >>", searches_path(keywords:"#{@campsite.latitude}, #{@campsite.longitude}"), rel:"nofollow"
+          hr.col-md-12
       .row.pad-top-md
         .col-md-offset-1.col-md-10
           - @nearbys.first(4).each do |n|
@@ -199,6 +212,50 @@
                   .thumbnail.nearby-thumb
                     img.img.img-responsive src=tribe_icon(n)
                     h5.text-center = link_to truncate(n.name, length:20, seperator:" "), n
+    //Ratings ===============================
+    .row
+      .col-md-offset-1.col-md-11.pad-top-xl
+        h3.col-md-12 Reviews for #{@campsite.name}
+        hr.col-md-12
+        p.lead.col-md-12 Have you been to #{@campsite.name}? Coming soon, CampHero will allow campers to review campgrounds so you can share what you know.
+
+
+    // SIMILAR CAMPGROUNDS =====================================================
+    - unless @similars.empty?
+      .row
+        .col-md-offset-1.col-md-11.pad-top-lg
+          /hr.col-md-12
+          h3.col-md-12 Campgrounds similar to #{@campsite.name}
+          hr.col-md-12
+      .row.pad-top-md
+        .col-md-offset-1.col-md-10
+          - @similars.first(4).each do |cg|
+            .col-md-3.pad-top-md
+              a href=campsites_path(cg)
+                .thumbnail.nearby-thumb
+                  img.img.img-responsive src=tribe_icon(cg)
+                  h5.text-center = link_to truncate(cg.name, length:20, seperator:" "), cg
+
+    // EXTRA FLUFF
+    .row.pad-top-xl
+      .col-md-offset-1.col-md-10
+        .col-md-4
+          h4.col-md-12.subtle-text <small>Cities near #{@campsite.name}</small>
+          hr.col-md-12
+          p #{@campsite.name} is located in #{@campsite.city_name} but there are other cities nearby:
+          - @nearby_cities.each do |c|
+            p = link_to c.name, c
+        .col-md-4
+          h4.col-md-12.subtle-text <small>Explore #{@campsite.state_name} Camping</small>
+          hr.col-md-12
+          p 
+            #{@campsite.name} is one of #{@campsite.state_campsites_count} campgrounds in #{@campsite.state_name}.
+            = link_to "See what else #{@campsite.state_name} has to offer.", @campsite.state
+
+    // EXPLORE NEARBY CITIES
+
+
+
     /.row
       .col-md-offset-1.col-md-7.pad-top-lg
         hr.col-md-12
@@ -209,3 +266,4 @@
 
   javascript:
     makeCampsiteMap();
+

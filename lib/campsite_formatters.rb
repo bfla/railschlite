@@ -8,6 +8,10 @@ module CampsiteFormatters
     city.campsites_count if city
   end
 
+  def state_campsites_count
+    state.campsites_count if state
+  end
+
   def state_name # I should probably just save this to campsite bc it is static
     state.name if state
   end

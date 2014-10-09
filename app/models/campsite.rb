@@ -31,6 +31,18 @@ class Campsite < ActiveRecord::Base
     where(featured: true)
   end
 
+  def similar(campsites)
+    if self.horse
+      campsites.where(horse:true)
+    elsif self.backcountry
+      campsites.where(backcountry:true)
+    elsif self.rv
+      campsites.where(rv:true)
+    else
+      campsites.where(rustic:true)
+    end
+  end
+
   def add_city_and_address
     geo_results = Geocoder.search("#{self.latitude}, #{self.longitude}")
     if geo = geo_results.first

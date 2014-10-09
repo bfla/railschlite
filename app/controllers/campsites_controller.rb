@@ -16,7 +16,9 @@ class CampsitesController < ApplicationController
   # GET /campsites/1.json
   def show
     @campsite = Campsite.includes(:city, :state).friendly.find(params[:id])
-    @nearbys = @campsite.nearbys.limit(10)
+    @nearbys = @campsite.nearbys
+    @similars = @campsite.similar(@nearbys)
+    @nearby_cities = City.near([@campsite.latitude, @campsite.longitude], 30)
     gon.initCenter = [@campsite.latitude, @campsite.longitude]
     gon.geoJson = @campsite.to_geojson
   end
