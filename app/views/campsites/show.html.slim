@@ -109,9 +109,9 @@
         .col-md-3.text-center
           img.img.img-responsive src=toilets_image(@campsite)
           - if @campsite.no_toilets
-            p.subtle-text toilets
-          - elsif @campsite.likely_toilets
             p.subtle-text no toilets
+          - elsif @campsite.likely_toilets
+            p.subtle-text toilets
           - else
             p.subtle-text probably toilets
         .col-md-3.text-center
