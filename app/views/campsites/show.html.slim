@@ -68,6 +68,8 @@
             |  The campground is managed by the 
           - if @campsite.owner && @campsite.owner.downcase == "state"
             |  state of #{@campsite.state_name}.
+          - elsif @campsite.owner && @campsite.owner.downcase == "federal"
+            |  federal government.
           - else
             |  #{@campsite.owner}.
           - if !@campsite.showers && !@campsite.electricity
