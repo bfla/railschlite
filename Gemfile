@@ -56,6 +56,7 @@ gem 'gon' # For passing js variables to the front-end
 gem 'kaminari' # For pagination
 gem 'devise' # For Authentication
 gem 'friendly_id', '~> 5.0.0' #use friendly URLs with slugs
+gem 'rails-backbone'
 
 group :development, :test do
   gem 'sqlite3' # use sqlite3 during development and testing
