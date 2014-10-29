@@ -8,89 +8,99 @@
 
 // BODY CONTENT ===============================================
 // Hidden inputs
-input#activeTribeId type="hidden" value="0"
-input#activeReservableFilter type="hidden" value="false"
-input#activeWalkinsFilter type="hidden" value="false"
-// Results area
-#results-container.col-md-4.well.white.fill-height.remove-bottom-margin.pad-left-sm.hidden-sm.hidden-xs
-  .result-list.fill-height
-    / Filters============================================
-    /.row
-      .col-md-3
-        #allSearchFilter.searchFilterThumbnail.thumbnail.searchTribeFilterTracker data-tribe-id="0"
-          = image_tag 'icons/All120.png', class:'img-circle img-responsive tribe-background'
-        p.no-spacing.text-center
-            small.no-spacing
-              small.no-spacing Show all
-      .col-md-3
-        .searchFilterThumbnail.thumbnail.searchTribeFilterTracker data-tribe-id="1"
-          = image_tag 'icons/Rustic120.png', class:'img-circle img-responsive tribe-background'
-        p.no-spacing.text-center
-            small.no-spacing
-              small.no-spacing Rustic
-      .col-md-3
-        .searchFilterThumbnail.thumbnail.searchTribeFilterTracker data-tribe-id="2"
-          = image_tag 'icons/RV120.png', class:'img-circle img-responsive tribe-background'
-        p.no-spacing.text-center
-            small.no-spacing
-              small.no-spacing RV
-      .col-md-3
-        .searchFilterThumbnail.thumbnail.searchTribeFilterTracker data-tribe-id="3"
-          = image_tag 'icons/Backcountry120.png', class:'img-circle img-responsive tribe-background'
-        p.no-spacing.text-center
-            small.no-spacing
-              small.no-spacing Backcountry
-    / Beta notice =============================================
-    .row.results.pad-top-lg
-      .col-md-12
-        .panel.panel-success
-          .panel-heading 
-            | CampHero Ultra Search Beta
-            #panelClose.button.close type="button" data-dismiss="panel" aria-hidden="true" &times;
-          .panel-body This feature is brand new.  It might be buggy for the first few days.  If it glitches out on you, try reloading the page.
+javascript:
+  $(function() {
+    // Blog is the app name
+    window.router = new Blog.Routers.SearchResultsRouter({search_results: <%= @search_results.to_json.html_safe -%>});
+    Backbone.history.start();
+  });
 
-    / If no results =============================================
-    - if @campsites.blank?
+
+
+/ Hide this for now
+  input#activeTribeId type="hidden" value="0"
+  input#activeReservableFilter type="hidden" value="false"
+  input#activeWalkinsFilter type="hidden" value="false"
+  // Results area
+  #results-container.col-md-4.well.white.fill-height.remove-bottom-margin.pad-left-sm.hidden-sm.hidden-xs
+    .result-list.fill-height
+      / Filters============================================
+      /.row
+        .col-md-3
+          #allSearchFilter.searchFilterThumbnail.thumbnail.searchTribeFilterTracker data-tribe-id="0"
+            = image_tag 'icons/All120.png', class:'img-circle img-responsive tribe-background'
+          p.no-spacing.text-center
+              small.no-spacing
+                small.no-spacing Show all
+        .col-md-3
+          .searchFilterThumbnail.thumbnail.searchTribeFilterTracker data-tribe-id="1"
+            = image_tag 'icons/Rustic120.png', class:'img-circle img-responsive tribe-background'
+          p.no-spacing.text-center
+              small.no-spacing
+                small.no-spacing Rustic
+        .col-md-3
+          .searchFilterThumbnail.thumbnail.searchTribeFilterTracker data-tribe-id="2"
+            = image_tag 'icons/RV120.png', class:'img-circle img-responsive tribe-background'
+          p.no-spacing.text-center
+              small.no-spacing
+                small.no-spacing RV
+        .col-md-3
+          .searchFilterThumbnail.thumbnail.searchTribeFilterTracker data-tribe-id="3"
+            = image_tag 'icons/Backcountry120.png', class:'img-circle img-responsive tribe-background'
+          p.no-spacing.text-center
+              small.no-spacing
+                small.no-spacing Backcountry
+      / Beta notice =============================================
       .row.results.pad-top-lg
         .col-md-12
-          .panel.panel-warning
-            .panel-heading Super-darn!  No campsites matched your search.
-            .panel-body
-              ul
-                li Maybe my advanced computer brain didn't recognize the place you entered.
-                li Maybe you did nothing wrong and I just messed up.  If so, I am ultra-sorry.  Even heroes make mistakes.  Maybe my servers are down.
+          .panel.panel-success
+            .panel-heading 
+              | CampHero Ultra Search Beta
+              #panelClose.button.close type="button" data-dismiss="panel" aria-hidden="true" &times;
+            .panel-body This feature is brand new.  It might be buggy for the first few days.  If it glitches out on you, try reloading the page.
 
-    // RESULTS ===================================================================================================
-    - else
-      - @campsites.each do |campsite|
-        p.searchResult data-rustic="#{campsite.rustic}" data-rv="#{campsite.rv}" data-backcountry="#{campsite.backcountry}" 
-          = link_to campsite.name, campsite
+      / If no results =============================================
+      - if @campsites.blank?
+        .row.results.pad-top-lg
+          .col-md-12
+            .panel.panel-warning
+              .panel-heading Super-darn!  No campsites matched your search.
+              .panel-body
+                ul
+                  li Maybe my advanced computer brain didn't recognize the place you entered.
+                  li Maybe you did nothing wrong and I just messed up.  If so, I am ultra-sorry.  Even heroes make mistakes.  Maybe my servers are down.
 
-    / Legal boilerplate =============================================
-    .row
-      p.col-md-12
-        small.subtle-text 
-          | CampHero &copy 2014&nbsp;
-          = link_to 'Terms', terms_path
-// MAP ===========================================================================================================
-.mapColumn.col-md-8.fill-height.no-spacing
-  script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.js'
-  / Map
-  #resultsMap
-  / Reset button
-  #map-ui
-    button#searchReset.thumbnail.add-tooltip.searchMapResetTracker data-toggle="tooltip" type="submit" title="Search this area" data-placement="right"
-      span#search-reset-glyph.glyphicon.glyphicon-repeat
-  - if @campsites.size >= 50
-    #map-notice
-      .well.black.white-text 
-        small
-          | Your mighty search resulted in more than 50 campsites.
-          br
-          | Narrow your search-area to see more campsites.
+      // RESULTS ===================================================================================================
+      - else
+        - @campsites.each do |campsite|
+          p.searchResult data-rustic="#{campsite.rustic}" data-rv="#{campsite.rv}" data-backcountry="#{campsite.backcountry}" 
+            = link_to campsite.name, campsite
 
-- content_for :footer_class, "hidden"
+      / Legal boilerplate =============================================
+      .row
+        p.col-md-12
+          small.subtle-text 
+            | CampHero &copy 2014&nbsp;
+            = link_to 'Terms', terms_path
+  // MAP ===========================================================================================================
+  .mapColumn.col-md-8.fill-height.no-spacing
+    script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.js'
+    / Map
+    #resultsMap
+    / Reset button
+    #map-ui
+      button#searchReset.thumbnail.add-tooltip.searchMapResetTracker data-toggle="tooltip" type="submit" title="Search this area" data-placement="right"
+        span#search-reset-glyph.glyphicon.glyphicon-repeat
+    - if @campsites.size >= 50
+      #map-notice
+        .well.black.white-text 
+          small
+            | Your mighty search resulted in more than 50 campsites.
+            br
+            | Narrow your search-area to see more campsites.
 
-javascript:
-  makeSearchMap(gon.center, gon.zoom, gon.geoJson);
+  - content_for :footer_class, "hidden"
+
+  javascript:
+    makeSearchMap(gon.center, gon.zoom, gon.geoJson);
   
