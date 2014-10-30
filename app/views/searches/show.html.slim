@@ -11,7 +11,14 @@
 javascript:
   $(function() {
     // Blog is the app name
-    window.router = new Blog.Routers.SearchResultsRouter({search_results: <%= @search_results.to_json.html_safe -%>});
+    window.router = new Chlite.Routers.SearchesRouter( 
+      {
+        keywords: "#{@keywords}",
+        distance: #{@distance},
+        zoom: #{@zoom}, 
+        campsites: #{@campsites.to_json.html_safe} 
+      } 
+    );
     Backbone.history.start();
   });
 
