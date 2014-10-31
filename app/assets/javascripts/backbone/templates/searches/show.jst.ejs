@@ -1,28 +1,21 @@
-<!--<p>
-  <b>Keywords:</b>
-  <%= keywords %>
-</p>
-
-<p>
-  <b>Distance:</b>
-  <%= distance %>
-</p>
-
-<p>
-  <b>Zoom:</b>
-  <%= zoom %>
-</p>
-
-
-<a href="#/index">Back</a>-->
-
 <!-- Search result list area -->
-<div class="col-md-4">
+<input id="active-vibe" type="hidden" value="all">
+<input id="active-reservable-filter" type="hidden" value="false">
+<input id="active-walkins-filter" type="hidden" value="false">
+
+<div id="results-container" class="col-md-4 well white fill-height remove-bottom-margin pad-left-sm hidden-sm hidden-xs
+ result-list fill-height">
 	<h1>Listing searches</h1>
-	<div id="search-results-list">
-	</div>
-</div>
+	<div id="search-results-list"></div>
+	<div class="row">
+        <p class="col-md-12">
+          <small class="subtle-text"> CampHero &copy 2014 <a href="/terms"> Terms </a></small>
+        </p>
+    </div>
+</div><!-- end #results-container-->
 
 <!-- Search result map area -->
-<div id="search-map" class="col-md-8">
-</div>
+<div class="mapColumn col-md-8 fill-height no-spacing">
+	<div id="search-map">
+	</div>
+</div><!-- end map-column-->

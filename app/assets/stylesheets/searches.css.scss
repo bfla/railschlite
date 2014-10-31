@@ -3,9 +3,14 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 // Seach page ===============================
-#resultsMap {
+#search-backbone-view {
+  height:100%;
+}
+
+#search-map {
   height:100%;
   width:100%;
+  padding-top: $top-navbar-height;
   //height:800px;
   //width:800px;
   position:absolute;

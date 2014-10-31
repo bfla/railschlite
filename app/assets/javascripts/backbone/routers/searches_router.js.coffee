@@ -47,15 +47,16 @@ class Chlite.Routers.SearchesRouter extends Backbone.Router
   initialize: (options) ->
     @search = new Chlite.Collections.Search()
     @search.reset options.campsites #Hmm this might be wrong...
-    @zoom = options.zoom
-    @distance = options.distance
-    @keywords = options.keywords
-    @center = options.center
+    @zoom = options.zoom || null
+    @distance = options.distance || null
+    @keywords = options.keywords || null
+    @center = options.center || null
 
   routes:
     ".*" : "show"
 
   show: ->
-    @view = new Chlite.Views.Searches.ShowView(search: @search)
+    @view = new Chlite.Views.Searches.ShowView(search: @search, zoom:@zoom, distance:@distance, center:@center, keywords:@keywords)
+    $("#search-view").html(@view.render().el)
 
 
