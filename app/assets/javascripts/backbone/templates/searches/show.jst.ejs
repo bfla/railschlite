@@ -1,10 +1,13 @@
-<!-- Search result list area -->
-<input id="active-vibe" type="hidden" value="all">
-<input id="active-reservable-filter" type="hidden" value="false">
-<input id="active-walkins-filter" type="hidden" value="false">
-
 <div id="results-container" class="col-md-4 well white fill-height remove-bottom-margin pad-left-sm hidden-sm hidden-xs
  result-list fill-height">
+ 	<div class='filters'>
+ 		<button class="btn btn-default active filter vibe-filter" data-filter-name="all">All</button>
+ 		<button class="btn btn-default filter vibe-filter" data-filter-name="backcountry">Backcountry</button>
+ 		<button class="btn btn-default filter vibe-filter" data-filter-name="rustic">Rustic</button>
+ 		<button class="btn btn-default filter vibe-filter" data-filter-name="rv">RV</button>
+ 		<button class="btn btn-default filter" data-filter-name="reservable">Reservable</button>
+ 		<button class="btn btn-default filter" data-filter-name="firstCome">First-come</button>
+ 	</div>
 	<h1>Listing searches</h1>
 	<div id="search-results-list"></div>
 	<div class="row">

@@ -33,3 +33,17 @@ class Chlite.Collections.Search extends Backbone.Collection
     geoArr = new Array()
     geoArr = @.map (cg) -> 
       cg.geojsonify()
+  refreshSearch: (lat, lng, distance)=>
+    promise = $.Deferred
+    $.ajax
+      url: '/searches.json'
+      data:
+        lat: lat
+        lng: lng
+        distance: distance
+      success: (res) ->
+        promise.resolve(res)
+      failure: ->
+        err = 'Search failed'
+        promise.reject(err)
+    return promise
