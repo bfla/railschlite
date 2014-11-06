@@ -1,15 +1,27 @@
 <div id="results-container" class="col-md-4 well white fill-height remove-bottom-margin pad-left-sm hidden-sm hidden-xs
  result-list fill-height">
  	<div class='filters'>
- 		<button class="btn btn-success filter vibe-filter active" data-filterName="all">All</button>
- 		<button class="btn btn-default filter vibe-filter" data-filterName="backcountry">Backcountry</button>
- 		<button class="btn btn-default filter vibe-filter" data-filterName="rustic">Rustic</button>
- 		<button class="btn btn-default filter vibe-filter" data-filterName="rv">RV</button>
- 		<button class="btn btn-default filter" data-filterName="reservable">Reservable</button>
- 		<button class="btn btn-default filter" data-filterName="firstCome">First-come</button>
+ 		<p class="pad-top-md col-md-12"> 
+ 			Vibe:&nbsp;
+ 			<button class="btn btn-sm btn-default filter vibe-filter pull-right" data-filterName="backcountry">Backcountry</button>
+ 			<span class="pull-right"> &nbsp; </span>
+ 			<button class="btn btn-sm btn-default filter vibe-filter pull-right" data-filterName="rv">RV</button>
+ 			<span class="pull-right"> &nbsp; </span>
+ 			<button class="btn btn-sm btn-default filter vibe-filter pull-right" data-filterName="rustic">Rustic</button>
+ 			<span class="pull-right"> &nbsp; </span>
+ 			<button class="btn btn-sm btn-success filter vibe-filter active pull-right" data-filterName="all">All</button>
+ 		</p>
+ 		<p class="col-md-12"> 
+ 			Bookings:
+ 			<small class="pull-right"><a href="#">More filters></a></small>
+ 			<span class="pull-right"> &nbsp; </span>
+ 			<button class="btn btn-sm btn-default filter pull-right" data-filterName="reservable">Reservable</button>
+ 			<span class="pull-right"> &nbsp; </span>
+ 			<button class="btn btn-sm btn-default filter pull-right" data-filterName="firstCome">First-come</button>
+ 		</p>
+ 		<hr class="col-md-12">
  	</div>
-	<h1>Listing searches</h1>
-	<div id="search-results-list"></div>
+	<div id="search-results-list" class="pad-top-sm"></div>
 	<div class="row">
         <p class="col-md-12">
           <small class="subtle-text"> CampHero &copy 2014 <a href="/terms"> Terms </a></small>
