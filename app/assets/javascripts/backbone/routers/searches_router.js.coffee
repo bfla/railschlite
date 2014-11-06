@@ -46,7 +46,7 @@
 class Chlite.Routers.SearchesRouter extends Backbone.Router
   initialize: (options) ->
     @search = new Chlite.Collections.Search()
-    @search.reset options.campsites #Hmm this might be wrong...
+    @search.reset options.campsites
     @zoom = options.zoom || null
     @distance = options.distance || null
     @keywords = options.keywords || null

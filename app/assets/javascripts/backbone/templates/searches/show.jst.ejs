@@ -1,12 +1,12 @@
 <div id="results-container" class="col-md-4 well white fill-height remove-bottom-margin pad-left-sm hidden-sm hidden-xs
  result-list fill-height">
  	<div class='filters'>
- 		<button class="btn btn-default active filter vibe-filter" data-filter-name="all">All</button>
- 		<button class="btn btn-default filter vibe-filter" data-filter-name="backcountry">Backcountry</button>
- 		<button class="btn btn-default filter vibe-filter" data-filter-name="rustic">Rustic</button>
- 		<button class="btn btn-default filter vibe-filter" data-filter-name="rv">RV</button>
- 		<button class="btn btn-default filter" data-filter-name="reservable">Reservable</button>
- 		<button class="btn btn-default filter" data-filter-name="firstCome">First-come</button>
+ 		<button class="btn btn-success filter vibe-filter active" data-filterName="all">All</button>
+ 		<button class="btn btn-default filter vibe-filter" data-filterName="backcountry">Backcountry</button>
+ 		<button class="btn btn-default filter vibe-filter" data-filterName="rustic">Rustic</button>
+ 		<button class="btn btn-default filter vibe-filter" data-filterName="rv">RV</button>
+ 		<button class="btn btn-default filter" data-filterName="reservable">Reservable</button>
+ 		<button class="btn btn-default filter" data-filterName="firstCome">First-come</button>
  	</div>
 	<h1>Listing searches</h1>
 	<div id="search-results-list"></div>
@@ -19,6 +19,8 @@
 
 <!-- Search result map area -->
 <div class="mapColumn col-md-8 fill-height no-spacing">
+	<button id="search-reset" class="thumbnail add-tooltip searchMapResetTracker" type="submit" data-placement="right" data-toogle="tooltip" title="Search this area"><span class="glyphicon glyphicon-repeat"></span></button>
 	<div id="search-map">
+
 	</div>
 </div><!-- end map-column-->
