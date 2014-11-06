@@ -34,6 +34,16 @@ class Chlite.Views.Searches.ShowView extends Backbone.View
     'click .filter': 'filterWithButton' # Store the new filters
     'click #search-reset': 'searchMapArea'
 
+  render: =>
+    console.log 'Rendering view...'
+    @$el.html(@template(search: @options.search.toJSON() )) # Add searches to the result list
+    @populateResultList(@results) #Add search results to the result list
+    # Note: we need to render the map after the view's DOM has already been rendered
+    @$el.show () =>
+      @renderMap 'search-map', @center, @zoom
+    return this
+
+  # Functions to help with display and rendering ============================================================
   # Add campsite to the result list area
   populateResultList: (results) =>
     console.log 'Populating result list...'
@@ -76,7 +86,7 @@ class Chlite.Views.Searches.ShowView extends Backbone.View
 
     @$('#search-results-list').empty() # Empty out the previous search results
     @populateResultList(@filteredResults) # Reset the search result list
-    @filterMarkers(@map, @markerlayer) # Reset the map marker layer
+    @filterMarkers() # Reset the map marker layer
 
   filterWithButton: (e) =>
     $target = $(e.target)
@@ -108,17 +118,16 @@ class Chlite.Views.Searches.ShowView extends Backbone.View
     $target.toggleClass('btn-success')
     @filterResults() # Now actually apply the new filter
 
-  filterMarkers: (map, markers) =>
+  filterMarkers: =>
     console.log 'Filtering marker layer...'
-    activeTribeId = $("#activeTribeId").val()
-    activeReserveFilter = $("#activeReservableFilter").val()
-    activeWalkinFilter = $("#activeWalkinsFilter").val()
-    markers.setFilter (f) =>
-      return false if @filters.backcountry and !f.properties["backcountry"]
-      return false if @filters.rustic and !f.properties["rustic"]
-      return false if @filters.rv and !f.properties["rv"]
-      return false if @filters.reservable and !f.properties["reservable"]
-      return false if @filters.firstCome and !f.properties["firstCome"]
+    filteredGeojson = @filteredResults.geojsonify()
+    @markerLayer = @markerLayer.setGeoJSON filteredGeojson
+    # @markerLayer.setFilter (f) =>
+    #   return false if @filters.backcountry and !f.properties["backcountry"]
+    #   return false if @filters.rustic and !f.properties["rustic"]
+    #   return false if @filters.rv and !f.properties["rv"]
+    #   return false if @filters.reservable and !f.properties["reservable"]
+    #   return false if @filters.firstCome and !f.properties["firstCome"]
 
   # Map functions =================================================================================================== 
   renderMap: (target, center, zoom) =>
@@ -162,13 +171,4 @@ class Chlite.Views.Searches.ShowView extends Backbone.View
     ).fail( (err) =>
       # Do something...
     )
-
-  render: =>
-    console.log 'Rendering view...'
-    @$el.html(@template(search: @options.search.toJSON() )) # Add searches to the result list
-    @populateResultList(@results) #Add search results to the result list
-    # Note: we need to render the map after the view's DOM has already been rendered
-    @$el.show () =>
-      @renderMap 'search-map', @center, @zoom
-    return this
 

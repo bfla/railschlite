@@ -10,6 +10,8 @@ class Chlite.Models.SearchResult extends Backbone.Model
     backcountry: null
     rustic: null
     rv: null
+    reservable: null
+    first_come: null
   geojsonify: =>
     geojson =
       type: 'Feature'
@@ -22,6 +24,8 @@ class Chlite.Models.SearchResult extends Backbone.Model
         rustic:@.get('rustic')
         rv:@.get('rv')
         backcountry:@.get('backcountry')
+        reservable:@get('reservable')
+        firstCome:@get('first_come')
         popup_url: "campsites/" + @.get('url')
         'marker-color': "\#09b"
         'marker-symbol': 'campsite'
