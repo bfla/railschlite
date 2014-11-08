@@ -26,11 +26,13 @@ class Chlite.Views.Searches.ShowView extends Backbone.View
       backcountry: false
       rustic: false
       rv: false
+      horse: false
 
   events:
     # 'click .vibe-filter': 'highlightActiveVibeFilter' # Highlight 
     'click .filter': 'filterWithButton' # Store the new filters
     'click #search-reset': 'searchMapArea'
+    'click #panel-close': 'hidePanel' 
 
   render: =>
     console.log 'Rendering view...'
@@ -67,10 +69,13 @@ class Chlite.Views.Searches.ShowView extends Backbone.View
   addResultsCount: =>
     count = @filteredResults.length
     switch count
-      when 0 then msg = "0 matches. Perhaps you should widen your search?"
-      when 1 then msg = "Found 1 mighty campsite"
-      else msg = "Found " + count + " mighty places to camp"
+      when 0 then msg = "0 matches. Bummer. Perhaps widen your search?"
+      when 1 then msg = "CampHero's supervision found 1 match."
+      else msg = "Bam! CampHero's supervision found " + count + " matches."
     @$('#results-count').html msg
+
+  hidePanel: =>
+    @$('.panel').hide()
 
   # Filtering functions ===============================================================================
   
@@ -84,6 +89,7 @@ class Chlite.Views.Searches.ShowView extends Backbone.View
       @filters.backcountry = false
       @filters.rustic = false
       @filters.rv = false
+      @filters.horse = false
       @$('.vibe-filter').removeClass('active')
       @$('.vibe-filter').removeClass('btn-success')
       @$('.vibe-filter').addClass('btn-default')
@@ -93,6 +99,7 @@ class Chlite.Views.Searches.ShowView extends Backbone.View
     @filters.backcountry = true if $target.data('filtername') is 'backcountry'
     @filters.rustic = true if $target.data('filtername') is 'rustic'
     @filters.rv = true if $target.data('filtername') is 'rv'
+    @filters.horse = true if $target.data('filtername') is 'horse'
 
     console.log(@filters)
     $target.toggleClass('active')
@@ -110,6 +117,7 @@ class Chlite.Views.Searches.ShowView extends Backbone.View
       @filteredResults.remove(@filteredResults.at(i)) if @filters.backcountry and !result.backcountry
       @filteredResults.remove(@filteredResults.at(i)) if @filters.rustic and !result.rustic
       @filteredResults.remove(@filteredResults.at(i)) if @filters.rv and !result.rv
+      @filteredResults.remove(@filteredResults.at(i)) if @filters.horse and !result.horse
       i++
 
     @$('#search-results-list').empty() # Empty out the previous search results

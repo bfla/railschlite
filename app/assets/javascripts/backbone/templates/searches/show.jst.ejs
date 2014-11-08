@@ -1,18 +1,23 @@
 <div id="results-container" class="col-md-4 well white fill-height remove-bottom-margin pad-left-sm hidden-sm hidden-xs
  result-list fill-height">
- 	<div class='filters'>
- 		<p class="pad-top-md col-md-12"> 
+ 	<div class='filters pad-top-md'>
+ 		<div class="panel panel-success">
+ 			<div class="panel-heading">New!<div aria-hidden="true" class="button close" data-dismiss="panel" id="panel-close" type="button">×</div></div>
+ 			<div class="panel-body"><p>CampHero gained some new search powers! More superpowers coming soon.</p></div>
+ 		</div>
+ 		<p class="col-md-12"> 
  			<span class="text-muted"> Vibe:&nbsp;&nbsp;</span>
- 			<button class="btn btn-sm btn-success filter vibe-filter active" data-filterName="all">All</button>
+ 			<button class="btn btn-xs btn-success filter vibe-filter active" data-filterName="all">All</button>
  			<span class=""> &nbsp; </span>
- 			<button class="btn btn-sm btn-default filter vibe-filter" data-filterName="rustic">Rustic</button>
+ 			<button class="btn btn-xs btn-default filter vibe-filter" data-filterName="rustic">Rustic</button>
  			<span class=""> &nbsp; </span>
- 			<button class="btn btn-sm btn-default filter vibe-filter" data-filterName="rv">RV</button>
+ 			<button class="btn btn-xs btn-default filter vibe-filter" data-filterName="rv">RV</button>
  			<span class=""> &nbsp; </span>
- 			<button class="btn btn-sm btn-default filter vibe-filter" data-filterName="backcountry">Backcountry</button>
+ 			<button class="btn btn-xs btn-default filter vibe-filter" data-filterName="backcountry">Backcountry</button>
 			<span class=""> &nbsp; </span>
+			<button class="btn btn-xs btn-default filter vibe-filter" data-filterName="horse">Horse</button>
  		</p>
- 		<p class="col-md-12"><small><a href="#">More filters></a>&nbsp;<span id="results-count" class="text-muted"></span></small></p>
+ 		<p class="col-md-12"><small><span id="results-count" class="text-muted"></span>&nbsp;<a href="#">More filters></a>&nbsp;</small></p>
  		<hr class="col-md-12">
  	</div>
 	<div id="search-results-list" class="pad-top-sm"></div>
