@@ -81,4 +81,5 @@ module CampsiteFormatters
       }
     }
   end
+
 end

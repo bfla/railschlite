@@ -16,12 +16,6 @@ class SearchesController < ApplicationController
 
     # Position the map
     @campsites.blank? ? @center = coordinates : @center = Geocoder::Calculations.geographic_center(@campsites)
-
-    # Create geojson for campsites to display in MapBox
-    @geojson = Array.new
-    @campsites.each { |campsite| @geojson << campsite.to_geojson}
-    gon.campsites, gon.geoJson, gon.center, gon.zoom = @campsites, @geojson, @center, @zoom
-    gon.initTribe = params[:tribe_id] || 0
   end
 
   private 

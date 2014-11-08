@@ -2,17 +2,17 @@ class Chlite.Models.SearchResult extends Backbone.Model
   defaults:
     id: null
     name: null
+    slug: null
     state_abbrev: null
     latitude: null
     longitude: null
     elevation: null
-    url: null
+    horse: null
     backcountry: null
     rustic: null
     rv: null
-    reservable: null
-    first_come: null
-  geojsonify: =>
+    
+  geojsonifyCampsite: =>
     geojson =
       type: 'Feature'
       geometry:
@@ -24,21 +24,23 @@ class Chlite.Models.SearchResult extends Backbone.Model
         rustic:@.get('rustic')
         rv:@.get('rv')
         backcountry:@.get('backcountry')
-        reservable:@get('reservable')
-        firstCome:@get('first_come')
-        popup_url: "campsites/" + @.get('url')
+        horse: @.get('horse')
+        popup_url: '/campsites/' + @.get('slug')
+        vibe_img: @.get('vibeImg')
         'marker-color': "\#09b"
         'marker-symbol': 'campsite'
         'marker-size': 'large'
+    return geojson
 
 class Chlite.Collections.Search extends Backbone.Collection
   model: Chlite.Models.SearchResult
   geojsonify: => #return an array of geojsonified results
     geoArr = new Array()
     geoArr = @.map (cg) -> 
-      cg.geojsonify()
+      cg.geojsonifyCampsite()
+    return geoArr
   refreshSearch: (lat, lng, distance)=>
-    promise = $.Deferred
+    promise = $.Deferred()
     $.ajax
       url: '/searches.json'
       data:

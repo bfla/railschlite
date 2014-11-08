@@ -35,10 +35,10 @@
   z-index:100;
   margin-left:5px;
   padding-left:5px;
-    span.glyphicon {
-      font-size:40px;
-      color:#666666;
-    }
+  span.glyphicon {
+    font-size:40px;
+    color:#666666;
+  }
 }
 
 .popupText {
@@ -95,6 +95,16 @@
   top: 60px; 
   right:5px; 
   z-index:100;
+}
+.search-result {
+  .result-vibe-icon {
+    height:50px;
+    width:50px;
+    display:inline;
+  }
+  .result-header-link {
+    display:inline;
+  }
 }
 
 .filter {

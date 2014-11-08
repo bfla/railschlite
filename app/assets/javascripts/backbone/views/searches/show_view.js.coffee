@@ -26,8 +26,6 @@ class Chlite.Views.Searches.ShowView extends Backbone.View
       backcountry: false
       rustic: false
       rv: false
-      reservable: false
-      firstCome: false
 
   events:
     # 'click .vibe-filter': 'highlightActiveVibeFilter' # Highlight 
@@ -36,9 +34,10 @@ class Chlite.Views.Searches.ShowView extends Backbone.View
 
   render: =>
     console.log 'Rendering view...'
-    @$el.html(@template(search: @options.search.toJSON() )) # Add searches to the result list
+    @$el.html(@template(search: @options.search.toJSON(), filteredResults: @filteredResults )) # Add searches to the result list
     @populateResultList(@results) #Add search results to the result list
     # Note: we need to render the map after the view's DOM has already been rendered
+    @addResultsCount()
     @$el.show () =>
       @renderMap 'search-map', @center, @zoom
     return this
@@ -58,36 +57,23 @@ class Chlite.Views.Searches.ShowView extends Backbone.View
       @$('.vibe-filter').removeClass('active')
       $target.addClass('active')
 
+  # Hide the map reset button when appropriate
   toggleMapResetButton: ->
     $target = @$('search-reset')
     $target.toggleClass('.hidden')
     $target.tooltip('show') unless $(target).hasClasS('hidden') # Show its tooltip
 
+  # Add message to the search results list
+  addResultsCount: =>
+    count = @filteredResults.length
+    switch count
+      when 0 then msg = "0 matches. Perhaps you should widen your search?"
+      when 1 then msg = "Found 1 mighty campsite"
+      else msg = "Found " + count + " mighty places to camp"
+    @$('#results-count').html msg
+
   # Filtering functions ===============================================================================
   
-  filterResults: =>
-    console.log 'Filtering results...'
-    
-    @filteredResults = @filteredResults.reset @results["models"]
-    #@filteredResults = new Chlite.Collections.Search()
-    #@filteredResults = @filteredResults.reset @options.search
-    console.log @filteredResults
-
-    # Remove any campsites that don't fit the criteria
-    i = 0
-    @filteredResults.each (result) =>
-      @filteredResults.remove(@filteredResults.at(i)) if @filters.backcountry and !result.backcountry
-      @filteredResults.remove(@filteredResults.at(i)) if @filters.rustic and !result.rustic
-      @filteredResults.remove(@filteredResults.at(i)) if @filters.rv and !result.rv
-      @filteredResults.remove(@filteredResults.at(i)) if @filters.reservable and !result.reservable
-      @filteredResults.remove(@filteredResults.at(i)) if @filters.firstCome and !result.firstCome
-      i++
-      #console.log @filteredResults
-
-    @$('#search-results-list').empty() # Empty out the previous search results
-    @populateResultList(@filteredResults) # Reset the search result list
-    @filterMarkers() # Reset the map marker layer
-
   filterWithButton: (e) =>
     $target = $(e.target)
     console.log 'Creating new filter:' + $target.data('filtername')
@@ -108,26 +94,33 @@ class Chlite.Views.Searches.ShowView extends Backbone.View
     @filters.rustic = true if $target.data('filtername') is 'rustic'
     @filters.rv = true if $target.data('filtername') is 'rv'
 
-    # These ones aren't vibe filters. They just need to be toggled...
-    @filters.reservable = !@filters.reservable if $target.data('filtername') is 'reservable' 
-    @filters.firstCome = !@filters.firstCome if $target.data('filtername') is 'firstCome'
-
     console.log(@filters)
     $target.toggleClass('active')
     $target.toggleClass('btn-default')
     $target.toggleClass('btn-success')
     @filterResults() # Now actually apply the new filter
 
+  filterResults: =>
+    console.log 'Filtering results...'
+    @filteredResults = @filteredResults.reset @results["models"]
+
+    # Remove any campsites that don't fit the criteria
+    i = 0
+    @filteredResults.each (result) =>
+      @filteredResults.remove(@filteredResults.at(i)) if @filters.backcountry and !result.backcountry
+      @filteredResults.remove(@filteredResults.at(i)) if @filters.rustic and !result.rustic
+      @filteredResults.remove(@filteredResults.at(i)) if @filters.rv and !result.rv
+      i++
+
+    @$('#search-results-list').empty() # Empty out the previous search results
+    @populateResultList(@filteredResults) # Reset the search result list
+    @filterMarkers() # Reset the map marker layer
+    @addResultsCount()
+
   filterMarkers: =>
     console.log 'Filtering marker layer...'
     filteredGeojson = @filteredResults.geojsonify()
     @markerLayer = @markerLayer.setGeoJSON filteredGeojson
-    # @markerLayer.setFilter (f) =>
-    #   return false if @filters.backcountry and !f.properties["backcountry"]
-    #   return false if @filters.rustic and !f.properties["rustic"]
-    #   return false if @filters.rv and !f.properties["rv"]
-    #   return false if @filters.reservable and !f.properties["reservable"]
-    #   return false if @filters.firstCome and !f.properties["firstCome"]
 
   # Map functions =================================================================================================== 
   renderMap: (target, center, zoom) =>
@@ -157,16 +150,20 @@ class Chlite.Views.Searches.ShowView extends Backbone.View
     currentCenter = @map.getCenter() # Current center of the map as Leaflet LatLng
     southWest = @map.getBounds().getSouthWest() # Returns the SW corner as LatLng
     distanceInMeters = currentCenter.distanceTo(southWest) # Distance to edge of map
-    distanceInMiles = distanceInMeters * .000621371
+    distanceInMiles = Math.round(distanceInMeters * .000621371) # Rounded to nearest integer
+    lat = currentCenter['lat'].toFixed(5) # Round to 5 decimal places
+    lng = currentCenter['lng'].toFixed(5)
 
-    searchPromise = @results.refreshSearch(currentCenter['lat'], currentCenter['lng'], distanceInMiles)
+    searchPromise = @results.refreshSearch(lat, lng, distanceInMiles)
     searchPromise.done( (res) =>
-      @geojson = @results.geojsonify
-      @markerLayer.setGeoJSON @geojson # Reset geojson with new data
-      @filterResults # Add filtered results to view
+      @results = @results.reset res
+      # @geojson = @results.geojsonify
+      # @markerLayer.setGeoJSON @geojson # Reset geojson with new data
+      @filterResults() # Add filtered results to view
+
       stateObj = { search: "search" } # Obj for replaceState function (see next line)
-      params = $.param( { distance:distanceInMiles, lat:currentCenter['lat'], lng:currentCenter["lng"] })
-      history.replaceState(stateObj, "", "search.html?"+params) # Add the proper url to the browser
+      params = $.param( { distance:distanceInMiles, lat:lat, lng:lng })
+      history.replaceState(stateObj, "", "searches?"+params) # Add the proper url to the browser
 
     ).fail( (err) =>
       # Do something...
