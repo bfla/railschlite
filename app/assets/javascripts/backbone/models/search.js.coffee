@@ -7,10 +7,10 @@ class Chlite.Models.SearchResult extends Backbone.Model
     latitude: null
     longitude: null
     elevation: null
-    horse: null
-    backcountry: null
-    rustic: null
-    rv: null
+    horse: false
+    backcountry: false
+    rustic: false
+    rv: false
     
   geojsonifyCampsite: =>
     geojson =

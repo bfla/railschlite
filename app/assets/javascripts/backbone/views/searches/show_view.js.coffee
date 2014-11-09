@@ -40,6 +40,7 @@ class Chlite.Views.Searches.ShowView extends Backbone.View
     @populateResultList(@results) #Add search results to the result list
     # Note: we need to render the map after the view's DOM has already been rendered
     @addResultsCount()
+    @setNotifications()
     @$el.show () =>
       @renderMap 'search-map', @center, @zoom
     return this
@@ -77,6 +78,14 @@ class Chlite.Views.Searches.ShowView extends Backbone.View
   hidePanel: =>
     @$('.panel').hide()
 
+  setNotifications: =>
+    if @results == 200
+      @$('#map-notice-text').html 'Cool beans. There are more than 200 campgrounds in this area. Narrow your search area to see more campgrounds.'
+      @$('#map-notice').removeClass('hidden')
+    else
+      @$('#map-notice').addClass('hidden') unless @$('#map-notice').hasClass('hidden')
+      @$('#map-notice').html ''
+
   # Filtering functions ===============================================================================
   
   filterWithButton: (e) =>
@@ -95,11 +104,11 @@ class Chlite.Views.Searches.ShowView extends Backbone.View
       @$('.vibe-filter').addClass('btn-default')
 
     # Now add the new filter
-    @filters.all = true if $target.data('filtername') is 'all'
-    @filters.backcountry = true if $target.data('filtername') is 'backcountry'
-    @filters.rustic = true if $target.data('filtername') is 'rustic'
-    @filters.rv = true if $target.data('filtername') is 'rv'
-    @filters.horse = true if $target.data('filtername') is 'horse'
+    if $target.data('filtername') is 'all' then @filters.all = true 
+    else if $target.data('filtername') is 'horse' then @filters.horse = true
+    else if $target.data('filtername') is 'backcountry' then @filters.backcountry = true
+    else if $target.data('filtername') is 'rv' then @filters.rv = true 
+    else if $target.data('filtername') is 'rustic' then @filters.rustic = true
 
     console.log(@filters)
     $target.toggleClass('active')
@@ -109,21 +118,32 @@ class Chlite.Views.Searches.ShowView extends Backbone.View
 
   filterResults: =>
     console.log 'Filtering results...'
+    @filteredResults = new Chlite.Collections.Search()
     @filteredResults = @filteredResults.reset @results["models"]
 
     # Remove any campsites that don't fit the criteria
     i = 0
     @filteredResults.each (result) =>
-      @filteredResults.remove(@filteredResults.at(i)) if @filters.backcountry and !result.backcountry
-      @filteredResults.remove(@filteredResults.at(i)) if @filters.rustic and !result.rustic
-      @filteredResults.remove(@filteredResults.at(i)) if @filters.rv and !result.rv
-      @filteredResults.remove(@filteredResults.at(i)) if @filters.horse and !result.horse
+      # @filteredResults.remove(@filteredResults.at(i)) if @filters.backcountry and not result.get('backcountry')
+      # @filteredResults.remove(@filteredResults.at(i)) if @filters.rustic and not result.get('rustic')
+      # @filteredResults.remove(@filteredResults.at(i)) if @filters.rv and not result.get('rv')
+      # @filteredResults.remove(@filteredResults.at(i)) if @filters.horse and not result.get('horse')
+      # i++
+      if @filters.rustic
+        @filteredResults = @filteredResults.reset( @results.where({rustic: true}) )
+      else if @filters.rv
+        @filteredResults = @filteredResults.reset( @results.where({rv: true}) )
+      else if @filters.backcountry
+        @filteredResults = @filteredResults.reset( @results.where({backcountry: true}) )
+      else if @filters.horse
+        @filteredResults = @filteredResults.reset( @results.where({horse: true}) )
       i++
 
     @$('#search-results-list').empty() # Empty out the previous search results
     @populateResultList(@filteredResults) # Reset the search result list
     @filterMarkers() # Reset the map marker layer
     @addResultsCount()
+    @setNotifications()
 
   filterMarkers: =>
     console.log 'Filtering marker layer...'
