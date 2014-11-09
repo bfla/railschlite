@@ -1,5 +1,7 @@
 Chlite::Application.routes.draw do
 
+  resources :listings
+
   get :searches, to:"searches#show", as:"searches"
 
   resources :campsites do
