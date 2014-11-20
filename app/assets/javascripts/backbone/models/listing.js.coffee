@@ -2,34 +2,40 @@ class Chlite.Models.Listing extends Backbone.Model
   paramRoot: 'listing'
 
   defaults:
-  	name: null
-  	state_abbrev: null
-  	latitude: null
-  	longitude: null
-  	one_liner: null
-  	overview: null
-  	host_name: null
-  	host_description: null
-  	rv: null
-  	rustic: null
-  	backcountry: null
-  	horse: null
-  	showers: null
+    id: null
+    name: null
+    latitude: null
+    longitude: null
+    one_liner: null
+    summary: null
+    rules: null
+    restroom: null
+    showers: null
     electricity: null
     twenty_amp: null
     thirty_amp: null
     fifty_amp: null
-  	water_hookup: null
-  	sewer_hookup: null
+    dump: null
+    water_hookup: null
+    sewer_hookup: null
+    pull_thrus: null
+    wifi: null
+    laundry: null
+    beach: null
+    on_lake: null
+    on_river: null
     wifi: null
     cable: null
     pool: null
     laundry: null
+    pets_allowed: null
+    pets_restricted: null
+    alcohol_restricted: null
 
 
-class Chlite.Models.GuideBook extends Backbone.Model
-  paramRoot: 'guidebook'
-  defaults:
+class Chlite.Collections.GuideBook extends Backbone.Model
+  model: Chlite.Models.GuidePost
+  url: '/guidebooks'
 
 class Chlite.Models.GuidePost extends Backbone.Model
   defaults:

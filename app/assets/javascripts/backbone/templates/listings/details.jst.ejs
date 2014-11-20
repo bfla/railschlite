@@ -1,0 +1,12 @@
+<h1 class="heading text-muted">Details</h1>
+
+<form action="/listings" name="listing" role="form" class="col-md-8">
+	<label class="pad-top-lg" for="rules">The Area</label>
+	<textarea id="area" name="area" value="<%=area%>" class="form-control" id="rules" placeholder="What should campers know about the area?" rows="4"></textarea>
+	<p class="help-block">Tip: Campers like to know what hotspots are nearby.</p>
+  <label class="pad-top-lg" for="rules">Rules</label>
+  <div id="pets_allowed" name="pets_allowed" value="<%=pets_allowed%>" class="checkbox"><label><input type="checkbox"> Pet friendly (meaning pets are allowed as long as they're on a leash) </label></div>
+  <div id="alcohol_restricted" name="alcohol_restricted" value="<%=alcohol_restricted%>" class="checkbox"><label><input type="checkbox"> Alcohol restrictions </label></div>
+  <textarea id="rules" name="rules" value="<%=rules%>" class="form-control" id="rules" placeholder="Any additional rules campers shold know about?" rows="4"></textarea>
+  <p class="help-block">Tip: Be sure to mention any important rules, especially about pets and alcohol.</p>
+</form>

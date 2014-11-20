@@ -1,0 +1,10 @@
+<h1 class="heading text-muted">Overview</h1>
+
+<form action="/listings" name="listing" role="form" class="col-md-8">
+  <label for="one-liner" class="pad-top-lg" >One-liner</label>
+  <input id="one_liner" name="one_liner" value="<%= one_liner %>" type="text" class="form-control"  placeholder="What makes your campground special?" />
+  <p class="help-block">Tip: A great title is unique and catches the customer's attention.</p>
+  <label class="pad-top-lg" for="summary">Summary</label>
+  <textarea id="sumamry" name="summary" value="<%= summary %>" class="form-control" placeholder="What are the most important things campers should know about your campground and the surrounding area?" rows="4"></textarea>
+  <p class="help-block">Tip: A good summary is concise but captures the highlights of the campground and the surrounding area.</p>
+</form>
