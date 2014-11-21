@@ -113,8 +113,6 @@ h1 {              font-family:$brand-font;}
   &:hover {       color: $white-smoke; }
 }
 
-#listing-btn { margin-top:10px; }
-
 .navbar-input-group {
   @media (min-width: $screen-sm) {
     font-size: 0px; /*removes whitespace between button and input*/
@@ -138,6 +136,10 @@ h1 {              font-family:$brand-font;}
       width:100%;
     }
   }
+}
+
+.navbar-btn {
+  margin-top: 10px;
 }
 
 // Footer style====================================

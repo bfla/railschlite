@@ -32,7 +32,7 @@ class Chlite.Views.Searches.ShowView extends Backbone.View
     # 'click .vibe-filter': 'highlightActiveVibeFilter' # Highlight 
     'click .filter': 'filterWithButton' # Store the new filters
     'click #search-reset': 'searchMapArea'
-    'click #panel-close': 'hidePanel' 
+    'click #panel-close': 'hidePanel'
 
   render: =>
     console.log 'Rendering view...'

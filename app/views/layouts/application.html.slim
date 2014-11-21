@@ -16,6 +16,8 @@ html.fill-height xmlns:fb="http://ogp.me/ns/fb#"
     == yield :head_javascripts
 
   body class="#{yield :body_class || 'fill-height'}"
+    == render 'shared/standardModals'
+    == yield :extra_modals
     - if notice
         .col-md-10.col-md-offset-1.pad-top-xl
             .panel.panel-primary
@@ -30,8 +32,6 @@ html.fill-height xmlns:fb="http://ogp.me/ns/fb#"
                     | Alert
                     #panelClose.button.close type="button" data-dismiss="panel" aria-hidden="true" &times;
                 .panel-body.alert = alert
-
-    == yield :extra_modals
 
     / Top navbar goes here
     == render 'shared/navbar'

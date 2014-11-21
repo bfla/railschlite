@@ -6,7 +6,7 @@
 # Otherwise, it will get called for every view, which is bad because...
 # ... it will throw an error because there is no appropriate div to place it in.
 
-$ ->
+$ () =>
   # Apply hover effect to campsite thumbnails
   $(".nearby-thumb").hover ->
     nearbyThumbHoverEffect $(this)

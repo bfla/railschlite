@@ -1,11 +1,11 @@
 #footer.nav.navbar.navbar-default role="navigation"
   p.navbar-text 
-    | CampHero &copy; 
-    = Time.now.year
+    small CampHero &copy; #{Time.now.year}. Made by campers Michigan.
+    
   ul.nav.navbar-nav
-    li = link_to "Mobile", mobile_teaser_path
+    li = link_to "iPhone App", mobile_teaser_path
     li = link_to "Blog", "http://blog.getcamphero.com"
-    li = link_to "Support", support_path
+    li = link_to "Feedback & Support", support_path
     li = link_to "Terms", terms_path
     li 
       a Like CampHero: 

@@ -1,0 +1,14 @@
+// This modal notifies the user that a particular feature being smoke-tested hasn't actually been built yet
+div#unbuilt-feature-modal.modal.fade tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+  div.modal-dialog
+    div.modal-content
+      div.modal-header
+        button.close type="button" data-dismiss="modal"
+          span aria-hidden="true" &times;
+        span.sr-only Close
+        h4#unbuilt-feature-modal-label.modal-title.text-center Oh snap! Well this is embarrassing...
+      div.modal-body.text-center
+        p This feature isn't quite ready yet.  Check back soon!  CampHero's trusty sidekicks are hard at work developing new ultra-technologies for campers like yourself.
+      div.modal-footer
+        .text-center
+          button.btn.btn-success type="button" data-dismiss="modal" Close

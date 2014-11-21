@@ -9,6 +9,15 @@
 
 .schema-data-holder itemscope="itemscope" itemtype="http://schema.org/Campground http://schema.org/Place"
   #campsite-detail-header alt="Photo for #{@campsite.name}." title="Header for #{@campsite.name}" style='background-image:url("#{request.protocol}#{request.host_with_port}#{ asset_path "/images/backgrounds/camping-header.jpg"}");'
+    .col-md-12.push-campsite-buttons-to-bottom
+      button.btn.btn-default.pull-right.margin-left-sm data-unbuilt-feature="been here" data-toggle="modal" data-target="#unbuilt-feature-modal"
+        .glyphicon.glyphicon-ok
+        |  Been Here
+      button.btn.btn-default.pull-right.margin-left-sm data-unbuilt-feature="wishlist" data-toggle="modal" data-target="#unbuilt-feature-modal" 
+        .glyphicon.glyphicon-star-empty
+        |  Add to Wishlist
+
+  
   .beige-background.fill-width
     .container
       / Header
@@ -48,7 +57,11 @@
                   a href=@campsite.url Campground website 
               - if !@campsite.url && !@campsite.phone
                 p.pad-sm.text-center No booking information yet for #{@campsite.name}
-              p.subtle-text.text-center New! More booking info coming soon!
+              p.subtle-text.text-center 
+                | New! More booking info coming soon!
+                br
+                | Are you the owner?&nbsp;
+                a href="#" data-unbuilt-feature="claim profile" data-toggle="modal" data-target="#unbuilt-feature-modal" Claim your free profile.
   .container
     / About ===================================================
     .row
@@ -88,6 +101,7 @@
           small Share #{@campsite.name}
         .col-md-12
           .addthis_sharing_toolbox
+
 
         /p.col-md-12 <a> Contact Host </a>
       /.col-md-4
@@ -219,7 +233,23 @@
       .col-md-offset-1.col-md-11.pad-top-xl
         h3.col-md-12 Reviews for #{@campsite.name}
         hr.col-md-12
-        p.lead.col-md-12 Have you been to #{@campsite.name}? Coming soon, CampHero will allow campers to review campgrounds so you can share what you know.
+        p.lead.col-md-12 Have you been to #{@campsite.name}?  Share what you know with your friends.
+        p.col-md-12.small.text-muted
+          a href="#" data-unbuilt-feature="trade tips" data-toggle="modal" data-target="#unbuilt-feature-modal" Link your Facebook account
+          |  to start trading favorite campgrounds with your friends.
+        p.col-md-12.align-center
+          button.btn.btn-lg.btn-warning data-unbuilt-feature="been here" data-toggle="modal" data-target="#unbuilt-feature-modal"
+            .glyphicon.glyphicon-ok
+            |  Been here
+          | &nbsp;
+          button.btn.btn-lg.btn-warning data-unbuilt-feature="review campsite" data-toggle="modal" data-target="#unbuilt-feature-modal"
+            .glyphicon.glyphicon-pencil
+            |  Review
+          | &nbsp;
+          button.btn.btn-lg.btn-warning data-unbuilt-feature="add photo" data-toggle="modal" data-target="#unbuilt-feature-modal"
+            .glyphicon.glyphicon-camera
+            |  Add photo
+
 
 
     // SIMILAR CAMPGROUNDS =====================================================
@@ -246,7 +276,7 @@
           hr.col-md-12
           p #{@campsite.name} is located in #{@campsite.city_name} but there are other cities nearby:
           - @nearby_cities.each do |c|
-            p = link_to c.name, c
+            p = link_to "Camping in #{c.name}", c
         .col-md-4
           h4.col-md-12.subtle-text <small>Explore #{@campsite.state_name} Camping</small>
           hr.col-md-12
