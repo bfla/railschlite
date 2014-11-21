@@ -15,7 +15,7 @@ html.fill-height xmlns:fb="http://ogp.me/ns/fb#"
     == render 'shared/headscripts'
     == yield :head_javascripts
 
-  body class="#{yield :body_class || 'fill-height'}"
+  body class="#{yield :body_class || 'fill-height'}" data-no-tubolink=""
     == render 'shared/standardModals'
     == yield :extra_modals
     - if notice
