@@ -57,12 +57,23 @@
                   a href=@campsite.url Campground website 
               - if !@campsite.url && !@campsite.phone
                 p.pad-sm.text-center No booking information yet for #{@campsite.name}
-              p.subtle-text.text-center 
+              p.subtle-text.text-center
                 | New! More booking info coming soon!
                 br
                 | Are you the owner?&nbsp;
                 a href="#" data-unbuilt-feature="claim profile" data-toggle="modal" data-target="#unbuilt-feature-modal" Claim your free profile.
   .container
+
+    / Photos ==================================================
+    .row
+      .col-md-offset-1.col-md-7.pad-top-lg
+        - if @goog_place.src
+          img.img.img-responsive src=@goog_place.src
+          - if @goog_place.license
+            p.small.text-muted 
+              = image_tag "/images/icons/poweredByGoogle.png", alt:"#{@campsite.name}"
+              = @goog_place.license
+
     / About ===================================================
     .row
       .col-md-offset-1.col-md-7.pad-top-lg

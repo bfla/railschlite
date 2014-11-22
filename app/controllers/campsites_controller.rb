@@ -1,4 +1,6 @@
 class CampsitesController < ApplicationController
+  include GooglePlaceHelpers
+
   before_action :set_campsite, only: [:edit, :update, :destroy]
   before_action :verify_admin, except: [:show, :index, :claim]
 
@@ -19,6 +21,7 @@ class CampsitesController < ApplicationController
     @nearbys = @campsite.nearbys
     @similars = @campsite.similar(@nearbys)
     @nearby_cities = City.near([@campsite.latitude, @campsite.longitude], 30)
+    @goog_place = GooglePlace.new(@campsite.latitude, @campsite.longitude)
     gon.initCenter = [@campsite.latitude, @campsite.longitude]
     gon.geoJson = @campsite.to_geojson
   end
