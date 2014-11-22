@@ -5,3 +5,6 @@ $ ->
 $ ->
   $('#panel-close').click ->
     $('.panel').hide()
+
+$ ->
+  $('[data-toggle="tooltip"]').tooltip()

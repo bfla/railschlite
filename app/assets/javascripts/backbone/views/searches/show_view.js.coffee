@@ -155,6 +155,10 @@ class Chlite.Views.Searches.ShowView extends Backbone.View
     console.log 'Rendering map...'
     map = L.mapbox.map(target, "campawesome.h5d0p7ea").setView(@center, @zoom)
     map.zoomControl.setPosition('bottomright') # move the map zoom control
+
+    map.on "moveend", (e) ->
+      $('#search-reset').tooltip('show')
+
     @markerLayer = L.mapbox.featureLayer().addTo(map) # initialize featureLayer
 
     @markerLayer.on "layeradd", (e) ->
